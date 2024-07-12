@@ -1,0 +1,525 @@
+openapi: '3.0.3'
+info:
+  title: UMA Auth API
+  version: '0.1'
+  description: >-
+    This API allows you to authenticate with the UMA server to take
+    actions on a user's wallet. It's the exposed communication layer between the NWC
+    server and the main UMA server.
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+
+paths:
+  /invoice:
+    post:
+      operationId: make_invoice
+      summary: "[NWC: make_invoice] Create a new invoice"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                  description: The amount to invoice in msats.
+                  example: 1000
+                description:
+                  type: string
+                  description: A memo to attach to the invoice.
+                  example: "Payment for services rendered."
+                description_hash:
+                  type: string
+                  description: A hash of a longer description field.
+                  example: "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+                expiry:
+                  type: number
+                  description: The number of seconds until the invoice expires.
+                  example: 3600
+              required:
+                - amount
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /payments/bolt11:
+    post:
+      operationId: pay_invoice
+      summary: "[NWC: pay_invoice] Pay a bolt11 invoice"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                invoice:
+                  type: string
+                  description: The bolt11 invoice to pay.
+                  example: lntb1u1pw0k7jw
+                amount:
+                  type: number
+                  nullable: true
+                  description: The amount to pay for a 0-amount invoice.
+                  example: 1000
+              required:
+                - invoice
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  preimage: 
+                    type: string
+                    description: The preimage of the payment.
+                    example: abcd1234
+  /invoices/{payment_hash}:
+    get:
+      operationId: lookup_invoice
+      summary: "[NWC: lookup_invoice] Get an invoice by its payment hash"
+      parameters:
+        - name: payment_hash
+          in: path
+          required: true
+          description: The payment hash of the invoice.
+          schema:
+            type: string
+            example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /balance:
+    get:
+      operationId: get_balance
+      summary: "[NWC: get_balance] Get the balance of the user's wallet"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currency_code:
+                  type: string
+                  description: The currency code of the balance. Assumed to be in msats if not provided. 
+                  example: "USD"
+                  nullable: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance:
+                    type: number
+                    description: The balance of the user's wallet.
+                    example: 1000
+                  currency_code:
+                    type: string
+                    description: The currency code of the balance. Assumed to be msats if not provided. 
+                    example: "USD"
+                    nullable: true
+                required:
+                  - balance
+  /receiver/uma/{receiver_uma}:
+    get:
+      operationId: lookup_user
+      summary: "[NWC: lookup_user] Get receiver info by UMA"
+      parameters:
+        - name: receiver_uma
+          in: path
+          required: true
+          description: The receiver's UMA.
+          schema:
+            type: string
+            example: "$alice@vasp.net"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                base_sending_currency_code:
+                  type: string
+                  description: >-
+                    The currency code of the sender's balance. Assumed to be in msats if not provided. 
+                    This is used to calculate the multiplier for the receiver's currencies.
+                  example: "USD"
+                  nullable: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currencies:
+                    type: array
+                    description: The currencies the receiver accepts in order of preference.
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: The ISO-4217 currency code.
+                          example: "USD"
+                        symbol:
+                          type: string
+                          description: The currency symbol.
+                          example: "$"
+                        name:
+                          type: string
+                          description: The currency name.
+                          example: "United States Dollar"
+                        multiplier:
+                          type: number
+                          description: >-
+                            Estimated number of milli-sats per smallest unit of this currency (eg. cents)
+                            If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
+                          example: 100000000
+                        decimals:
+                          type: number
+                          description: >-
+                            Number of digits after the decimal point for display on the sender side, and to add clarity around what the
+                            "smallest unit" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95.
+                            In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents).
+                            In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier
+                            means. For example, if the currency is "BTC" and the multiplier is 1000, really we're exchanging in SATs, so
+                            `decimals` would be 8.
+                          example: 2
+                        min:
+                          type: number
+                          description: The minimum amount that can be received in this currency.
+                          example: 1
+                        max:
+                          type: number
+                          description: The maximum amount that can be received in this currency.
+                          example: 1000000
+  /quote:
+    get:
+      operationId: fetch_quote
+      summary: "[NWC: fetch_quote] Get a quote for a payment"
+      parameters:
+        - name: sending_currency_code
+          in: query
+          required: true
+          description: The currency code being sent from the sender's wallet.
+          schema:
+            type: string
+            example: "MXN"
+        - name: receiving_currency_code
+          in: query
+          required: true
+          description: The currency code of the currency that the receiver will receive.
+          schema:
+            type: string
+            example: "USD"
+        - name: locked_currency_amount
+          in: query
+          required: true
+          description: >-
+            The amount to send/receive in the smallest unit of the locked currency (eg. cents).
+            See `locked_currency_side` for more information.
+          schema:
+            type: number
+            example: 1000
+        - name: locked_currency_side
+          in: query
+          required: true
+          description: >-
+            The side of the quote which should be locked and specified in the `locked_currency_amount`.
+            For example, if I want to send exactly $5 MXN from my wallet, I would set this to "sending",
+            and the `locked_currency_amount` to 500 (in cents). If I want the receiver to receive exactly $10 USD,
+            I would set this to "receiving" and the `locked_currency_amount` to 10000 (in cents).
+          schema:
+            type: string
+            enum:
+              - sending
+              - receiving
+            example: "sending"
+        - name: receiving_address
+          in: query
+          required: true
+          description: The UMA address to send the payment to.
+          schema:
+            type: string
+            example: "$alice@vasp.net"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+    post:
+      operationId: execute_quote
+      summary: "[NWC: execute_quote] Execute a quote"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_hash:
+                  type: string
+                  description: The payment hash of the quote to execute.
+                  example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+              required:
+                - payment_hash
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  preimage: 
+                    type: string
+                    description: The preimage of the payment.
+                    example: abcd1234
+  /payments/lnurl:
+    post:
+      operationId: pay_to_address
+      summary: "[NWC: pay_to_address] Pay to an LNURL address"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                receiver_address:
+                  type: string
+                  description: The address to pay.
+                  example: "$alice@vasp.net"
+                sending_currency_code:
+                  type: string
+                  description: The code of the currency being sent from the sender's wallet.
+                  example: "MXN"
+                sending_currency_amount:
+                  type: number
+                  description: The amount to send in the smallest unit of the sending currency (eg. cents).
+                  example: 1000
+                receiving_currency_code:
+                  type: string
+                  description: The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.
+                  example: "USD"
+              required:
+                - receiver_address
+                - sending_currency_code
+                - sending_currency_amount
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  preimage: 
+                    type: string
+                    description: The preimage of the payment.
+                    example: abcd1234
+                  quote:
+                    type: object
+                    description: The quote used to pay the address.
+                    $ref: '#/components/schemas/Quote'
+  /info:
+    get:
+      operationId: get_info
+      summary: "[NWC: get_info] Get information about the user's wallet connection"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  alias:
+                    type: string
+                    description: The alias of the user's node.
+                    example: "Alice's Wallet"
+                  color:
+                    type: string
+                    description: The color of the user's node.
+                    example: "#FF0000"
+                  pubkey:
+                    type: string
+                    description: The pubkey of the user's node.
+                    example: "abcd1234"
+                  network:
+                    type: string
+                    description: The bitcoin network of the user's node.
+                    example: "testnet"
+                    enum:
+                      - regtest
+                      - signet
+                      - testnet
+                      - mainnet
+                  block_height:
+                    type: number
+                    description: The current block height of the user's node.
+                    example: 1000
+                  block_hash:
+                    type: string
+                    description: The current block hash of the user's node.
+                    example: "abcd1234"
+                  methods:
+                    type: array
+                    description: A list of supported methods for this connection.
+                    items:
+                      type: string
+                      description: The name of method.
+                      example: "make_invoice"
+                  lud16:
+                    type: string
+                    description: The lightning or UMA address for the user.
+                    example: "$alice@vasp.net"
+                  currencies:
+                    type: array
+                    description: The currencies the user's wallet supports. Ordered by preference. If not provided, assume this user only supports BTC.
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          description: The ISO-4217 currency code.
+                          example: "USD"
+                        symbol:
+                          type: string
+                          description: The currency symbol.
+                          example: "$"
+                        name:
+                          type: string
+                          description: The currency name.
+                          example: "United States Dollar"
+                        decimals:
+                          type: number
+                          description: >-
+                            Number of digits after the decimal point for display on the sender side, and to add clarity around what the
+                            "smallest unit" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95.
+                            In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents).
+                            In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier
+                            means. For example, if the currency is "BTC" and the multiplier is 1000, really we're exchanging in SATs, so
+                            `decimals` would be 8.
+                          example: 2
+                        min:
+                          type: number
+                          description: The minimum amount that can be sent in this currency.
+                          example: 1
+                        max:
+                          type: number
+                          description: The maximum amount that can be sent in this currency.
+                          example: 1000000
+                required:
+                  - pubkey
+                  - network
+                  - methods
+components:
+  schemas:
+    Invoice:
+      type: object
+      properties:
+        payment_request:
+          type: string
+          description: The full, encoded payment request.
+          example: lntb1u1pw0k7jw
+        amount:
+          type: number
+          description: The amount of the invoice in msats.
+          example: 1000
+        payment_hash:
+          type: string
+          description: The payment hash of the invoice.
+          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+        memo:
+          type: string
+          nullable: true
+          description: A memo attached to the invoice.
+          example: "Payment for services rendered."
+        metadata:
+          type: object
+          description: Additional metadata attached to the invoice.
+          example: {}
+        preimage:
+          type: string
+          description: The payment preimage of the invoice.
+          example: abcd1234
+          nullable: false
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The time the invoice expires.
+          example: "2021-01-01T00:00:00Z"
+        created_at:
+          type: string
+          format: date-time
+          description: The time the invoice was created.
+          example: "2021-01-01T00:00:00Z"
+        settled_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: The time the invoice was settled.
+          example: "2021-01-01T00:00:00Z"
+        type:
+          type: string
+          enum:
+            - incoming
+            - outgoing
+          description: Whether the invoice is incoming (created by this user) or outgoing (created by another user).
+    Quote:
+      type: object
+      properties:
+        sending_currency_code:
+          type: string
+          description: The currency code of the sender's balance.
+          example: "MXN"
+        receiving_currency_code:
+          type: string
+          description: The currency code of the receiver's balance. 
+          example: "USD"
+        payment_hash:
+          type: string
+          description: The payment hash of the quote. Used as an identifier to execute the quote.
+          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+        expires_at:
+          type: string
+          format: date-time
+          description: The time the quote expires.
+          example: "2021-01-01T00:00:00Z"
+        multiplier:
+          type: number
+          description: Number of sending currency units per receiving currency unit.
+          example: 123
+        fees:
+          type: number
+          description: The fees associated with the quote in the smallest unit of the sending currency (eg. cents).
+          example: 10
+        total_sending_amount:
+          type: number
+          description: The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
+          example: 123010
+        total_receiving_amount:
+          type: number
+          description: The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
+          example: 1000
+        created_at:
+          type: string
+          format: date-time
+          description: The time the quote was created.
+          example: "2021-01-01T00:00:00Z"
