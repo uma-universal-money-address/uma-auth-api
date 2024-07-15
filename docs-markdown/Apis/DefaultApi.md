@@ -4,22 +4,22 @@ All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**executeQuote**](DefaultApi.md#executeQuote) | **POST** /quote | [NWC: execute_quote] Execute a quote |
-| [**fetchQuote**](DefaultApi.md#fetchQuote) | **GET** /quote | [NWC: fetch_quote] Get a quote for a payment |
-| [**getBalance**](DefaultApi.md#getBalance) | **GET** /balance | [NWC: get_balance] Get the balance of the user&#39;s wallet |
-| [**getInfo**](DefaultApi.md#getInfo) | **GET** /info | [NWC: get_info] Get information about the user&#39;s wallet connection |
-| [**lookupInvoice**](DefaultApi.md#lookupInvoice) | **GET** /invoices/{payment_hash} | [NWC: lookup_invoice] Get an invoice by its payment hash |
-| [**lookupUser**](DefaultApi.md#lookupUser) | **GET** /receiver/uma/{receiver_uma} | [NWC: lookup_user] Get receiver info by UMA |
-| [**makeInvoice**](DefaultApi.md#makeInvoice) | **POST** /invoice | [NWC: make_invoice] Create a new invoice |
-| [**payInvoice**](DefaultApi.md#payInvoice) | **POST** /payments/bolt11 | [NWC: pay_invoice] Pay a bolt11 invoice |
-| [**payToAddress**](DefaultApi.md#payToAddress) | **POST** /payments/lnurl | [NWC: pay_to_address] Pay to an LNURL address |
+| [**executeQuote**](DefaultApi.md#executeQuote) | **POST** /quote | execute_quote: Execute a quote |
+| [**fetchQuote**](DefaultApi.md#fetchQuote) | **GET** /quote | fetch_quote: Get a quote for a payment |
+| [**getBalance**](DefaultApi.md#getBalance) | **GET** /balance | get_balance: Get the balance of the user&#39;s wallet |
+| [**getInfo**](DefaultApi.md#getInfo) | **GET** /info | get_info: Get information about the user&#39;s wallet connection |
+| [**lookupInvoice**](DefaultApi.md#lookupInvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash |
+| [**lookupUser**](DefaultApi.md#lookupUser) | **GET** /receiver/uma/{receiver_uma} | lookup_user: Get receiver info by UMA |
+| [**makeInvoice**](DefaultApi.md#makeInvoice) | **POST** /invoice | make_invoice: Create a new invoice |
+| [**payInvoice**](DefaultApi.md#payInvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice |
+| [**payToAddress**](DefaultApi.md#payToAddress) | **POST** /payments/lnurl | pay_to_address: Pay to an LNURL address |
 
 
 <a name="executeQuote"></a>
 # **executeQuote**
 > pay_invoice_200_response executeQuote(execute\_quote\_request)
 
-[NWC: execute_quote] Execute a quote
+execute_quote: Execute a quote
 
 ### Parameters
 
@@ -44,7 +44,7 @@ No authorization required
 # **fetchQuote**
 > Quote fetchQuote(sending\_currency\_code, receiving\_currency\_code, locked\_currency\_amount, locked\_currency\_side, receiving\_address)
 
-[NWC: fetch_quote] Get a quote for a payment
+fetch_quote: Get a quote for a payment
 
 ### Parameters
 
@@ -73,7 +73,7 @@ No authorization required
 # **getBalance**
 > get_balance_200_response getBalance(get\_balance\_request)
 
-[NWC: get_balance] Get the balance of the user&#39;s wallet
+get_balance: Get the balance of the user&#39;s wallet
 
 ### Parameters
 
@@ -98,7 +98,7 @@ No authorization required
 # **getInfo**
 > get_info_200_response getInfo()
 
-[NWC: get_info] Get information about the user&#39;s wallet connection
+get_info: Get information about the user&#39;s wallet connection
 
 ### Parameters
 This endpoint does not need any parameter.
@@ -120,7 +120,7 @@ No authorization required
 # **lookupInvoice**
 > Invoice lookupInvoice(payment\_hash)
 
-[NWC: lookup_invoice] Get an invoice by its payment hash
+lookup_invoice: Get an invoice by its payment hash
 
 ### Parameters
 
@@ -145,7 +145,7 @@ No authorization required
 # **lookupUser**
 > lookup_user_200_response lookupUser(receiver\_uma, lookup\_user\_request)
 
-[NWC: lookup_user] Get receiver info by UMA
+lookup_user: Get receiver info by UMA
 
 ### Parameters
 
@@ -171,7 +171,7 @@ No authorization required
 # **makeInvoice**
 > Invoice makeInvoice(make\_invoice\_request)
 
-[NWC: make_invoice] Create a new invoice
+make_invoice: Create a new invoice
 
 ### Parameters
 
@@ -196,7 +196,7 @@ No authorization required
 # **payInvoice**
 > pay_invoice_200_response payInvoice(pay\_invoice\_request)
 
-[NWC: pay_invoice] Pay a bolt11 invoice
+pay_invoice: Pay a bolt11 invoice
 
 ### Parameters
 
@@ -221,7 +221,7 @@ No authorization required
 # **payToAddress**
 > pay_to_address_200_response payToAddress(pay\_to\_address\_request)
 
-[NWC: pay_to_address] Pay to an LNURL address
+pay_to_address: Pay to an LNURL address
 
 ### Parameters
 
