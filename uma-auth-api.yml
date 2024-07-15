@@ -14,7 +14,7 @@ paths:
   /invoice:
     post:
       operationId: make_invoice
-      summary: "[NWC: make_invoice] Create a new invoice"
+      summary: "make_invoice: Create a new invoice"
       requestBody:
         content:
           application/json:
@@ -49,7 +49,7 @@ paths:
   /payments/bolt11:
     post:
       operationId: pay_invoice
-      summary: "[NWC: pay_invoice] Pay a bolt11 invoice"
+      summary: "pay_invoice: Pay a bolt11 invoice"
       requestBody:
         content:
           application/json:
@@ -82,7 +82,7 @@ paths:
   /invoices/{payment_hash}:
     get:
       operationId: lookup_invoice
-      summary: "[NWC: lookup_invoice] Get an invoice by its payment hash"
+      summary: "lookup_invoice: Get an invoice by its payment hash"
       parameters:
         - name: payment_hash
           in: path
@@ -101,7 +101,7 @@ paths:
   /balance:
     get:
       operationId: get_balance
-      summary: "[NWC: get_balance] Get the balance of the user's wallet"
+      summary: "get_balance: Get the balance of the user's wallet"
       requestBody:
         content:
           application/json:
@@ -135,7 +135,7 @@ paths:
   /receiver/uma/{receiver_uma}:
     get:
       operationId: lookup_user
-      summary: "[NWC: lookup_user] Get receiver info by UMA"
+      summary: "lookup_user: Get receiver info by UMA"
       parameters:
         - name: receiver_uma
           in: path
@@ -210,7 +210,7 @@ paths:
   /quote:
     get:
       operationId: fetch_quote
-      summary: "[NWC: fetch_quote] Get a quote for a payment"
+      summary: "fetch_quote: Get a quote for a payment"
       parameters:
         - name: sending_currency_code
           in: query
@@ -265,7 +265,7 @@ paths:
                 $ref: '#/components/schemas/Quote'
     post:
       operationId: execute_quote
-      summary: "[NWC: execute_quote] Execute a quote"
+      summary: "execute_quote: Execute a quote"
       requestBody:
         content:
           application/json:
@@ -293,7 +293,7 @@ paths:
   /payments/lnurl:
     post:
       operationId: pay_to_address
-      summary: "[NWC: pay_to_address] Pay to an LNURL address"
+      summary: "pay_to_address: Pay to an LNURL address"
       requestBody:
         content:
           application/json:
@@ -339,7 +339,7 @@ paths:
   /info:
     get:
       operationId: get_info
-      summary: "[NWC: get_info] Get information about the user's wallet connection"
+      summary: "get_info: Get information about the user's wallet connection"
       responses:
         '200':
           description: OK
