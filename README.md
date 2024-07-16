@@ -6,17 +6,8 @@ See [markdown docs](./docs-markdown/README.md) or [html docs](./docs/index.html)
 
 ## Development
 
-The schema is defined in `uma-auth-api.yaml`. To generate the docs, run:
-
-Markdown:
+The schema is defined in `uma-auth-api.yaml`. To regenerate the docs and generated libs, run:
 
 ```bash
-# If needed, first run `brew install openapi-generator`
-openapi-generator generate -g markdown -i uma-auth-api.yml -o docs-markdown
-```
-
-HTML:
-
-```bash
-npx @redocly/cli build-docs uma-auth-api.yml -o docs/index.html
+./generate-all.sh
 ```
