@@ -17,21 +17,25 @@ package me.uma.auth.models
  * @param paymentRequest The full, encoded payment request.
  * @param amount The amount of the invoice in msats.
  * @param paymentHash The payment hash of the invoice.
+ * @param createdAt The time the invoice was created.
+ * @param type Whether the invoice is incoming (created by this user) or outgoing (created by another user).
  * @param memo A memo attached to the invoice.
  * @param metadata Additional metadata attached to the invoice.
  * @param preimage The payment preimage of the invoice.
  * @param expiresAt The time the invoice expires.
- * @param createdAt The time the invoice was created.
  * @param settledAt The time the invoice was settled.
- * @param type Whether the invoice is incoming (created by this user) or outgoing (created by another user).
  */
 data class Invoice(
     /* The full, encoded payment request. */
-    val paymentRequest: kotlin.String? = null,
+    val paymentRequest: kotlin.String,
     /* The amount of the invoice in msats. */
-    val amount: java.math.BigDecimal? = null,
+    val amount: java.math.BigDecimal,
     /* The payment hash of the invoice. */
-    val paymentHash: kotlin.String? = null,
+    val paymentHash: kotlin.String,
+    /* The time the invoice was created. */
+    val createdAt: java.time.OffsetDateTime,
+    /* Whether the invoice is incoming (created by this user) or outgoing (created by another user). */
+    val type: Invoice.Type,
     /* A memo attached to the invoice. */
     val memo: kotlin.String? = null,
     /* Additional metadata attached to the invoice. */
@@ -40,12 +44,8 @@ data class Invoice(
     val preimage: kotlin.String? = null,
     /* The time the invoice expires. */
     val expiresAt: java.time.OffsetDateTime? = null,
-    /* The time the invoice was created. */
-    val createdAt: java.time.OffsetDateTime? = null,
     /* The time the invoice was settled. */
-    val settledAt: java.time.OffsetDateTime? = null,
-    /* Whether the invoice is incoming (created by this user) or outgoing (created by another user). */
-    val type: Invoice.Type? = null
+    val settledAt: java.time.OffsetDateTime? = null
 ) 
 {
     /**

@@ -268,12 +268,13 @@ components:
         metadata:
           description: Additional metadata attached to the invoice.
           example: {}
+          nullable: true
           title: metadata
           type: object
         preimage:
           description: The payment preimage of the invoice.
           example: abcd1234
-          nullable: false
+          nullable: true
           title: preimage
           type: string
         expires_at:
@@ -304,6 +305,12 @@ components:
           - outgoing
           title: type
           type: string
+      required:
+      - amount
+      - created_at
+      - payment_hash
+      - payment_request
+      - type
       title: Invoice
       type: object
     Quote:
@@ -369,6 +376,16 @@ components:
           format: date-time
           title: created_at
           type: string
+      required:
+      - created_at
+      - expires_at
+      - fees
+      - multiplier
+      - payment_hash
+      - receiving_currency_code
+      - sending_currency_code
+      - total_receiving_amount
+      - total_sending_amount
       title: Quote
       type: object
     CurrencyPreference:

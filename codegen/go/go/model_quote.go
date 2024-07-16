@@ -20,35 +20,52 @@ import (
 type Quote struct {
 
 	// The currency code of the sender's balance.
-	SendingCurrencyCode string `json:"sending_currency_code,omitempty"`
+	SendingCurrencyCode string `json:"sending_currency_code"`
 
 	// The currency code of the receiver's balance.
-	ReceivingCurrencyCode string `json:"receiving_currency_code,omitempty"`
+	ReceivingCurrencyCode string `json:"receiving_currency_code"`
 
 	// The payment hash of the quote. Used as an identifier to execute the quote.
-	PaymentHash string `json:"payment_hash,omitempty"`
+	PaymentHash string `json:"payment_hash"`
 
 	// The time the quote expires.
-	ExpiresAt time.Time `json:"expires_at,omitempty"`
+	ExpiresAt time.Time `json:"expires_at"`
 
 	// Number of sending currency units per receiving currency unit.
-	Multiplier float32 `json:"multiplier,omitempty"`
+	Multiplier float32 `json:"multiplier"`
 
 	// The fees associated with the quote in the smallest unit of the sending currency (eg. cents).
-	Fees float32 `json:"fees,omitempty"`
+	Fees float32 `json:"fees"`
 
 	// The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
-	TotalSendingAmount float32 `json:"total_sending_amount,omitempty"`
+	TotalSendingAmount float32 `json:"total_sending_amount"`
 
 	// The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
-	TotalReceivingAmount float32 `json:"total_receiving_amount,omitempty"`
+	TotalReceivingAmount float32 `json:"total_receiving_amount"`
 
 	// The time the quote was created.
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 // AssertQuoteRequired checks if the required fields are not zero-ed
 func AssertQuoteRequired(obj Quote) error {
+	elements := map[string]interface{}{
+		"sending_currency_code": obj.SendingCurrencyCode,
+		"receiving_currency_code": obj.ReceivingCurrencyCode,
+		"payment_hash": obj.PaymentHash,
+		"expires_at": obj.ExpiresAt,
+		"multiplier": obj.Multiplier,
+		"fees": obj.Fees,
+		"total_sending_amount": obj.TotalSendingAmount,
+		"total_receiving_amount": obj.TotalReceivingAmount,
+		"created_at": obj.CreatedAt,
+	}
+	for name, el := range elements {
+		if isZero := IsZeroValue(el); isZero {
+			return &RequiredError{Field: name}
+		}
+	}
+
 	return nil
 }
 

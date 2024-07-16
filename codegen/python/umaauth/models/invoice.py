@@ -104,6 +104,8 @@ class Invoice(Model):
         :param payment_request: The payment_request of this Invoice.
         :type payment_request: str
         """
+        if payment_request is None:
+            raise ValueError("Invalid value for `payment_request`, must not be `None`")  # noqa: E501
 
         self._payment_request = payment_request
 
@@ -127,6 +129,8 @@ class Invoice(Model):
         :param amount: The amount of this Invoice.
         :type amount: float
         """
+        if amount is None:
+            raise ValueError("Invalid value for `amount`, must not be `None`")  # noqa: E501
 
         self._amount = amount
 
@@ -150,6 +154,8 @@ class Invoice(Model):
         :param payment_hash: The payment_hash of this Invoice.
         :type payment_hash: str
         """
+        if payment_hash is None:
+            raise ValueError("Invalid value for `payment_hash`, must not be `None`")  # noqa: E501
 
         self._payment_hash = payment_hash
 
@@ -265,6 +271,8 @@ class Invoice(Model):
         :param created_at: The created_at of this Invoice.
         :type created_at: datetime
         """
+        if created_at is None:
+            raise ValueError("Invalid value for `created_at`, must not be `None`")  # noqa: E501
 
         self._created_at = created_at
 

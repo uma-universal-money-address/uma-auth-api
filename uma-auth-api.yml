@@ -400,11 +400,12 @@ components:
           type: object
           description: Additional metadata attached to the invoice.
           example: {}
+          nullable: true
         preimage:
           type: string
           description: The payment preimage of the invoice.
           example: abcd1234
-          nullable: false
+          nullable: true
         expires_at:
           type: string
           format: date-time
@@ -428,6 +429,12 @@ components:
             - incoming
             - outgoing
           description: Whether the invoice is incoming (created by this user) or outgoing (created by another user).
+      required:
+        - payment_request
+        - amount
+        - payment_hash
+        - created_at
+        - type
     Quote:
       type: object
       properties:

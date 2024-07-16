@@ -99,6 +99,8 @@ class Quote(Model):
         :param sending_currency_code: The sending_currency_code of this Quote.
         :type sending_currency_code: str
         """
+        if sending_currency_code is None:
+            raise ValueError("Invalid value for `sending_currency_code`, must not be `None`")  # noqa: E501
 
         self._sending_currency_code = sending_currency_code
 
@@ -122,6 +124,8 @@ class Quote(Model):
         :param receiving_currency_code: The receiving_currency_code of this Quote.
         :type receiving_currency_code: str
         """
+        if receiving_currency_code is None:
+            raise ValueError("Invalid value for `receiving_currency_code`, must not be `None`")  # noqa: E501
 
         self._receiving_currency_code = receiving_currency_code
 
@@ -145,6 +149,8 @@ class Quote(Model):
         :param payment_hash: The payment_hash of this Quote.
         :type payment_hash: str
         """
+        if payment_hash is None:
+            raise ValueError("Invalid value for `payment_hash`, must not be `None`")  # noqa: E501
 
         self._payment_hash = payment_hash
 
@@ -168,6 +174,8 @@ class Quote(Model):
         :param expires_at: The expires_at of this Quote.
         :type expires_at: datetime
         """
+        if expires_at is None:
+            raise ValueError("Invalid value for `expires_at`, must not be `None`")  # noqa: E501
 
         self._expires_at = expires_at
 
@@ -191,6 +199,8 @@ class Quote(Model):
         :param multiplier: The multiplier of this Quote.
         :type multiplier: float
         """
+        if multiplier is None:
+            raise ValueError("Invalid value for `multiplier`, must not be `None`")  # noqa: E501
 
         self._multiplier = multiplier
 
@@ -214,6 +224,8 @@ class Quote(Model):
         :param fees: The fees of this Quote.
         :type fees: float
         """
+        if fees is None:
+            raise ValueError("Invalid value for `fees`, must not be `None`")  # noqa: E501
 
         self._fees = fees
 
@@ -237,6 +249,8 @@ class Quote(Model):
         :param total_sending_amount: The total_sending_amount of this Quote.
         :type total_sending_amount: float
         """
+        if total_sending_amount is None:
+            raise ValueError("Invalid value for `total_sending_amount`, must not be `None`")  # noqa: E501
 
         self._total_sending_amount = total_sending_amount
 
@@ -260,6 +274,8 @@ class Quote(Model):
         :param total_receiving_amount: The total_receiving_amount of this Quote.
         :type total_receiving_amount: float
         """
+        if total_receiving_amount is None:
+            raise ValueError("Invalid value for `total_receiving_amount`, must not be `None`")  # noqa: E501
 
         self._total_receiving_amount = total_receiving_amount
 
@@ -283,5 +299,7 @@ class Quote(Model):
         :param created_at: The created_at of this Quote.
         :type created_at: datetime
         """
+        if created_at is None:
+            raise ValueError("Invalid value for `created_at`, must not be `None`")  # noqa: E501
 
         self._created_at = created_at
