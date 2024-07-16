@@ -469,6 +469,16 @@ components:
           format: date-time
           description: The time the quote was created.
           example: "2021-01-01T00:00:00Z"
+      required:
+        - sending_currency_code
+        - receiving_currency_code
+        - payment_hash
+        - expires_at
+        - multiplier
+        - fees
+        - total_sending_amount
+        - total_receiving_amount
+        - created_at
     CurrencyPreference:
       type: object
       properties:

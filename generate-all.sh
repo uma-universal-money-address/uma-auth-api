@@ -14,4 +14,7 @@ openapi-generator generate -g go-server -i uma-auth-api.yml -o codegen/go --pack
 echo "Generating Python library..."
 openapi-generator generate -g python-flask -i uma-auth-api.yml -o codegen/python --package-name umaauth
 
+echo "Generating Kotlin library..."
+openapi-generator generate -g kotlin-server -i uma-auth-api.yml -o codegen/kotlin --package-name me.uma.auth --group-id me.uma --artifact-id uma-auth-server
+
 popd > /dev/null
