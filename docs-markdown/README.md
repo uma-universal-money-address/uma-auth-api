@@ -21,21 +21,20 @@ All URIs are relative to *http://localhost*
 <a name="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [CurrencyPreference](./Models/CurrencyPreference.md)
+ - [ExecuteQuoteRequest](./Models/ExecuteQuoteRequest.md)
+ - [ExecuteQuoteResponse](./Models/ExecuteQuoteResponse.md)
+ - [GetBalanceRequest](./Models/GetBalanceRequest.md)
+ - [GetBalanceResponse](./Models/GetBalanceResponse.md)
+ - [GetInfoResponse](./Models/GetInfoResponse.md)
  - [Invoice](./Models/Invoice.md)
+ - [LookupUserResponse](./Models/LookupUserResponse.md)
+ - [MakeInvoiceRequest](./Models/MakeInvoiceRequest.md)
+ - [PayInvoiceRequest](./Models/PayInvoiceRequest.md)
+ - [PayInvoiceResponse](./Models/PayInvoiceResponse.md)
+ - [PayToAddressRequest](./Models/PayToAddressRequest.md)
+ - [PayToAddressResponse](./Models/PayToAddressResponse.md)
  - [Quote](./Models/Quote.md)
- - [execute_quote_request](./Models/execute_quote_request.md)
- - [get_balance_200_response](./Models/get_balance_200_response.md)
- - [get_balance_request](./Models/get_balance_request.md)
- - [get_info_200_response](./Models/get_info_200_response.md)
- - [get_info_200_response_currencies_inner](./Models/get_info_200_response_currencies_inner.md)
- - [lookup_user_200_response](./Models/lookup_user_200_response.md)
- - [lookup_user_200_response_currencies_inner](./Models/lookup_user_200_response_currencies_inner.md)
- - [lookup_user_request](./Models/lookup_user_request.md)
- - [make_invoice_request](./Models/make_invoice_request.md)
- - [pay_invoice_200_response](./Models/pay_invoice_200_response.md)
- - [pay_invoice_request](./Models/pay_invoice_request.md)
- - [pay_to_address_200_response](./Models/pay_to_address_200_response.md)
- - [pay_to_address_request](./Models/pay_to_address_request.md)
 
 
 <a name="documentation-for-authorization"></a>

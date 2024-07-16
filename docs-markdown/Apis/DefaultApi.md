@@ -17,7 +17,7 @@ All URIs are relative to *http://localhost*
 
 <a name="executeQuote"></a>
 # **executeQuote**
-> pay_invoice_200_response executeQuote(execute\_quote\_request)
+> ExecuteQuoteResponse executeQuote(ExecuteQuoteRequest)
 
 execute_quote: Execute a quote
 
@@ -25,11 +25,11 @@ execute_quote: Execute a quote
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **execute\_quote\_request** | [**execute_quote_request**](../Models/execute_quote_request.md)|  | [optional] |
+| **ExecuteQuoteRequest** | [**ExecuteQuoteRequest**](../Models/ExecuteQuoteRequest.md)|  | [optional] |
 
 ### Return type
 
-[**pay_invoice_200_response**](../Models/pay_invoice_200_response.md)
+[**ExecuteQuoteResponse**](../Models/ExecuteQuoteResponse.md)
 
 ### Authorization
 
@@ -71,7 +71,7 @@ No authorization required
 
 <a name="getBalance"></a>
 # **getBalance**
-> get_balance_200_response getBalance(get\_balance\_request)
+> GetBalanceResponse getBalance(GetBalanceRequest)
 
 get_balance: Get the balance of the user&#39;s wallet
 
@@ -79,11 +79,11 @@ get_balance: Get the balance of the user&#39;s wallet
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **get\_balance\_request** | [**get_balance_request**](../Models/get_balance_request.md)|  | [optional] |
+| **GetBalanceRequest** | [**GetBalanceRequest**](../Models/GetBalanceRequest.md)|  | [optional] |
 
 ### Return type
 
-[**get_balance_200_response**](../Models/get_balance_200_response.md)
+[**GetBalanceResponse**](../Models/GetBalanceResponse.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ No authorization required
 
 <a name="getInfo"></a>
 # **getInfo**
-> get_info_200_response getInfo()
+> GetInfoResponse getInfo()
 
 get_info: Get information about the user&#39;s wallet connection
 
@@ -105,7 +105,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**get_info_200_response**](../Models/get_info_200_response.md)
+[**GetInfoResponse**](../Models/GetInfoResponse.md)
 
 ### Authorization
 
@@ -143,7 +143,7 @@ No authorization required
 
 <a name="lookupUser"></a>
 # **lookupUser**
-> lookup_user_200_response lookupUser(receiver\_uma, lookup\_user\_request)
+> LookupUserResponse lookupUser(receiver\_uma, base\_sending\_currency\_code)
 
 lookup_user: Get receiver info by UMA
 
@@ -152,11 +152,11 @@ lookup_user: Get receiver info by UMA
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **receiver\_uma** | **String**| The receiver&#39;s UMA. | [default to null] |
-| **lookup\_user\_request** | [**lookup_user_request**](../Models/lookup_user_request.md)|  | [optional] |
+| **base\_sending\_currency\_code** | **String**| The currency code of the sender&#39;s balance. Assumed to be in msats if not provided.  This is used to calculate the multiplier for the receiver&#39;s currencies. | [optional] [default to null] |
 
 ### Return type
 
-[**lookup_user_200_response**](../Models/lookup_user_200_response.md)
+[**LookupUserResponse**](../Models/LookupUserResponse.md)
 
 ### Authorization
 
@@ -164,12 +164,12 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 <a name="makeInvoice"></a>
 # **makeInvoice**
-> Invoice makeInvoice(make\_invoice\_request)
+> Invoice makeInvoice(MakeInvoiceRequest)
 
 make_invoice: Create a new invoice
 
@@ -177,7 +177,7 @@ make_invoice: Create a new invoice
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **make\_invoice\_request** | [**make_invoice_request**](../Models/make_invoice_request.md)|  | [optional] |
+| **MakeInvoiceRequest** | [**MakeInvoiceRequest**](../Models/MakeInvoiceRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -194,7 +194,7 @@ No authorization required
 
 <a name="payInvoice"></a>
 # **payInvoice**
-> pay_invoice_200_response payInvoice(pay\_invoice\_request)
+> PayInvoiceResponse payInvoice(PayInvoiceRequest)
 
 pay_invoice: Pay a bolt11 invoice
 
@@ -202,11 +202,11 @@ pay_invoice: Pay a bolt11 invoice
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **pay\_invoice\_request** | [**pay_invoice_request**](../Models/pay_invoice_request.md)|  | [optional] |
+| **PayInvoiceRequest** | [**PayInvoiceRequest**](../Models/PayInvoiceRequest.md)|  | [optional] |
 
 ### Return type
 
-[**pay_invoice_200_response**](../Models/pay_invoice_200_response.md)
+[**PayInvoiceResponse**](../Models/PayInvoiceResponse.md)
 
 ### Authorization
 
@@ -219,7 +219,7 @@ No authorization required
 
 <a name="payToAddress"></a>
 # **payToAddress**
-> pay_to_address_200_response payToAddress(pay\_to\_address\_request)
+> PayToAddressResponse payToAddress(PayToAddressRequest)
 
 pay_to_address: Pay to an LNURL address
 
@@ -227,11 +227,11 @@ pay_to_address: Pay to an LNURL address
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **pay\_to\_address\_request** | [**pay_to_address_request**](../Models/pay_to_address_request.md)|  | [optional] |
+| **PayToAddressRequest** | [**PayToAddressRequest**](../Models/PayToAddressRequest.md)|  | [optional] |
 
 ### Return type
 
-[**pay_to_address_200_response**](../Models/pay_to_address_200_response.md)
+[**PayToAddressResponse**](../Models/PayToAddressResponse.md)
 
 ### Authorization
 
