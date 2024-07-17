@@ -12,7 +12,7 @@ echo "Generating Golang library..."
 openapi-generator generate -g go-server -i uma-auth-api.yml -o codegen/go --package-name umaauth
 
 echo "Generating Python library..."
-openapi-generator generate -g python-flask -i uma-auth-api.yml -o codegen/python --package-name umaauth
+openapi-generator generate -g python-flask -i uma-auth-api.yml -o codegen/python -c codegen-config/python-flask/config.yml
 
 echo "Generating Kotlin library..."
 openapi-generator generate -g kotlin-server -i uma-auth-api.yml -o codegen/kotlin --package-name me.uma.auth --group-id me.uma --artifact-id uma-auth-server
