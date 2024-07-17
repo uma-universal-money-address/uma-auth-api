@@ -66,7 +66,6 @@ Class | Method | HTTP request | Description
  - [me.uma.auth.models.CurrencyPreference](docs/CurrencyPreference.md)
  - [me.uma.auth.models.ExecuteQuoteRequest](docs/ExecuteQuoteRequest.md)
  - [me.uma.auth.models.ExecuteQuoteResponse](docs/ExecuteQuoteResponse.md)
- - [me.uma.auth.models.GetBalanceRequest](docs/GetBalanceRequest.md)
  - [me.uma.auth.models.GetBalanceResponse](docs/GetBalanceResponse.md)
  - [me.uma.auth.models.GetInfoResponse](docs/GetInfoResponse.md)
  - [me.uma.auth.models.Invoice](docs/Invoice.md)

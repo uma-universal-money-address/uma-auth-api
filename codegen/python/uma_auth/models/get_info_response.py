@@ -26,7 +26,7 @@ class GetInfoResponse(Model):
         :param network: The network of this GetInfoResponse.  # noqa: E501
         :type network: str
         :param block_height: The block_height of this GetInfoResponse.  # noqa: E501
-        :type block_height: float
+        :type block_height: int
         :param block_hash: The block_hash of this GetInfoResponse.  # noqa: E501
         :type block_hash: str
         :param methods: The methods of this GetInfoResponse.  # noqa: E501
@@ -41,7 +41,7 @@ class GetInfoResponse(Model):
             'color': str,
             'pubkey': str,
             'network': str,
-            'block_height': float,
+            'block_height': int,
             'block_hash': str,
             'methods': List[str],
             'lud16': str,
@@ -182,24 +182,24 @@ class GetInfoResponse(Model):
         self._network = network
 
     @property
-    def block_height(self) -> float:
+    def block_height(self) -> int:
         """Gets the block_height of this GetInfoResponse.
 
         The current block height of the user's node.  # noqa: E501
 
         :return: The block_height of this GetInfoResponse.
-        :rtype: float
+        :rtype: int
         """
         return self._block_height
 
     @block_height.setter
-    def block_height(self, block_height: float):
+    def block_height(self, block_height: int):
         """Sets the block_height of this GetInfoResponse.
 
         The current block height of the user's node.  # noqa: E501
 
         :param block_height: The block_height of this GetInfoResponse.
-        :type block_height: float
+        :type block_height: int
         """
 
         self._block_height = block_height

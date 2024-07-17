@@ -19,7 +19,7 @@ type PayInvoiceRequest struct {
 	Invoice string `json:"invoice"`
 
 	// The amount to pay for a 0-amount invoice.
-	Amount *float32 `json:"amount,omitempty"`
+	Amount *int32 `json:"amount,omitempty"`
 }
 
 // AssertPayInvoiceRequestRequired checks if the required fields are not zero-ed

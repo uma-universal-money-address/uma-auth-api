@@ -18,11 +18,11 @@ class PayInvoiceRequest(Model):
         :param invoice: The invoice of this PayInvoiceRequest.  # noqa: E501
         :type invoice: str
         :param amount: The amount of this PayInvoiceRequest.  # noqa: E501
-        :type amount: float
+        :type amount: int
         """
         self.openapi_types = {
             'invoice': str,
-            'amount': float
+            'amount': int
         }
 
         self.attribute_map = {
@@ -70,24 +70,24 @@ class PayInvoiceRequest(Model):
         self._invoice = invoice
 
     @property
-    def amount(self) -> float:
+    def amount(self) -> int:
         """Gets the amount of this PayInvoiceRequest.
 
         The amount to pay for a 0-amount invoice.  # noqa: E501
 
         :return: The amount of this PayInvoiceRequest.
-        :rtype: float
+        :rtype: int
         """
         return self._amount
 
     @amount.setter
-    def amount(self, amount: float):
+    def amount(self, amount: int):
         """Sets the amount of this PayInvoiceRequest.
 
         The amount to pay for a 0-amount invoice.  # noqa: E501
 
         :param amount: The amount of this PayInvoiceRequest.
-        :type amount: float
+        :type amount: int
         """
 
         self._amount = amount

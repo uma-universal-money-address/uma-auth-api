@@ -37,7 +37,7 @@ data class GetInfoResponse(
     /* The color of the user's node. */
     val color: kotlin.String? = null,
     /* The current block height of the user's node. */
-    val blockHeight: java.math.BigDecimal? = null,
+    val blockHeight: kotlin.Int? = null,
     /* The current block hash of the user's node. */
     val blockHash: kotlin.String? = null,
     /* The lightning or UMA address for the user. */

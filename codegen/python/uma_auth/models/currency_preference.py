@@ -24,20 +24,20 @@ class CurrencyPreference(Model):
         :param multiplier: The multiplier of this CurrencyPreference.  # noqa: E501
         :type multiplier: float
         :param decimals: The decimals of this CurrencyPreference.  # noqa: E501
-        :type decimals: float
+        :type decimals: int
         :param min: The min of this CurrencyPreference.  # noqa: E501
-        :type min: float
+        :type min: int
         :param max: The max of this CurrencyPreference.  # noqa: E501
-        :type max: float
+        :type max: int
         """
         self.openapi_types = {
             'code': str,
             'symbol': str,
             'name': str,
             'multiplier': float,
-            'decimals': float,
-            'min': float,
-            'max': float
+            'decimals': int,
+            'min': int,
+            'max': int
         }
 
         self.attribute_map = {
@@ -170,24 +170,24 @@ class CurrencyPreference(Model):
         self._multiplier = multiplier
 
     @property
-    def decimals(self) -> float:
+    def decimals(self) -> int:
         """Gets the decimals of this CurrencyPreference.
 
         Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.  # noqa: E501
 
         :return: The decimals of this CurrencyPreference.
-        :rtype: float
+        :rtype: int
         """
         return self._decimals
 
     @decimals.setter
-    def decimals(self, decimals: float):
+    def decimals(self, decimals: int):
         """Sets the decimals of this CurrencyPreference.
 
         Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.  # noqa: E501
 
         :param decimals: The decimals of this CurrencyPreference.
-        :type decimals: float
+        :type decimals: int
         """
         if decimals is None:
             raise ValueError("Invalid value for `decimals`, must not be `None`")  # noqa: E501
@@ -195,24 +195,24 @@ class CurrencyPreference(Model):
         self._decimals = decimals
 
     @property
-    def min(self) -> float:
+    def min(self) -> int:
         """Gets the min of this CurrencyPreference.
 
         The minimum amount that can be received in this currency.  # noqa: E501
 
         :return: The min of this CurrencyPreference.
-        :rtype: float
+        :rtype: int
         """
         return self._min
 
     @min.setter
-    def min(self, min: float):
+    def min(self, min: int):
         """Sets the min of this CurrencyPreference.
 
         The minimum amount that can be received in this currency.  # noqa: E501
 
         :param min: The min of this CurrencyPreference.
-        :type min: float
+        :type min: int
         """
         if min is None:
             raise ValueError("Invalid value for `min`, must not be `None`")  # noqa: E501
@@ -220,24 +220,24 @@ class CurrencyPreference(Model):
         self._min = min
 
     @property
-    def max(self) -> float:
+    def max(self) -> int:
         """Gets the max of this CurrencyPreference.
 
         The maximum amount that can be received in this currency.  # noqa: E501
 
         :return: The max of this CurrencyPreference.
-        :rtype: float
+        :rtype: int
         """
         return self._max
 
     @max.setter
-    def max(self, max: float):
+    def max(self, max: int):
         """Sets the max of this CurrencyPreference.
 
         The maximum amount that can be received in this currency.  # noqa: E501
 
         :param max: The max of this CurrencyPreference.
-        :type max: float
+        :type max: int
         """
         if max is None:
             raise ValueError("Invalid value for `max`, must not be `None`")  # noqa: E501

@@ -16,19 +16,19 @@ class MakeInvoiceRequest(Model):
         """MakeInvoiceRequest - a model defined in OpenAPI
 
         :param amount: The amount of this MakeInvoiceRequest.  # noqa: E501
-        :type amount: float
+        :type amount: int
         :param description: The description of this MakeInvoiceRequest.  # noqa: E501
         :type description: str
         :param description_hash: The description_hash of this MakeInvoiceRequest.  # noqa: E501
         :type description_hash: str
         :param expiry: The expiry of this MakeInvoiceRequest.  # noqa: E501
-        :type expiry: float
+        :type expiry: int
         """
         self.openapi_types = {
-            'amount': float,
+            'amount': int,
             'description': str,
             'description_hash': str,
-            'expiry': float
+            'expiry': int
         }
 
         self.attribute_map = {
@@ -55,27 +55,29 @@ class MakeInvoiceRequest(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def amount(self) -> float:
+    def amount(self) -> int:
         """Gets the amount of this MakeInvoiceRequest.
 
         The amount to invoice in msats.  # noqa: E501
 
         :return: The amount of this MakeInvoiceRequest.
-        :rtype: float
+        :rtype: int
         """
         return self._amount
 
     @amount.setter
-    def amount(self, amount: float):
+    def amount(self, amount: int):
         """Sets the amount of this MakeInvoiceRequest.
 
         The amount to invoice in msats.  # noqa: E501
 
         :param amount: The amount of this MakeInvoiceRequest.
-        :type amount: float
+        :type amount: int
         """
         if amount is None:
             raise ValueError("Invalid value for `amount`, must not be `None`")  # noqa: E501
+        if amount is not None and amount < 0:  # noqa: E501
+            raise ValueError("Invalid value for `amount`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._amount = amount
 
@@ -126,24 +128,24 @@ class MakeInvoiceRequest(Model):
         self._description_hash = description_hash
 
     @property
-    def expiry(self) -> float:
+    def expiry(self) -> int:
         """Gets the expiry of this MakeInvoiceRequest.
 
         The number of seconds until the invoice expires.  # noqa: E501
 
         :return: The expiry of this MakeInvoiceRequest.
-        :rtype: float
+        :rtype: int
         """
         return self._expiry
 
     @expiry.setter
-    def expiry(self, expiry: float):
+    def expiry(self, expiry: int):
         """Sets the expiry of this MakeInvoiceRequest.
 
         The number of seconds until the invoice expires.  # noqa: E501
 
         :param expiry: The expiry of this MakeInvoiceRequest.
-        :type expiry: float
+        :type expiry: int
         """
 
         self._expiry = expiry

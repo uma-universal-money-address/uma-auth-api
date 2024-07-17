@@ -23,7 +23,6 @@ uma_auth/models/base_model.py
 uma_auth/models/currency_preference.py
 uma_auth/models/execute_quote_request.py
 uma_auth/models/execute_quote_response.py
-uma_auth/models/get_balance_request.py
 uma_auth/models/get_balance_response.py
 uma_auth/models/get_info_response.py
 uma_auth/models/invoice.py

@@ -32,10 +32,10 @@ data class CurrencyPreference(
     /* Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats. */
     val multiplier: java.math.BigDecimal,
     /* Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8. */
-    val decimals: java.math.BigDecimal,
+    val decimals: kotlin.Int,
     /* The minimum amount that can be received in this currency. */
-    val min: java.math.BigDecimal,
+    val min: kotlin.Int,
     /* The maximum amount that can be received in this currency. */
-    val max: java.math.BigDecimal
+    val max: kotlin.Int
 ) 
 

@@ -20,14 +20,14 @@ class PayToAddressRequest(Model):
         :param sending_currency_code: The sending_currency_code of this PayToAddressRequest.  # noqa: E501
         :type sending_currency_code: str
         :param sending_currency_amount: The sending_currency_amount of this PayToAddressRequest.  # noqa: E501
-        :type sending_currency_amount: float
+        :type sending_currency_amount: int
         :param receiving_currency_code: The receiving_currency_code of this PayToAddressRequest.  # noqa: E501
         :type receiving_currency_code: str
         """
         self.openapi_types = {
             'receiver_address': str,
             'sending_currency_code': str,
-            'sending_currency_amount': float,
+            'sending_currency_amount': int,
             'receiving_currency_code': str
         }
 
@@ -105,24 +105,24 @@ class PayToAddressRequest(Model):
         self._sending_currency_code = sending_currency_code
 
     @property
-    def sending_currency_amount(self) -> float:
+    def sending_currency_amount(self) -> int:
         """Gets the sending_currency_amount of this PayToAddressRequest.
 
         The amount to send in the smallest unit of the sending currency (eg. cents).  # noqa: E501
 
         :return: The sending_currency_amount of this PayToAddressRequest.
-        :rtype: float
+        :rtype: int
         """
         return self._sending_currency_amount
 
     @sending_currency_amount.setter
-    def sending_currency_amount(self, sending_currency_amount: float):
+    def sending_currency_amount(self, sending_currency_amount: int):
         """Sets the sending_currency_amount of this PayToAddressRequest.
 
         The amount to send in the smallest unit of the sending currency (eg. cents).  # noqa: E501
 
         :param sending_currency_amount: The sending_currency_amount of this PayToAddressRequest.
-        :type sending_currency_amount: float
+        :type sending_currency_amount: int
         """
         if sending_currency_amount is None:
             raise ValueError("Invalid value for `sending_currency_amount`, must not be `None`")  # noqa: E501

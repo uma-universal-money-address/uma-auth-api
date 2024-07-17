@@ -23,8 +23,9 @@ paths:
               type: object
               properties:
                 amount:
-                  type: number
+                  type: integer
                   description: The amount to invoice in msats.
+                  minimum: 0
                   example: 1000
                 description:
                   type: string
@@ -35,7 +36,7 @@ paths:
                   description: A hash of a longer description field.
                   example: "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
                 expiry:
-                  type: number
+                  type: integer
                   description: The number of seconds until the invoice expires.
                   example: 3600
               required:
@@ -63,7 +64,7 @@ paths:
                   description: The bolt11 invoice to pay.
                   example: lntb1u1pw0k7jw
                 amount:
-                  type: number
+                  type: integer
                   nullable: true
                   description: The amount to pay for a 0-amount invoice.
                   example: 1000
@@ -107,18 +108,15 @@ paths:
     get:
       operationId: get_balance
       summary: "get_balance: Get the balance of the user's wallet"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              title: GetBalanceRequest
-              type: object
-              properties:
-                currency_code:
-                  type: string
-                  description: The currency code of the balance. Assumed to be in msats if not provided. 
-                  example: "USD"
-                  nullable: true
+      parameters:
+        - name: currency_code
+          in: query
+          required: false
+          description: >-
+            The currency code of the balance. Assumed to be in msats if not provided. 
+          schema:
+            type: string
+            example: "USD"
       responses:
         '200':
           description: OK
@@ -201,7 +199,7 @@ paths:
             The amount to send/receive in the smallest unit of the locked currency (eg. cents).
             See `locked_currency_side` for more information.
           schema:
-            type: number
+            type: integer
             example: 1000
         - name: locked_currency_side
           in: query
@@ -282,7 +280,7 @@ paths:
                   description: The code of the currency being sent from the sender's wallet.
                   example: "MXN"
                 sending_currency_amount:
-                  type: number
+                  type: integer
                   description: The amount to send in the smallest unit of the sending currency (eg. cents).
                   example: 1000
                 receiving_currency_code:
@@ -347,7 +345,7 @@ paths:
                       - testnet
                       - mainnet
                   block_height:
-                    type: number
+                    type: integer
                     description: The current block height of the user's node.
                     example: 1000
                   block_hash:
@@ -384,7 +382,7 @@ components:
           description: The full, encoded payment request.
           example: lntb1u1pw0k7jw
         amount:
-          type: number
+          type: integer
           description: The amount of the invoice in msats.
           example: 1000
         payment_hash:
@@ -456,19 +454,19 @@ components:
           description: The time the quote expires.
           example: "2021-01-01T00:00:00Z"
         multiplier:
-          type: number
+          type: integer
           description: Number of sending currency units per receiving currency unit.
           example: 123
         fees:
-          type: number
+          type: integer
           description: The fees associated with the quote in the smallest unit of the sending currency (eg. cents).
           example: 10
         total_sending_amount:
-          type: number
+          type: integer
           description: The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
           example: 123010
         total_receiving_amount:
-          type: number
+          type: integer
           description: The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
           example: 1000
         created_at:
@@ -508,7 +506,7 @@ components:
             If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
           example: 100000000
         decimals:
-          type: number
+          type: integer
           description: >-
             Number of digits after the decimal point for display on the sender side, and to add clarity around what the
             "smallest unit" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95.
@@ -518,11 +516,11 @@ components:
             `decimals` would be 8.
           example: 2
         min:
-          type: number
+          type: integer
           description: The minimum amount that can be received in this currency.
           example: 1
         max:
-          type: number
+          type: integer
           description: The maximum amount that can be received in this currency.
           example: 1000000
       required:

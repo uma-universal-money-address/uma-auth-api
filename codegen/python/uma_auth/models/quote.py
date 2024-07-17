@@ -24,13 +24,13 @@ class Quote(Model):
         :param expires_at: The expires_at of this Quote.  # noqa: E501
         :type expires_at: datetime
         :param multiplier: The multiplier of this Quote.  # noqa: E501
-        :type multiplier: float
+        :type multiplier: int
         :param fees: The fees of this Quote.  # noqa: E501
-        :type fees: float
+        :type fees: int
         :param total_sending_amount: The total_sending_amount of this Quote.  # noqa: E501
-        :type total_sending_amount: float
+        :type total_sending_amount: int
         :param total_receiving_amount: The total_receiving_amount of this Quote.  # noqa: E501
-        :type total_receiving_amount: float
+        :type total_receiving_amount: int
         :param created_at: The created_at of this Quote.  # noqa: E501
         :type created_at: datetime
         """
@@ -39,10 +39,10 @@ class Quote(Model):
             'receiving_currency_code': str,
             'payment_hash': str,
             'expires_at': datetime,
-            'multiplier': float,
-            'fees': float,
-            'total_sending_amount': float,
-            'total_receiving_amount': float,
+            'multiplier': int,
+            'fees': int,
+            'total_sending_amount': int,
+            'total_receiving_amount': int,
             'created_at': datetime
         }
 
@@ -180,24 +180,24 @@ class Quote(Model):
         self._expires_at = expires_at
 
     @property
-    def multiplier(self) -> float:
+    def multiplier(self) -> int:
         """Gets the multiplier of this Quote.
 
         Number of sending currency units per receiving currency unit.  # noqa: E501
 
         :return: The multiplier of this Quote.
-        :rtype: float
+        :rtype: int
         """
         return self._multiplier
 
     @multiplier.setter
-    def multiplier(self, multiplier: float):
+    def multiplier(self, multiplier: int):
         """Sets the multiplier of this Quote.
 
         Number of sending currency units per receiving currency unit.  # noqa: E501
 
         :param multiplier: The multiplier of this Quote.
-        :type multiplier: float
+        :type multiplier: int
         """
         if multiplier is None:
             raise ValueError("Invalid value for `multiplier`, must not be `None`")  # noqa: E501
@@ -205,24 +205,24 @@ class Quote(Model):
         self._multiplier = multiplier
 
     @property
-    def fees(self) -> float:
+    def fees(self) -> int:
         """Gets the fees of this Quote.
 
         The fees associated with the quote in the smallest unit of the sending currency (eg. cents).  # noqa: E501
 
         :return: The fees of this Quote.
-        :rtype: float
+        :rtype: int
         """
         return self._fees
 
     @fees.setter
-    def fees(self, fees: float):
+    def fees(self, fees: int):
         """Sets the fees of this Quote.
 
         The fees associated with the quote in the smallest unit of the sending currency (eg. cents).  # noqa: E501
 
         :param fees: The fees of this Quote.
-        :type fees: float
+        :type fees: int
         """
         if fees is None:
             raise ValueError("Invalid value for `fees`, must not be `None`")  # noqa: E501
@@ -230,24 +230,24 @@ class Quote(Model):
         self._fees = fees
 
     @property
-    def total_sending_amount(self) -> float:
+    def total_sending_amount(self) -> int:
         """Gets the total_sending_amount of this Quote.
 
         The total amount that will be sent in the smallest unit of the sending currency (eg. cents).  # noqa: E501
 
         :return: The total_sending_amount of this Quote.
-        :rtype: float
+        :rtype: int
         """
         return self._total_sending_amount
 
     @total_sending_amount.setter
-    def total_sending_amount(self, total_sending_amount: float):
+    def total_sending_amount(self, total_sending_amount: int):
         """Sets the total_sending_amount of this Quote.
 
         The total amount that will be sent in the smallest unit of the sending currency (eg. cents).  # noqa: E501
 
         :param total_sending_amount: The total_sending_amount of this Quote.
-        :type total_sending_amount: float
+        :type total_sending_amount: int
         """
         if total_sending_amount is None:
             raise ValueError("Invalid value for `total_sending_amount`, must not be `None`")  # noqa: E501
@@ -255,24 +255,24 @@ class Quote(Model):
         self._total_sending_amount = total_sending_amount
 
     @property
-    def total_receiving_amount(self) -> float:
+    def total_receiving_amount(self) -> int:
         """Gets the total_receiving_amount of this Quote.
 
         The total amount that will be received in the smallest unit of the receiving currency (eg. cents).  # noqa: E501
 
         :return: The total_receiving_amount of this Quote.
-        :rtype: float
+        :rtype: int
         """
         return self._total_receiving_amount
 
     @total_receiving_amount.setter
-    def total_receiving_amount(self, total_receiving_amount: float):
+    def total_receiving_amount(self, total_receiving_amount: int):
         """Sets the total_receiving_amount of this Quote.
 
         The total amount that will be received in the smallest unit of the receiving currency (eg. cents).  # noqa: E501
 
         :param total_receiving_amount: The total_receiving_amount of this Quote.
-        :type total_receiving_amount: float
+        :type total_receiving_amount: int
         """
         if total_receiving_amount is None:
             raise ValueError("Invalid value for `total_receiving_amount`, must not be `None`")  # noqa: E501

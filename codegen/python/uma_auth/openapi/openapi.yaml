@@ -14,11 +14,17 @@ paths:
   /balance:
     get:
       operationId: get_balance
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GetBalanceRequest'
+      parameters:
+      - description: 'The currency code of the balance. Assumed to be in msats if
+          not provided. '
+        explode: true
+        in: query
+        name: currency_code
+        required: false
+        schema:
+          example: USD
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -143,7 +149,7 @@ paths:
         required: true
         schema:
           example: 1000
-          type: number
+          type: integer
         style: form
       - description: "The side of the quote which should be locked and specified in\
           \ the `locked_currency_amount`. For example, if I want to send exactly $5\
@@ -253,7 +259,7 @@ components:
           description: The amount of the invoice in msats.
           example: 1000
           title: amount
-          type: number
+          type: integer
         payment_hash:
           description: The payment hash of the invoice.
           example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
@@ -351,25 +357,25 @@ components:
           description: Number of sending currency units per receiving currency unit.
           example: 123
           title: multiplier
-          type: number
+          type: integer
         fees:
           description: The fees associated with the quote in the smallest unit of
             the sending currency (eg. cents).
           example: 10
           title: fees
-          type: number
+          type: integer
         total_sending_amount:
           description: The total amount that will be sent in the smallest unit of
             the sending currency (eg. cents).
           example: 123010
           title: total_sending_amount
-          type: number
+          type: integer
         total_receiving_amount:
           description: The total amount that will be received in the smallest unit
             of the receiving currency (eg. cents).
           example: 1000
           title: total_receiving_amount
-          type: number
+          type: integer
         created_at:
           description: The time the quote was created.
           example: 2021-01-01T00:00:00Z
@@ -432,17 +438,17 @@ components:
             \ would be 8."
           example: 2
           title: decimals
-          type: number
+          type: integer
         min:
           description: The minimum amount that can be received in this currency.
           example: 1
           title: min
-          type: number
+          type: integer
         max:
           description: The maximum amount that can be received in this currency.
           example: 1000000
           title: max
-          type: number
+          type: integer
       required:
       - code
       - decimals
@@ -463,8 +469,9 @@ components:
         amount:
           description: The amount to invoice in msats.
           example: 1000
+          minimum: 0
           title: amount
-          type: number
+          type: integer
         description:
           description: A memo to attach to the invoice.
           example: Payment for services rendered.
@@ -479,7 +486,7 @@ components:
           description: The number of seconds until the invoice expires.
           example: 3600
           title: expiry
-          type: number
+          type: integer
       required:
       - amount
       title: MakeInvoiceRequest
@@ -499,7 +506,7 @@ components:
           example: 1000
           nullable: true
           title: amount
-          type: number
+          type: integer
       required:
       - invoice
       title: PayInvoiceRequest
@@ -516,19 +523,6 @@ components:
       required:
       - preimage
       title: PayInvoiceResponse
-      type: object
-    GetBalanceRequest:
-      example:
-        currency_code: USD
-      properties:
-        currency_code:
-          description: The currency code of the balance. Assumed to be in msats if
-            not provided.
-          example: USD
-          nullable: true
-          title: currency_code
-          type: string
-      title: GetBalanceRequest
       type: object
     GetBalanceResponse:
       example:
@@ -625,7 +619,7 @@ components:
             (eg. cents).
           example: 1000
           title: sending_currency_amount
-          type: number
+          type: integer
         receiving_currency_code:
           description: "The code of the currency being received by the receiver. If\
             \ not provided, the receiver's default currency will be used."
@@ -721,7 +715,7 @@ components:
           description: The current block height of the user's node.
           example: 1000
           title: block_height
-          type: number
+          type: integer
         block_hash:
           description: The current block hash of the user's node.
           example: abcd1234

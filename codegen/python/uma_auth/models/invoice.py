@@ -18,7 +18,7 @@ class Invoice(Model):
         :param payment_request: The payment_request of this Invoice.  # noqa: E501
         :type payment_request: str
         :param amount: The amount of this Invoice.  # noqa: E501
-        :type amount: float
+        :type amount: int
         :param payment_hash: The payment_hash of this Invoice.  # noqa: E501
         :type payment_hash: str
         :param memo: The memo of this Invoice.  # noqa: E501
@@ -38,7 +38,7 @@ class Invoice(Model):
         """
         self.openapi_types = {
             'payment_request': str,
-            'amount': float,
+            'amount': int,
             'payment_hash': str,
             'memo': str,
             'metadata': object,
@@ -110,24 +110,24 @@ class Invoice(Model):
         self._payment_request = payment_request
 
     @property
-    def amount(self) -> float:
+    def amount(self) -> int:
         """Gets the amount of this Invoice.
 
         The amount of the invoice in msats.  # noqa: E501
 
         :return: The amount of this Invoice.
-        :rtype: float
+        :rtype: int
         """
         return self._amount
 
     @amount.setter
-    def amount(self, amount: float):
+    def amount(self, amount: int):
         """Sets the amount of this Invoice.
 
         The amount of the invoice in msats.  # noqa: E501
 
         :param amount: The amount of this Invoice.
-        :type amount: float
+        :type amount: int
         """
         if amount is None:
             raise ValueError("Invalid value for `amount`, must not be `None`")  # noqa: E501

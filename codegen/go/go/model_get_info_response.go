@@ -28,7 +28,7 @@ type GetInfoResponse struct {
 	Network string `json:"network"`
 
 	// The current block height of the user's node.
-	BlockHeight float32 `json:"block_height,omitempty"`
+	BlockHeight int32 `json:"block_height,omitempty"`
 
 	// The current block hash of the user's node.
 	BlockHash string `json:"block_hash,omitempty"`

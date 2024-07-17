@@ -2,7 +2,6 @@ Apis/DefaultApi.md
 Models/CurrencyPreference.md
 Models/ExecuteQuoteRequest.md
 Models/ExecuteQuoteResponse.md
-Models/GetBalanceRequest.md
 Models/GetBalanceResponse.md
 Models/GetInfoResponse.md
 Models/Invoice.md

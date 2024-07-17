@@ -52,7 +52,7 @@ fetch_quote: Get a quote for a payment
 |------------- | ------------- | ------------- | -------------|
 | **sending\_currency\_code** | **String**| The currency code being sent from the sender&#39;s wallet. | [default to null] |
 | **receiving\_currency\_code** | **String**| The currency code of the currency that the receiver will receive. | [default to null] |
-| **locked\_currency\_amount** | **BigDecimal**| The amount to send/receive in the smallest unit of the locked currency (eg. cents). See &#x60;locked_currency_side&#x60; for more information. | [default to null] |
+| **locked\_currency\_amount** | **Integer**| The amount to send/receive in the smallest unit of the locked currency (eg. cents). See &#x60;locked_currency_side&#x60; for more information. | [default to null] |
 | **locked\_currency\_side** | **String**| The side of the quote which should be locked and specified in the &#x60;locked_currency_amount&#x60;. For example, if I want to send exactly $5 MXN from my wallet, I would set this to \&quot;sending\&quot;, and the &#x60;locked_currency_amount&#x60; to 500 (in cents). If I want the receiver to receive exactly $10 USD, I would set this to \&quot;receiving\&quot; and the &#x60;locked_currency_amount&#x60; to 10000 (in cents). | [default to null] [enum: sending, receiving] |
 | **receiving\_address** | **String**| The UMA address to send the payment to. | [default to null] |
 
@@ -71,7 +71,7 @@ No authorization required
 
 <a name="getBalance"></a>
 # **getBalance**
-> GetBalanceResponse getBalance(GetBalanceRequest)
+> GetBalanceResponse getBalance(currency\_code)
 
 get_balance: Get the balance of the user&#39;s wallet
 
@@ -79,7 +79,7 @@ get_balance: Get the balance of the user&#39;s wallet
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **GetBalanceRequest** | [**GetBalanceRequest**](../Models/GetBalanceRequest.md)|  | [optional] |
+| **currency\_code** | **String**| The currency code of the balance. Assumed to be in msats if not provided.  | [optional] [default to null] |
 
 ### Return type
 
@@ -91,7 +91,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 <a name="getInfo"></a>
