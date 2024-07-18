@@ -1,4 +1,4 @@
-from connexion.apps.flask_app import FlaskJSONEncoder
+from connexion.jsonifier import JSONEncoder as FlaskJSONEncoder
 
 from uma_auth.models.base_model import Model
 
