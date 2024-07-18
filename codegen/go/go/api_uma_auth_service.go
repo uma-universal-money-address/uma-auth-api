@@ -16,21 +16,21 @@ import (
 	"errors"
 )
 
-// DefaultAPIService is a service that implements the logic for the DefaultAPIServicer
-// This service should implement the business logic for every endpoint for the DefaultAPI API.
+// UmaAuthAPIService is a service that implements the logic for the UmaAuthAPIServicer
+// This service should implement the business logic for every endpoint for the UmaAuthAPI API.
 // Include any external packages or services that will be required by this service.
-type DefaultAPIService struct {
+type UmaAuthAPIService struct {
 }
 
-// NewDefaultAPIService creates a default api service
-func NewDefaultAPIService() *DefaultAPIService {
-	return &DefaultAPIService{}
+// NewUmaAuthAPIService creates a default api service
+func NewUmaAuthAPIService() *UmaAuthAPIService {
+	return &UmaAuthAPIService{}
 }
 
 // ExecuteQuote - execute_quote: Execute a quote
-func (s *DefaultAPIService) ExecuteQuote(ctx context.Context, executeQuoteRequest ExecuteQuoteRequest) (ImplResponse, error) {
+func (s *UmaAuthAPIService) ExecuteQuote(ctx context.Context, executeQuoteRequest ExecuteQuoteRequest) (ImplResponse, error) {
 	// TODO - update ExecuteQuote with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, ExecuteQuoteResponse{}) or use other options such as http.Ok ...
 	// return Response(200, ExecuteQuoteResponse{}), nil
@@ -39,9 +39,9 @@ func (s *DefaultAPIService) ExecuteQuote(ctx context.Context, executeQuoteReques
 }
 
 // FetchQuote - fetch_quote: Get a quote for a payment
-func (s *DefaultAPIService) FetchQuote(ctx context.Context, sendingCurrencyCode string, receivingCurrencyCode string, lockedCurrencyAmount int32, lockedCurrencySide string, receivingAddress string) (ImplResponse, error) {
+func (s *UmaAuthAPIService) FetchQuote(ctx context.Context, sendingCurrencyCode string, receivingCurrencyCode string, lockedCurrencyAmount int32, lockedCurrencySide string, receivingAddress string) (ImplResponse, error) {
 	// TODO - update FetchQuote with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, Quote{}) or use other options such as http.Ok ...
 	// return Response(200, Quote{}), nil
@@ -50,9 +50,9 @@ func (s *DefaultAPIService) FetchQuote(ctx context.Context, sendingCurrencyCode 
 }
 
 // GetBalance - get_balance: Get the balance of the user&#39;s wallet
-func (s *DefaultAPIService) GetBalance(ctx context.Context, currencyCode string) (ImplResponse, error) {
+func (s *UmaAuthAPIService) GetBalance(ctx context.Context, currencyCode string) (ImplResponse, error) {
 	// TODO - update GetBalance with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, GetBalanceResponse{}) or use other options such as http.Ok ...
 	// return Response(200, GetBalanceResponse{}), nil
@@ -61,9 +61,9 @@ func (s *DefaultAPIService) GetBalance(ctx context.Context, currencyCode string)
 }
 
 // GetInfo - get_info: Get information about the user&#39;s wallet connection
-func (s *DefaultAPIService) GetInfo(ctx context.Context) (ImplResponse, error) {
+func (s *UmaAuthAPIService) GetInfo(ctx context.Context) (ImplResponse, error) {
 	// TODO - update GetInfo with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, GetInfoResponse{}) or use other options such as http.Ok ...
 	// return Response(200, GetInfoResponse{}), nil
@@ -72,9 +72,9 @@ func (s *DefaultAPIService) GetInfo(ctx context.Context) (ImplResponse, error) {
 }
 
 // LookupInvoice - lookup_invoice: Get an invoice by its payment hash
-func (s *DefaultAPIService) LookupInvoice(ctx context.Context, paymentHash string) (ImplResponse, error) {
+func (s *UmaAuthAPIService) LookupInvoice(ctx context.Context, paymentHash string) (ImplResponse, error) {
 	// TODO - update LookupInvoice with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, Invoice{}) or use other options such as http.Ok ...
 	// return Response(200, Invoice{}), nil
@@ -83,9 +83,9 @@ func (s *DefaultAPIService) LookupInvoice(ctx context.Context, paymentHash strin
 }
 
 // LookupUser - lookup_user: Get receiver info by UMA
-func (s *DefaultAPIService) LookupUser(ctx context.Context, receiverUma string, baseSendingCurrencyCode string) (ImplResponse, error) {
+func (s *UmaAuthAPIService) LookupUser(ctx context.Context, receiverUma string, baseSendingCurrencyCode string) (ImplResponse, error) {
 	// TODO - update LookupUser with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, LookupUserResponse{}) or use other options such as http.Ok ...
 	// return Response(200, LookupUserResponse{}), nil
@@ -94,9 +94,9 @@ func (s *DefaultAPIService) LookupUser(ctx context.Context, receiverUma string, 
 }
 
 // MakeInvoice - make_invoice: Create a new invoice
-func (s *DefaultAPIService) MakeInvoice(ctx context.Context, makeInvoiceRequest MakeInvoiceRequest) (ImplResponse, error) {
+func (s *UmaAuthAPIService) MakeInvoice(ctx context.Context, makeInvoiceRequest MakeInvoiceRequest) (ImplResponse, error) {
 	// TODO - update MakeInvoice with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, Invoice{}) or use other options such as http.Ok ...
 	// return Response(200, Invoice{}), nil
@@ -105,9 +105,9 @@ func (s *DefaultAPIService) MakeInvoice(ctx context.Context, makeInvoiceRequest 
 }
 
 // PayInvoice - pay_invoice: Pay a bolt11 invoice
-func (s *DefaultAPIService) PayInvoice(ctx context.Context, payInvoiceRequest PayInvoiceRequest) (ImplResponse, error) {
+func (s *UmaAuthAPIService) PayInvoice(ctx context.Context, payInvoiceRequest PayInvoiceRequest) (ImplResponse, error) {
 	// TODO - update PayInvoice with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, PayInvoiceResponse{}) or use other options such as http.Ok ...
 	// return Response(200, PayInvoiceResponse{}), nil
@@ -116,9 +116,9 @@ func (s *DefaultAPIService) PayInvoice(ctx context.Context, payInvoiceRequest Pa
 }
 
 // PayToAddress - pay_to_address: Pay to an LNURL address
-func (s *DefaultAPIService) PayToAddress(ctx context.Context, payToAddressRequest PayToAddressRequest) (ImplResponse, error) {
+func (s *UmaAuthAPIService) PayToAddress(ctx context.Context, payToAddressRequest PayToAddressRequest) (ImplResponse, error) {
 	// TODO - update PayToAddress with the required logic for this service method.
-	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
+	// Add api_uma_auth_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
 	// TODO: Uncomment the next line to return response Response(200, PayToAddressResponse{}) or use other options such as http.Ok ...
 	// return Response(200, PayToAddressResponse{}), nil

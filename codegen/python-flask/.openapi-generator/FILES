@@ -15,8 +15,8 @@ tox.ini
 uma_auth/__init__.py
 uma_auth/__main__.py
 uma_auth/controllers/__init__.py
-uma_auth/controllers/default_controller.py
 uma_auth/controllers/security_controller.py
+uma_auth/controllers/uma_auth_controller.py
 uma_auth/encoder.py
 uma_auth/models/__init__.py
 uma_auth/models/base_model.py
@@ -36,5 +36,6 @@ uma_auth/models/quote.py
 uma_auth/openapi/openapi.yaml
 uma_auth/py.typed
 uma_auth/test/__init__.py
+uma_auth/test/test_uma_auth_controller.py
 uma_auth/typing_utils.py
 uma_auth/util.py

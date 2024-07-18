@@ -49,15 +49,15 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*DefaultApi* | [**executeQuote**](docs/DefaultApi.md#executequote) | **POST** /quote | execute_quote: Execute a quote
-*DefaultApi* | [**fetchQuote**](docs/DefaultApi.md#fetchquote) | **GET** /quote | fetch_quote: Get a quote for a payment
-*DefaultApi* | [**getBalance**](docs/DefaultApi.md#getbalance) | **GET** /balance | get_balance: Get the balance of the user's wallet
-*DefaultApi* | [**getInfo**](docs/DefaultApi.md#getinfo) | **GET** /info | get_info: Get information about the user's wallet connection
-*DefaultApi* | [**lookupInvoice**](docs/DefaultApi.md#lookupinvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash
-*DefaultApi* | [**lookupUser**](docs/DefaultApi.md#lookupuser) | **GET** /receiver/uma/{receiver_uma} | lookup_user: Get receiver info by UMA
-*DefaultApi* | [**makeInvoice**](docs/DefaultApi.md#makeinvoice) | **POST** /invoice | make_invoice: Create a new invoice
-*DefaultApi* | [**payInvoice**](docs/DefaultApi.md#payinvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice
-*DefaultApi* | [**payToAddress**](docs/DefaultApi.md#paytoaddress) | **POST** /payments/lnurl | pay_to_address: Pay to an LNURL address
+*UmaAuthApi* | [**executeQuote**](docs/UmaAuthApi.md#executequote) | **POST** /quote | execute_quote: Execute a quote
+*UmaAuthApi* | [**fetchQuote**](docs/UmaAuthApi.md#fetchquote) | **GET** /quote | fetch_quote: Get a quote for a payment
+*UmaAuthApi* | [**getBalance**](docs/UmaAuthApi.md#getbalance) | **GET** /balance | get_balance: Get the balance of the user's wallet
+*UmaAuthApi* | [**getInfo**](docs/UmaAuthApi.md#getinfo) | **GET** /info | get_info: Get information about the user's wallet connection
+*UmaAuthApi* | [**lookupInvoice**](docs/UmaAuthApi.md#lookupinvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash
+*UmaAuthApi* | [**lookupUser**](docs/UmaAuthApi.md#lookupuser) | **GET** /receiver/uma/{receiver_uma} | lookup_user: Get receiver info by UMA
+*UmaAuthApi* | [**makeInvoice**](docs/UmaAuthApi.md#makeinvoice) | **POST** /invoice | make_invoice: Create a new invoice
+*UmaAuthApi* | [**payInvoice**](docs/UmaAuthApi.md#payinvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice
+*UmaAuthApi* | [**payToAddress**](docs/UmaAuthApi.md#paytoaddress) | **POST** /payments/lnurl | pay_to_address: Pay to an LNURL address
 
 
 <a id="documentation-for-models"></a>

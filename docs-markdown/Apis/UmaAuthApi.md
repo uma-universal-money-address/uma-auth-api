@@ -1,18 +1,18 @@
-# DefaultApi
+# UmaAuthApi
 
 All URIs are relative to *http://localhost*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
-| [**executeQuote**](DefaultApi.md#executeQuote) | **POST** /quote | execute_quote: Execute a quote |
-| [**fetchQuote**](DefaultApi.md#fetchQuote) | **GET** /quote | fetch_quote: Get a quote for a payment |
-| [**getBalance**](DefaultApi.md#getBalance) | **GET** /balance | get_balance: Get the balance of the user&#39;s wallet |
-| [**getInfo**](DefaultApi.md#getInfo) | **GET** /info | get_info: Get information about the user&#39;s wallet connection |
-| [**lookupInvoice**](DefaultApi.md#lookupInvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash |
-| [**lookupUser**](DefaultApi.md#lookupUser) | **GET** /receiver/uma/{receiver_uma} | lookup_user: Get receiver info by UMA |
-| [**makeInvoice**](DefaultApi.md#makeInvoice) | **POST** /invoice | make_invoice: Create a new invoice |
-| [**payInvoice**](DefaultApi.md#payInvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice |
-| [**payToAddress**](DefaultApi.md#payToAddress) | **POST** /payments/lnurl | pay_to_address: Pay to an LNURL address |
+| [**executeQuote**](UmaAuthApi.md#executeQuote) | **POST** /quote | execute_quote: Execute a quote |
+| [**fetchQuote**](UmaAuthApi.md#fetchQuote) | **GET** /quote | fetch_quote: Get a quote for a payment |
+| [**getBalance**](UmaAuthApi.md#getBalance) | **GET** /balance | get_balance: Get the balance of the user&#39;s wallet |
+| [**getInfo**](UmaAuthApi.md#getInfo) | **GET** /info | get_info: Get information about the user&#39;s wallet connection |
+| [**lookupInvoice**](UmaAuthApi.md#lookupInvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash |
+| [**lookupUser**](UmaAuthApi.md#lookupUser) | **GET** /receiver/uma/{receiver_uma} | lookup_user: Get receiver info by UMA |
+| [**makeInvoice**](UmaAuthApi.md#makeInvoice) | **POST** /invoice | make_invoice: Create a new invoice |
+| [**payInvoice**](UmaAuthApi.md#payInvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice |
+| [**payToAddress**](UmaAuthApi.md#payToAddress) | **POST** /payments/lnurl | pay_to_address: Pay to an LNURL address |
 
 
 <a name="executeQuote"></a>

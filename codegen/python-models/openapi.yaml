@@ -27,6 +27,8 @@ paths:
                 $ref: '#/components/schemas/Invoice'
           description: OK
       summary: "make_invoice: Create a new invoice"
+      tags:
+      - UmaAuth
   /payments/bolt11:
     post:
       operationId: pay_invoice
@@ -43,6 +45,8 @@ paths:
                 $ref: '#/components/schemas/PayInvoiceResponse'
           description: OK
       summary: "pay_invoice: Pay a bolt11 invoice"
+      tags:
+      - UmaAuth
   /invoices/{payment_hash}:
     get:
       operationId: lookup_invoice
@@ -64,6 +68,8 @@ paths:
                 $ref: '#/components/schemas/Invoice'
           description: OK
       summary: "lookup_invoice: Get an invoice by its payment hash"
+      tags:
+      - UmaAuth
   /balance:
     get:
       operationId: get_balance
@@ -86,6 +92,8 @@ paths:
                 $ref: '#/components/schemas/GetBalanceResponse'
           description: OK
       summary: "get_balance: Get the balance of the user's wallet"
+      tags:
+      - UmaAuth
   /receiver/uma/{receiver_uma}:
     get:
       operationId: lookup_user
@@ -118,6 +126,8 @@ paths:
                 $ref: '#/components/schemas/LookupUserResponse'
           description: OK
       summary: "lookup_user: Get receiver info by UMA"
+      tags:
+      - UmaAuth
   /quote:
     get:
       operationId: fetch_quote
@@ -184,6 +194,8 @@ paths:
                 $ref: '#/components/schemas/Quote'
           description: OK
       summary: "fetch_quote: Get a quote for a payment"
+      tags:
+      - UmaAuth
     post:
       operationId: execute_quote
       requestBody:
@@ -199,6 +211,8 @@ paths:
                 $ref: '#/components/schemas/ExecuteQuoteResponse'
           description: OK
       summary: "execute_quote: Execute a quote"
+      tags:
+      - UmaAuth
   /payments/lnurl:
     post:
       operationId: pay_to_address
@@ -215,6 +229,8 @@ paths:
                 $ref: '#/components/schemas/PayToAddressResponse'
           description: OK
       summary: "pay_to_address: Pay to an LNURL address"
+      tags:
+      - UmaAuth
   /info:
     get:
       operationId: get_info
@@ -226,6 +242,8 @@ paths:
                 $ref: '#/components/schemas/GetInfoResponse'
           description: OK
       summary: "get_info: Get information about the user's wallet connection"
+      tags:
+      - UmaAuth
 components:
   schemas:
     Invoice:

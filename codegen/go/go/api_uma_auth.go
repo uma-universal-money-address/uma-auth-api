@@ -18,25 +18,25 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// DefaultAPIController binds http requests to an api service and writes the service results to the http response
-type DefaultAPIController struct {
-	service DefaultAPIServicer
+// UmaAuthAPIController binds http requests to an api service and writes the service results to the http response
+type UmaAuthAPIController struct {
+	service UmaAuthAPIServicer
 	errorHandler ErrorHandler
 }
 
-// DefaultAPIOption for how the controller is set up.
-type DefaultAPIOption func(*DefaultAPIController)
+// UmaAuthAPIOption for how the controller is set up.
+type UmaAuthAPIOption func(*UmaAuthAPIController)
 
-// WithDefaultAPIErrorHandler inject ErrorHandler into controller
-func WithDefaultAPIErrorHandler(h ErrorHandler) DefaultAPIOption {
-	return func(c *DefaultAPIController) {
+// WithUmaAuthAPIErrorHandler inject ErrorHandler into controller
+func WithUmaAuthAPIErrorHandler(h ErrorHandler) UmaAuthAPIOption {
+	return func(c *UmaAuthAPIController) {
 		c.errorHandler = h
 	}
 }
 
-// NewDefaultAPIController creates a default api controller
-func NewDefaultAPIController(s DefaultAPIServicer, opts ...DefaultAPIOption) *DefaultAPIController {
-	controller := &DefaultAPIController{
+// NewUmaAuthAPIController creates a default api controller
+func NewUmaAuthAPIController(s UmaAuthAPIServicer, opts ...UmaAuthAPIOption) *UmaAuthAPIController {
+	controller := &UmaAuthAPIController{
 		service:      s,
 		errorHandler: DefaultErrorHandler,
 	}
@@ -48,8 +48,8 @@ func NewDefaultAPIController(s DefaultAPIServicer, opts ...DefaultAPIOption) *De
 	return controller
 }
 
-// Routes returns all the api routes for the DefaultAPIController
-func (c *DefaultAPIController) Routes() Routes {
+// Routes returns all the api routes for the UmaAuthAPIController
+func (c *UmaAuthAPIController) Routes() Routes {
 	return Routes{
 		"ExecuteQuote": Route{
 			strings.ToUpper("Post"),
@@ -100,7 +100,7 @@ func (c *DefaultAPIController) Routes() Routes {
 }
 
 // ExecuteQuote - execute_quote: Execute a quote
-func (c *DefaultAPIController) ExecuteQuote(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) ExecuteQuote(w http.ResponseWriter, r *http.Request) {
 	executeQuoteRequestParam := ExecuteQuoteRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -127,7 +127,7 @@ func (c *DefaultAPIController) ExecuteQuote(w http.ResponseWriter, r *http.Reque
 }
 
 // FetchQuote - fetch_quote: Get a quote for a payment
-func (c *DefaultAPIController) FetchQuote(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) FetchQuote(w http.ResponseWriter, r *http.Request) {
 	query, err := parseQuery(r.URL.RawQuery)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
@@ -196,7 +196,7 @@ func (c *DefaultAPIController) FetchQuote(w http.ResponseWriter, r *http.Request
 }
 
 // GetBalance - get_balance: Get the balance of the user's wallet
-func (c *DefaultAPIController) GetBalance(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) GetBalance(w http.ResponseWriter, r *http.Request) {
 	query, err := parseQuery(r.URL.RawQuery)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
@@ -220,7 +220,7 @@ func (c *DefaultAPIController) GetBalance(w http.ResponseWriter, r *http.Request
 }
 
 // GetInfo - get_info: Get information about the user's wallet connection
-func (c *DefaultAPIController) GetInfo(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) GetInfo(w http.ResponseWriter, r *http.Request) {
 	result, err := c.service.GetInfo(r.Context())
 	// If an error occurred, encode the error with the status code
 	if err != nil {
@@ -232,7 +232,7 @@ func (c *DefaultAPIController) GetInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 // LookupInvoice - lookup_invoice: Get an invoice by its payment hash
-func (c *DefaultAPIController) LookupInvoice(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) LookupInvoice(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	paymentHashParam := params["payment_hash"]
 	if paymentHashParam == "" {
@@ -250,7 +250,7 @@ func (c *DefaultAPIController) LookupInvoice(w http.ResponseWriter, r *http.Requ
 }
 
 // LookupUser - lookup_user: Get receiver info by UMA
-func (c *DefaultAPIController) LookupUser(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) LookupUser(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	query, err := parseQuery(r.URL.RawQuery)
 	if err != nil {
@@ -280,7 +280,7 @@ func (c *DefaultAPIController) LookupUser(w http.ResponseWriter, r *http.Request
 }
 
 // MakeInvoice - make_invoice: Create a new invoice
-func (c *DefaultAPIController) MakeInvoice(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) MakeInvoice(w http.ResponseWriter, r *http.Request) {
 	makeInvoiceRequestParam := MakeInvoiceRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -307,7 +307,7 @@ func (c *DefaultAPIController) MakeInvoice(w http.ResponseWriter, r *http.Reques
 }
 
 // PayInvoice - pay_invoice: Pay a bolt11 invoice
-func (c *DefaultAPIController) PayInvoice(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) PayInvoice(w http.ResponseWriter, r *http.Request) {
 	payInvoiceRequestParam := PayInvoiceRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -334,7 +334,7 @@ func (c *DefaultAPIController) PayInvoice(w http.ResponseWriter, r *http.Request
 }
 
 // PayToAddress - pay_to_address: Pay to an LNURL address
-func (c *DefaultAPIController) PayToAddress(w http.ResponseWriter, r *http.Request) {
+func (c *UmaAuthAPIController) PayToAddress(w http.ResponseWriter, r *http.Request) {
 	payToAddressRequestParam := PayToAddressRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()

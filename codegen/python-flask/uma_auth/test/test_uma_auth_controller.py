@@ -4,7 +4,6 @@ from flask import json
 
 from uma_auth.models.execute_quote_request import ExecuteQuoteRequest  # noqa: E501
 from uma_auth.models.execute_quote_response import ExecuteQuoteResponse  # noqa: E501
-from uma_auth.models.get_balance_request import GetBalanceRequest  # noqa: E501
 from uma_auth.models.get_balance_response import GetBalanceResponse  # noqa: E501
 from uma_auth.models.get_info_response import GetInfoResponse  # noqa: E501
 from uma_auth.models.invoice import Invoice  # noqa: E501
@@ -18,8 +17,8 @@ from uma_auth.models.quote import Quote  # noqa: E501
 from uma_auth.test import BaseTestCase
 
 
-class TestDefaultController(BaseTestCase):
-    """DefaultController integration test stubs"""
+class TestUmaAuthController(BaseTestCase):
+    """UmaAuthController integration test stubs"""
 
     def test_execute_quote(self):
         """Test case for execute_quote
@@ -66,17 +65,15 @@ class TestDefaultController(BaseTestCase):
 
         get_balance: Get the balance of the user's wallet
         """
-        get_balance_request = {"currency_code":"USD"}
+        query_string = [('currency_code', 'USD')]
         headers = { 
             'Accept': 'application/json',
-            'Content-Type': 'application/json',
         }
         response = self.client.open(
             '/balance',
             method='GET',
             headers=headers,
-            data=json.dumps(get_balance_request),
-            content_type='application/json')
+            query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 

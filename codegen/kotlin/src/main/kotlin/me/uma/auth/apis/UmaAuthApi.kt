@@ -39,7 +39,7 @@ import me.uma.auth.models.PayToAddressRequest
 import me.uma.auth.models.PayToAddressResponse
 import me.uma.auth.models.Quote
 
-fun Route.DefaultApi() {
+fun Route.UmaAuthApi() {
     val gson = Gson()
     val empty = mutableMapOf<String, Any?>()
 

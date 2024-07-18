@@ -13,7 +13,7 @@ import com.codahale.metrics.Slf4jReporter
 import io.ktor.server.metrics.dropwizard.*
 import java.util.concurrent.TimeUnit
 import io.ktor.server.routing.*
-import me.uma.auth.apis.DefaultApi
+import me.uma.auth.apis.UmaAuthApi
 
 
 
@@ -35,7 +35,7 @@ fun Application.main() {
     install(HSTS, ApplicationHstsConfiguration()) // see https://ktor.io/docs/hsts.html
     install(Resources)
     install(Routing) {
-        DefaultApi()
+        UmaAuthApi()
     }
 
 }

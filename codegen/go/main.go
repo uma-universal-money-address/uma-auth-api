@@ -20,10 +20,10 @@ import (
 func main() {
 	log.Printf("Server started")
 
-	DefaultAPIService := umaauth.NewDefaultAPIService()
-	DefaultAPIController := umaauth.NewDefaultAPIController(DefaultAPIService)
+	UmaAuthAPIService := umaauth.NewUmaAuthAPIService()
+	UmaAuthAPIController := umaauth.NewUmaAuthAPIController(UmaAuthAPIService)
 
-	router := umaauth.NewRouter(DefaultAPIController)
+	router := umaauth.NewRouter(UmaAuthAPIController)
 
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

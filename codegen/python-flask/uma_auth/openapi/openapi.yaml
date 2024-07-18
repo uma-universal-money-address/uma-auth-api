@@ -33,7 +33,9 @@ paths:
                 $ref: '#/components/schemas/GetBalanceResponse'
           description: OK
       summary: "get_balance: Get the balance of the user's wallet"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /info:
     get:
       operationId: get_info
@@ -45,7 +47,9 @@ paths:
                 $ref: '#/components/schemas/GetInfoResponse'
           description: OK
       summary: "get_info: Get information about the user's wallet connection"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /invoice:
     post:
       operationId: make_invoice
@@ -62,7 +66,9 @@ paths:
                 $ref: '#/components/schemas/Invoice'
           description: OK
       summary: "make_invoice: Create a new invoice"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /invoices/{payment_hash}:
     get:
       operationId: lookup_invoice
@@ -84,7 +90,9 @@ paths:
                 $ref: '#/components/schemas/Invoice'
           description: OK
       summary: "lookup_invoice: Get an invoice by its payment hash"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /payments/bolt11:
     post:
       operationId: pay_invoice
@@ -101,7 +109,9 @@ paths:
                 $ref: '#/components/schemas/PayInvoiceResponse'
           description: OK
       summary: "pay_invoice: Pay a bolt11 invoice"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /payments/lnurl:
     post:
       operationId: pay_to_address
@@ -118,7 +128,9 @@ paths:
                 $ref: '#/components/schemas/PayToAddressResponse'
           description: OK
       summary: "pay_to_address: Pay to an LNURL address"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /quote:
     get:
       operationId: fetch_quote
@@ -185,7 +197,9 @@ paths:
                 $ref: '#/components/schemas/Quote'
           description: OK
       summary: "fetch_quote: Get a quote for a payment"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
     post:
       operationId: execute_quote
       requestBody:
@@ -201,7 +215,9 @@ paths:
                 $ref: '#/components/schemas/ExecuteQuoteResponse'
           description: OK
       summary: "execute_quote: Execute a quote"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /receiver/uma/{receiver_uma}:
     get:
       operationId: lookup_user
@@ -234,7 +250,9 @@ paths:
                 $ref: '#/components/schemas/LookupUserResponse'
           description: OK
       summary: "lookup_user: Get receiver info by UMA"
-      x-openapi-router-controller: uma_auth.controllers.default_controller
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
 components:
   schemas:
     Invoice:

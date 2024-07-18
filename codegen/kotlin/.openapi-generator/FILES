@@ -6,7 +6,7 @@ settings.gradle
 src/main/kotlin/me/uma/auth/AppMain.kt
 src/main/kotlin/me/uma/auth/Configuration.kt
 src/main/kotlin/me/uma/auth/Paths.kt
-src/main/kotlin/me/uma/auth/apis/DefaultApi.kt
+src/main/kotlin/me/uma/auth/apis/UmaAuthApi.kt
 src/main/kotlin/me/uma/auth/infrastructure/ApiKeyAuth.kt
 src/main/kotlin/me/uma/auth/models/CurrencyPreference.kt
 src/main/kotlin/me/uma/auth/models/ExecuteQuoteRequest.kt
