@@ -11,12 +11,16 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type MakeInvoiceRequest struct {
 
 	// The amount to invoice in msats.
-	Amount float32 `json:"amount"`
+	Amount int32 `json:"amount"`
 
 	// A memo to attach to the invoice.
 	Description string `json:"description,omitempty"`
@@ -25,7 +29,7 @@ type MakeInvoiceRequest struct {
 	DescriptionHash string `json:"description_hash,omitempty"`
 
 	// The number of seconds until the invoice expires.
-	Expiry float32 `json:"expiry,omitempty"`
+	Expiry int32 `json:"expiry,omitempty"`
 }
 
 // AssertMakeInvoiceRequestRequired checks if the required fields are not zero-ed
@@ -44,5 +48,8 @@ func AssertMakeInvoiceRequestRequired(obj MakeInvoiceRequest) error {
 
 // AssertMakeInvoiceRequestConstraints checks if the values respects the defined constraints
 func AssertMakeInvoiceRequestConstraints(obj MakeInvoiceRequest) error {
+	if obj.Amount < 0 {
+		return &ParsingError{Param: "Amount", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

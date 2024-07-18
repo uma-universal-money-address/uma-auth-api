@@ -24,7 +24,6 @@ All URIs are relative to *http://localhost*
  - [CurrencyPreference](./Models/CurrencyPreference.md)
  - [ExecuteQuoteRequest](./Models/ExecuteQuoteRequest.md)
  - [ExecuteQuoteResponse](./Models/ExecuteQuoteResponse.md)
- - [GetBalanceRequest](./Models/GetBalanceRequest.md)
  - [GetBalanceResponse](./Models/GetBalanceResponse.md)
  - [GetInfoResponse](./Models/GetInfoResponse.md)
  - [Invoice](./Models/Invoice.md)

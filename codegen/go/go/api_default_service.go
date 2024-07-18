@@ -39,7 +39,7 @@ func (s *DefaultAPIService) ExecuteQuote(ctx context.Context, executeQuoteReques
 }
 
 // FetchQuote - fetch_quote: Get a quote for a payment
-func (s *DefaultAPIService) FetchQuote(ctx context.Context, sendingCurrencyCode string, receivingCurrencyCode string, lockedCurrencyAmount float32, lockedCurrencySide string, receivingAddress string) (ImplResponse, error) {
+func (s *DefaultAPIService) FetchQuote(ctx context.Context, sendingCurrencyCode string, receivingCurrencyCode string, lockedCurrencyAmount int32, lockedCurrencySide string, receivingAddress string) (ImplResponse, error) {
 	// TODO - update FetchQuote with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 
@@ -50,7 +50,7 @@ func (s *DefaultAPIService) FetchQuote(ctx context.Context, sendingCurrencyCode 
 }
 
 // GetBalance - get_balance: Get the balance of the user&#39;s wallet
-func (s *DefaultAPIService) GetBalance(ctx context.Context, getBalanceRequest GetBalanceRequest) (ImplResponse, error) {
+func (s *DefaultAPIService) GetBalance(ctx context.Context, currencyCode string) (ImplResponse, error) {
 	// TODO - update GetBalance with the required logic for this service method.
 	// Add api_default_service.go to the .openapi-generator-ignore to avoid overwriting this service implementation when updating open api generation.
 

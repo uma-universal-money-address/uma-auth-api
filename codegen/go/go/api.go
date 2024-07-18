@@ -39,8 +39,8 @@ type DefaultAPIRouter interface {
 // and updated with the logic required for the API.
 type DefaultAPIServicer interface { 
 	ExecuteQuote(context.Context, ExecuteQuoteRequest) (ImplResponse, error)
-	FetchQuote(context.Context, string, string, float32, string, string) (ImplResponse, error)
-	GetBalance(context.Context, GetBalanceRequest) (ImplResponse, error)
+	FetchQuote(context.Context, string, string, int32, string, string) (ImplResponse, error)
+	GetBalance(context.Context, string) (ImplResponse, error)
 	GetInfo(context.Context) (ImplResponse, error)
 	LookupInvoice(context.Context, string) (ImplResponse, error)
 	LookupUser(context.Context, string, string) (ImplResponse, error)

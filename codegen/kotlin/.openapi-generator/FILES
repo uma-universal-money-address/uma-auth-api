@@ -11,7 +11,6 @@ src/main/kotlin/me/uma/auth/infrastructure/ApiKeyAuth.kt
 src/main/kotlin/me/uma/auth/models/CurrencyPreference.kt
 src/main/kotlin/me/uma/auth/models/ExecuteQuoteRequest.kt
 src/main/kotlin/me/uma/auth/models/ExecuteQuoteResponse.kt
-src/main/kotlin/me/uma/auth/models/GetBalanceRequest.kt
 src/main/kotlin/me/uma/auth/models/GetBalanceResponse.kt
 src/main/kotlin/me/uma/auth/models/GetInfoResponse.kt
 src/main/kotlin/me/uma/auth/models/Invoice.kt

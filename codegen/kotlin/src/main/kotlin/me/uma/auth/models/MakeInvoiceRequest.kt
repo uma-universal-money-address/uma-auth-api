@@ -21,12 +21,12 @@ package me.uma.auth.models
  */
 data class MakeInvoiceRequest(
     /* The amount to invoice in msats. */
-    val amount: java.math.BigDecimal,
+    val amount: kotlin.Int,
     /* A memo to attach to the invoice. */
     val description: kotlin.String? = null,
     /* A hash of a longer description field. */
     val descriptionHash: kotlin.String? = null,
     /* The number of seconds until the invoice expires. */
-    val expiry: java.math.BigDecimal? = null
+    val expiry: kotlin.Int? = null
 ) 
 

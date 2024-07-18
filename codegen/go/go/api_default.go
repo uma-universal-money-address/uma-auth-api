@@ -151,11 +151,11 @@ func (c *DefaultAPIController) FetchQuote(w http.ResponseWriter, r *http.Request
 		c.errorHandler(w, r, &RequiredError{Field: "receiving_currency_code"}, nil)
 		return
 	}
-	var lockedCurrencyAmountParam float32
+	var lockedCurrencyAmountParam int32
 	if query.Has("locked_currency_amount") {
-		param, err := parseNumericParameter[float32](
+		param, err := parseNumericParameter[int32](
 			query.Get("locked_currency_amount"),
-			WithParse[float32](parseFloat32),
+			WithParse[int32](parseInt32),
 		)
 		if err != nil {
 			c.errorHandler(w, r, &ParsingError{Param: "locked_currency_amount", Err: err}, nil)
@@ -197,22 +197,19 @@ func (c *DefaultAPIController) FetchQuote(w http.ResponseWriter, r *http.Request
 
 // GetBalance - get_balance: Get the balance of the user's wallet
 func (c *DefaultAPIController) GetBalance(w http.ResponseWriter, r *http.Request) {
-	getBalanceRequestParam := GetBalanceRequest{}
-	d := json.NewDecoder(r.Body)
-	d.DisallowUnknownFields()
-	if err := d.Decode(&getBalanceRequestParam); err != nil && !errors.Is(err, io.EOF) {
+	query, err := parseQuery(r.URL.RawQuery)
+	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	if err := AssertGetBalanceRequestRequired(getBalanceRequestParam); err != nil {
-		c.errorHandler(w, r, err, nil)
-		return
+	var currencyCodeParam string
+	if query.Has("currency_code") {
+		param := query.Get("currency_code")
+
+		currencyCodeParam = param
+	} else {
 	}
-	if err := AssertGetBalanceRequestConstraints(getBalanceRequestParam); err != nil {
-		c.errorHandler(w, r, err, nil)
-		return
-	}
-	result, err := c.service.GetBalance(r.Context(), getBalanceRequestParam)
+	result, err := c.service.GetBalance(r.Context(), currencyCodeParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)

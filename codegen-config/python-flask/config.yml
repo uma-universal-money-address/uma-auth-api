@@ -1,0 +1,13 @@
+templateDir: codegen-config/python-flask/templates
+additionalProperties:
+  infoEmail: "info@lightspark.com"
+  packageUrl: https://github.com/uma-universal-money-address/uma-auth-api
+  packageVersion: 0.0.1
+packageName: uma_auth
+files:
+  LICENSE: {}
+  pyproject.toml: {}
+  .pylintrc: {}
+  .pyre_configuration: {}
+  py.typed:
+    folder: uma_auth

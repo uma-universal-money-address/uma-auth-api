@@ -28,7 +28,6 @@ import io.ktor.server.routing.*
 import me.uma.auth.infrastructure.ApiPrincipal
 import me.uma.auth.models.ExecuteQuoteRequest
 import me.uma.auth.models.ExecuteQuoteResponse
-import me.uma.auth.models.GetBalanceRequest
 import me.uma.auth.models.GetBalanceResponse
 import me.uma.auth.models.GetInfoResponse
 import me.uma.auth.models.Invoice

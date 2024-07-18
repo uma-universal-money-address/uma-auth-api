@@ -12,7 +12,6 @@ go/logger.go
 go/model_currency_preference.go
 go/model_execute_quote_request.go
 go/model_execute_quote_response.go
-go/model_get_balance_request.go
 go/model_get_balance_response.go
 go/model_get_info_response.go
 go/model_invoice.go

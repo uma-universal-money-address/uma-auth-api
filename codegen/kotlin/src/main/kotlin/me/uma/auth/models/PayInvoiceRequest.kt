@@ -21,6 +21,6 @@ data class PayInvoiceRequest(
     /* The bolt11 invoice to pay. */
     val invoice: kotlin.String,
     /* The amount to pay for a 0-amount invoice. */
-    val amount: java.math.BigDecimal? = null
+    val amount: kotlin.Int? = null
 ) 
 

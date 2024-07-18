@@ -7,7 +7,7 @@
 | **color** | **String** | The color of the user&#39;s node. | [optional] [default to null] |
 | **pubkey** | **String** | The pubkey of the user&#39;s node. | [default to null] |
 | **network** | **String** | The bitcoin network of the user&#39;s node. | [default to null] |
-| **block\_height** | **BigDecimal** | The current block height of the user&#39;s node. | [optional] [default to null] |
+| **block\_height** | **Integer** | The current block height of the user&#39;s node. | [optional] [default to null] |
 | **block\_hash** | **String** | The current block hash of the user&#39;s node. | [optional] [default to null] |
 | **methods** | **List** | A list of supported methods for this connection. | [default to null] |
 | **lud16** | **String** | The lightning or UMA address for the user. | [optional] [default to null] |

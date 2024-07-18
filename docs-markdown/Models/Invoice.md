@@ -4,7 +4,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 | **payment\_request** | **String** | The full, encoded payment request. | [default to null] |
-| **amount** | **BigDecimal** | The amount of the invoice in msats. | [default to null] |
+| **amount** | **Integer** | The amount of the invoice in msats. | [default to null] |
 | **payment\_hash** | **String** | The payment hash of the invoice. | [default to null] |
 | **memo** | **String** | A memo attached to the invoice. | [optional] [default to null] |
 | **metadata** | [**Object**](.md) | Additional metadata attached to the invoice. | [optional] [default to null] |

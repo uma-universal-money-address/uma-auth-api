@@ -32,14 +32,14 @@ object Paths {
      * @param lockedCurrencySide The side of the quote which should be locked and specified in the &#x60;locked_currency_amount&#x60;. For example, if I want to send exactly $5 MXN from my wallet, I would set this to \&quot;sending\&quot;, and the &#x60;locked_currency_amount&#x60; to 500 (in cents). If I want the receiver to receive exactly $10 USD, I would set this to \&quot;receiving\&quot; and the &#x60;locked_currency_amount&#x60; to 10000 (in cents). 
      * @param receivingAddress The UMA address to send the payment to. 
      */
-    @Serializable @Resource("/quote") class fetchQuote(val sendingCurrencyCode: kotlin.String, val receivingCurrencyCode: kotlin.String, val lockedCurrencyAmount: java.math.BigDecimal, val lockedCurrencySide: kotlin.String, val receivingAddress: kotlin.String)
+    @Serializable @Resource("/quote") class fetchQuote(val sendingCurrencyCode: kotlin.String, val receivingCurrencyCode: kotlin.String, val lockedCurrencyAmount: kotlin.Int, val lockedCurrencySide: kotlin.String, val receivingAddress: kotlin.String)
 
     /**
      * get_balance: Get the balance of the user&#39;s wallet
      * 
-     * @param getBalanceRequest  (optional)
+     * @param currencyCode The currency code of the balance. Assumed to be in msats if not provided.  (optional)
      */
-    @Serializable @Resource("/balance") class getBalance(val getBalanceRequest: GetBalanceRequest? = null)
+    @Serializable @Resource("/balance") class getBalance(val currencyCode: kotlin.String? = null)
 
     /**
      * get_info: Get information about the user&#39;s wallet connection
