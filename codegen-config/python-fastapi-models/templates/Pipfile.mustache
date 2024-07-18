@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pydantic = "*"
+typing-extensions = "*"
+{{#apis}}
+fastapi = "*"
+promise = "*"
+requests = "*"
+urllib3 = "*"
+uvicorn = "*"
+{{/apis}}
+
+[dev-packages]
+black = "*"
+pytest = "*"
+isort = "*"
+pylint = "*"
+pyre-check = "*"

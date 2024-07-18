@@ -1,0 +1,32 @@
+[metadata]
+name = {{packageName}}
+version = {{appVersion}}
+description = {{appDescription}}
+long_description = file: README.md
+long_description_content_type = text/markdown
+author = Lightspark Group, Inc.
+author_email = info@lightspark.com
+keywords = OpenAPI {{appName}}
+python_requires = >= {{{generatorLanguageVersion}}}.*
+license = Apache-2.0
+license_files = LICENSE
+project_urls =
+  Documentation = https://docs.uma.me/
+  Source Code = https://github.com/uma-universal-money-address/uma-auth-api/
+classifiers =
+    Operating System :: OS Independent
+    Programming Language :: Python :: 3
+    Programming Language :: Python :: {{{generatorLanguageVersion}}}
+
+[options]
+install_requires = fastapi[all]
+include_package_data = True
+setup_requires = setuptools
+package_dir = ={{sourceFolder}}
+packages = find_namespace:
+
+[options.package_data]
+ "*" = openapi.yaml
+
+[options.packages.find]
+where = {{sourceFolder}}
