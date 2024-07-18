@@ -1,4 +1,4 @@
-templateDir: codegen-config/python-fastapi/templates
+templateDir: codegen-config/python-fastapi-models/templates
 additionalProperties:
   infoEmail: "info@lightspark.com"
   packageUrl: https://github.com/uma-universal-money-address/uma-auth-api
@@ -9,7 +9,8 @@ files:
     destinationFilename: setup.cfg
   README.mustache:
     destinationFilename: README.md
-  Pipfile: {}
+  Pipfile.mustache:
+    destinationFilename: Pipfile
   LICENSE: {}
   pyproject.toml: {}
   .pylintrc: {}

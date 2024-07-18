@@ -229,70 +229,50 @@ paths:
 components:
   schemas:
     Invoice:
-      example:
-        amount: 1000
-        metadata: {}
-        expires_at: 2021-01-01T00:00:00Z
-        payment_request: lntb1u1pw0k7jw
-        preimage: abcd1234
-        memo: Payment for services rendered.
-        created_at: 2021-01-01T00:00:00Z
-        settled_at: 2021-01-01T00:00:00Z
-        payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-        type: incoming
       properties:
         payment_request:
           description: "The full, encoded payment request."
           example: lntb1u1pw0k7jw
-          title: payment_request
           type: string
         amount:
           description: The amount of the invoice in msats.
           example: 1000
-          title: amount
           type: integer
         payment_hash:
           description: The payment hash of the invoice.
           example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-          title: payment_hash
           type: string
         memo:
           description: A memo attached to the invoice.
           example: Payment for services rendered.
           nullable: true
-          title: memo
           type: string
         metadata:
           description: Additional metadata attached to the invoice.
           example: {}
           nullable: true
-          title: metadata
           type: object
         preimage:
           description: The payment preimage of the invoice.
           example: abcd1234
           nullable: true
-          title: preimage
           type: string
         expires_at:
           description: The time the invoice expires.
           example: 2021-01-01T00:00:00Z
           format: date-time
           nullable: true
-          title: expires_at
           type: string
         created_at:
           description: The time the invoice was created.
           example: 2021-01-01T00:00:00Z
           format: date-time
-          title: created_at
           type: string
         settled_at:
           description: The time the invoice was settled.
           example: 2021-01-01T00:00:00Z
           format: date-time
           nullable: true
-          title: settled_at
           type: string
         type:
           description: Whether the invoice is incoming (created by this user) or outgoing
@@ -300,7 +280,6 @@ components:
           enum:
           - incoming
           - outgoing
-          title: type
           type: string
       required:
       - amount
@@ -308,19 +287,8 @@ components:
       - payment_hash
       - payment_request
       - type
-      title: Invoice
       type: object
     Quote:
-      example:
-        sending_currency_code: MXN
-        receiving_currency_code: USD
-        fees: 10
-        expires_at: 2021-01-01T00:00:00Z
-        total_sending_amount: 123010
-        total_receiving_amount: 1000
-        multiplier: 123
-        created_at: 2021-01-01T00:00:00Z
-        payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
       properties:
         sending_currency_code:
           description: The currency code of the sender's balance.
@@ -386,14 +354,6 @@ components:
       title: Quote
       type: object
     CurrencyPreference:
-      example:
-        symbol: $
-        code: USD
-        min: 1
-        max: 1000000
-        multiplier: 100000000
-        decimals: 2
-        name: United States Dollar
       properties:
         code:
           description: The ISO-4217 currency code.
@@ -451,171 +411,117 @@ components:
       title: CurrencyPreference
       type: object
     MakeInvoiceRequest:
-      example:
-        amount: 1000
-        description_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-        description: Payment for services rendered.
-        expiry: 3600
       properties:
         amount:
           description: The amount to invoice in msats.
           example: 1000
           minimum: 0
-          title: amount
           type: integer
         description:
           description: A memo to attach to the invoice.
           example: Payment for services rendered.
-          title: description
           type: string
         description_hash:
           description: A hash of a longer description field.
           example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-          title: description_hash
           type: string
         expiry:
           description: The number of seconds until the invoice expires.
           example: 3600
-          title: expiry
           type: integer
       required:
       - amount
       title: MakeInvoiceRequest
       type: object
     PayInvoiceRequest:
-      example:
-        amount: 1000
-        invoice: lntb1u1pw0k7jw
       properties:
         invoice:
           description: The bolt11 invoice to pay.
           example: lntb1u1pw0k7jw
-          title: invoice
           type: string
         amount:
           description: The amount to pay for a 0-amount invoice.
           example: 1000
           nullable: true
-          title: amount
           type: integer
       required:
       - invoice
       title: PayInvoiceRequest
       type: object
     PayInvoiceResponse:
-      example:
-        preimage: abcd1234
       properties:
         preimage:
           description: The preimage of the payment.
           example: abcd1234
-          title: preimage
           type: string
       required:
       - preimage
       title: PayInvoiceResponse
       type: object
     GetBalanceResponse:
-      example:
-        balance: 1000
-        currency_code: USD
       properties:
         balance:
           description: The balance of the user's wallet.
           example: 1000
-          title: balance
           type: number
         currency_code:
           description: The currency code of the balance. Assumed to be msats if not
             provided.
           example: USD
           nullable: true
-          title: currency_code
           type: string
       required:
       - balance
       title: GetBalanceResponse
       type: object
     LookupUserResponse:
-      example:
-        currencies:
-        - symbol: $
-          code: USD
-          min: 1
-          max: 1000000
-          multiplier: 100000000
-          decimals: 2
-          name: United States Dollar
-        - symbol: $
-          code: USD
-          min: 1
-          max: 1000000
-          multiplier: 100000000
-          decimals: 2
-          name: United States Dollar
       properties:
         currencies:
           description: The currencies the receiver accepts in order of preference.
           items:
             $ref: '#/components/schemas/CurrencyPreference'
-          title: currencies
           type: array
       title: LookupUserResponse
       type: object
     ExecuteQuoteRequest:
-      example:
-        payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
       properties:
         payment_hash:
           description: The payment hash of the quote to execute.
           example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-          title: payment_hash
           type: string
       required:
       - payment_hash
       title: ExecuteQuoteRequest
       type: object
     ExecuteQuoteResponse:
-      example:
-        preimage: abcd1234
       properties:
         preimage:
           description: The preimage of the payment.
           example: abcd1234
-          title: preimage
           type: string
       required:
       - preimage
       title: ExecuteQuoteResponse
       type: object
     PayToAddressRequest:
-      example:
-        sending_currency_code: MXN
-        receiving_currency_code: USD
-        receiver_address: $alice@vasp.net
-        sending_currency_amount: 1000
       properties:
         receiver_address:
           description: The address to pay.
           example: $alice@vasp.net
-          title: receiver_address
           type: string
         sending_currency_code:
           description: The code of the currency being sent from the sender's wallet.
           example: MXN
-          title: sending_currency_code
           type: string
         sending_currency_amount:
           description: The amount to send in the smallest unit of the sending currency
             (eg. cents).
           example: 1000
-          title: sending_currency_amount
           type: integer
         receiving_currency_code:
           description: "The code of the currency being received by the receiver. If\
             \ not provided, the receiver's default currency will be used."
           example: USD
-          title: receiving_currency_code
           type: string
       required:
       - receiver_address
@@ -624,23 +530,10 @@ components:
       title: PayToAddressRequest
       type: object
     PayToAddressResponse:
-      example:
-        quote:
-          sending_currency_code: MXN
-          receiving_currency_code: USD
-          fees: 10
-          expires_at: 2021-01-01T00:00:00Z
-          total_sending_amount: 123010
-          total_receiving_amount: 1000
-          multiplier: 123
-          created_at: 2021-01-01T00:00:00Z
-          payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-        preimage: abcd1234
       properties:
         preimage:
           description: The preimage of the payment.
           example: abcd1234
-          title: preimage
           type: string
         quote:
           $ref: '#/components/schemas/Quote'
@@ -650,47 +543,18 @@ components:
       title: PayToAddressResponse
       type: object
     GetInfoResponse:
-      example:
-        color: '#FF0000'
-        methods:
-        - make_invoice
-        - make_invoice
-        lud16: $alice@vasp.net
-        alias: Alice's Wallet
-        block_hash: abcd1234
-        block_height: 1000
-        pubkey: abcd1234
-        network: testnet
-        currencies:
-        - symbol: $
-          code: USD
-          min: 1
-          max: 1000000
-          multiplier: 100000000
-          decimals: 2
-          name: United States Dollar
-        - symbol: $
-          code: USD
-          min: 1
-          max: 1000000
-          multiplier: 100000000
-          decimals: 2
-          name: United States Dollar
       properties:
         alias:
           description: The alias of the user's node.
           example: Alice's Wallet
-          title: alias
           type: string
         color:
           description: The color of the user's node.
           example: '#FF0000'
-          title: color
           type: string
         pubkey:
           description: The pubkey of the user's node.
           example: abcd1234
-          title: pubkey
           type: string
         network:
           description: The bitcoin network of the user's node.
@@ -700,17 +564,14 @@ components:
           - testnet
           - mainnet
           example: testnet
-          title: network
           type: string
         block_height:
           description: The current block height of the user's node.
           example: 1000
-          title: block_height
           type: integer
         block_hash:
           description: The current block hash of the user's node.
           example: abcd1234
-          title: block_hash
           type: string
         methods:
           description: A list of supported methods for this connection.
@@ -718,19 +579,16 @@ components:
             description: The name of method.
             example: make_invoice
             type: string
-          title: methods
           type: array
         lud16:
           description: The lightning or UMA address for the user.
           example: $alice@vasp.net
-          title: lud16
           type: string
         currencies:
           description: "The currencies the user's wallet supports. Ordered by preference.\
             \ If not provided, assume this user only supports BTC."
           items:
             $ref: '#/components/schemas/CurrencyPreference'
-          title: currencies
           type: array
       required:
       - methods

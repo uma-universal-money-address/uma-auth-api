@@ -22,4 +22,14 @@
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
 
+# Skipping APIs
+src/uma_auth/apis/__init__.py
+src/uma_auth/security_api.py
+src/openapi_server/impl/__init__.py
+
+# Just generating a model lib. No need for main.py.
+src/uma_auth/main.py
 requirements.txt
+Dockerfile
+docker-compose.yaml
+tests/
