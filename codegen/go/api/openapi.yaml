@@ -9,7 +9,16 @@ info:
   title: UMA Auth API
   version: "0.1"
 servers:
-- url: /
+- description: The production VASP API server
+  url: "https://{vasp_host}/{basePath}"
+  variables:
+    vasp_host:
+      default: vasp.net
+      description: This value should be defined by the UMA VASP implementation.
+    basePath:
+      default: umanwc/v1
+security:
+- bearerAuth: []
 paths:
   /invoice:
     post:
@@ -26,6 +35,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Invoice'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "make_invoice: Create a new invoice"
       tags:
       - UmaAuth
@@ -44,6 +59,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/PayInvoiceResponse'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "pay_invoice: Pay a bolt11 invoice"
       tags:
       - UmaAuth
@@ -67,6 +88,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Invoice'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "lookup_invoice: Get an invoice by its payment hash"
       tags:
       - UmaAuth
@@ -91,6 +118,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetBalanceResponse'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "get_balance: Get the balance of the user's wallet"
       tags:
       - UmaAuth
@@ -125,6 +158,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/LookupUserResponse'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "lookup_user: Get receiver info by UMA"
       tags:
       - UmaAuth
@@ -193,6 +232,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Quote'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "fetch_quote: Get a quote for a payment"
       tags:
       - UmaAuth
@@ -210,6 +255,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ExecuteQuoteResponse'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "execute_quote: Execute a quote"
       tags:
       - UmaAuth
@@ -228,6 +279,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/PayToAddressResponse'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "pay_to_address: Pay to an LNURL address"
       tags:
       - UmaAuth
@@ -241,6 +298,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/GetInfoResponse'
           description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
       summary: "get_info: Get information about the user's wallet connection"
       tags:
       - UmaAuth
@@ -438,6 +501,23 @@ components:
       - multiplier
       - name
       - symbol
+      type: object
+    ErrorResponse:
+      example:
+        code: NOT_IMPLEMENTED
+        message: This feature is not implemented.
+      properties:
+        code:
+          description: The error code.
+          example: NOT_IMPLEMENTED
+          type: string
+        message:
+          description: The error message.
+          example: This feature is not implemented.
+          type: string
+      required:
+      - code
+      - message
       type: object
     MakeInvoiceRequest:
       example:
@@ -701,3 +781,8 @@ components:
       - pubkey
       title: GetInfoResponse
       type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

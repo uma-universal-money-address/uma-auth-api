@@ -1,0 +1,20 @@
+name: "OpenAPI Lint"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: Test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: openapi-lint
+        uses: mhiew/redoc-lint-github-action@v4
+        with:
+          args: "uma-auth-api.yml"

@@ -10,6 +10,20 @@ info:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 
+servers:
+- url: https://{vasp_host}/{basePath}
+  description: The production VASP API server
+  variables:
+    vasp_host:
+      default: vasp.net
+      description: This value should be defined by the UMA VASP implementation.
+    basePath:
+      # open meaning there is the opportunity to use special base paths as assigned by the provider, default is `umanwc/v1`
+      default: umanwc/v1
+
+security:
+  - bearerAuth: []
+
 paths:
   /invoice:
     post:
@@ -50,6 +64,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Invoice'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /payments/bolt11:
     post:
       operationId: pay_invoice
@@ -89,6 +109,12 @@ paths:
                     example: abcd1234
                 required:
                   - preimage
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /invoices/{payment_hash}:
     get:
       operationId: lookup_invoice
@@ -110,6 +136,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Invoice'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /balance:
     get:
       operationId: get_balance
@@ -145,6 +177,12 @@ paths:
                     nullable: true
                 required:
                   - balance
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /receiver/uma/{receiver_uma}:
     get:
       operationId: lookup_user
@@ -182,6 +220,12 @@ paths:
                     description: The currencies the receiver accepts in order of preference.
                     items:
                       $ref: '#/components/schemas/CurrencyPreference'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /quote:
     get:
@@ -241,6 +285,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Quote'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
     post:
       operationId: execute_quote
       tags:
@@ -274,6 +324,12 @@ paths:
                     example: abcd1234
                 required:
                   - preimage
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /payments/lnurl:
     post:
       operationId: pay_to_address
@@ -326,6 +382,12 @@ paths:
                 required:
                   - preimage
                   - quote
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /info:
     get:
       operationId: get_info
@@ -390,7 +452,19 @@ paths:
                   - pubkey
                   - network
                   - methods
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     Invoice:
       type: object
@@ -549,3 +623,17 @@ components:
         - decimals
         - min
         - max
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code.
+          example: "NOT_IMPLEMENTED"
+        message:
+          type: string
+          description: The error message.
+          example: "This feature is not implemented."
+      required: 
+        - code
+        - message

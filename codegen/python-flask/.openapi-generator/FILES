@@ -16,6 +16,7 @@ uma_auth/controllers/uma_auth_controller.py
 uma_auth/models/__init__.py
 uma_auth/models/base_model.py
 uma_auth/models/currency_preference.py
+uma_auth/models/error_response.py
 uma_auth/models/execute_quote_request.py
 uma_auth/models/execute_quote_response.py
 uma_auth/models/get_balance_response.py

@@ -1,6 +1,7 @@
 # flake8: noqa
 # import models into model package
 from uma_auth.models.currency_preference import CurrencyPreference
+from uma_auth.models.error_response import ErrorResponse
 from uma_auth.models.execute_quote_request import ExecuteQuoteRequest
 from uma_auth.models.execute_quote_response import ExecuteQuoteResponse
 from uma_auth.models.get_balance_response import GetBalanceResponse

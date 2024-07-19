@@ -12,6 +12,7 @@ setup.cfg
 src/py.typed
 src/uma_auth/models/__init__.py
 src/uma_auth/models/currency_preference.py
+src/uma_auth/models/error_response.py
 src/uma_auth/models/execute_quote_request.py
 src/uma_auth/models/execute_quote_response.py
 src/uma_auth/models/extra_models.py
