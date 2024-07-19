@@ -11,3 +11,5 @@ files:
   .pyre_configuration: {}
   py.typed:
     folder: uma_auth
+  README.mustache:
+    destinationFilename: README.md

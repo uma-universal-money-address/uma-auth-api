@@ -18,26 +18,26 @@ To run the server, please execute the following from the root directory:
 
 ```bash
 pip3 install -r requirements.txt
-python3 -m uma_auth
+python3 -m {{packageName}}
 ```
 
 or with pipenv:
 
 ```bash
 pipenv install --dev
-pipenv run python -m uma_auth
+pipenv run python -m {{packageName}}
 ```
 
 and open your browser to here:
 
 ```
-http://localhost:8080/umanwc/v1/ui/
+http://localhost:{{serverPort}}{{contextPath}}/ui/
 ```
 
 Your OpenAPI definition lives here:
 
 ```
-http://localhost:8080/umanwc/v1/openapi.json
+http://localhost:{{serverPort}}{{contextPath}}/openapi.json
 ```
 
 To launch the integration tests, use tox:
@@ -53,8 +53,8 @@ To run the server on a Docker container, please execute the following from the r
 
 ```bash
 # building the image
-docker build -t uma_auth .
+docker build -t {{packageName}} .
 
 # starting up a container
-docker run -p 8080:8080 uma_auth
+docker run -p {{serverPort}}:{{serverPort}} {{packageName}}
 ```
