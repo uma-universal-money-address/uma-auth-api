@@ -26,6 +26,7 @@ import io.ktor.server.resources.head
 import io.ktor.server.resources.patch
 import io.ktor.server.routing.*
 import me.uma.auth.infrastructure.ApiPrincipal
+import me.uma.auth.models.ErrorResponse
 import me.uma.auth.models.ExecuteQuoteRequest
 import me.uma.auth.models.ExecuteQuoteResponse
 import me.uma.auth.models.GetBalanceResponse
@@ -43,208 +44,262 @@ fun Route.UmaAuthApi() {
     val gson = Gson()
     val empty = mutableMapOf<String, Any?>()
 
+    authenticate("bearerAuth") {
     post<Paths.executeQuote> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "preimage" : "abcd1234"
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "preimage" : "abcd1234"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     get<Paths.fetchQuote> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "sending_currency_code" : "MXN",
-          "receiving_currency_code" : "USD",
-          "fees" : 10,
-          "expires_at" : "2021-01-01T00:00:00Z",
-          "total_sending_amount" : 123010,
-          "total_receiving_amount" : 1000,
-          "multiplier" : 123,
-          "created_at" : "2021-01-01T00:00:00Z",
-          "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "sending_currency_code" : "MXN",
+              "receiving_currency_code" : "USD",
+              "fees" : 10,
+              "expires_at" : "2021-01-01T00:00:00Z",
+              "total_sending_amount" : 123010,
+              "total_receiving_amount" : 1000,
+              "multiplier" : 123,
+              "created_at" : "2021-01-01T00:00:00Z",
+              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     get<Paths.getBalance> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "balance" : 1000,
-          "currency_code" : "USD"
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "balance" : 1000,
+              "currency_code" : "USD"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     get<Paths.getInfo> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "color" : "#FF0000",
-          "methods" : [ "make_invoice", "make_invoice" ],
-          "lud16" : "$alice@vasp.net",
-          "alias" : "Alice's Wallet",
-          "block_hash" : "abcd1234",
-          "block_height" : 1000,
-          "pubkey" : "abcd1234",
-          "network" : "testnet",
-          "currencies" : [ {
-            "symbol" : "$",
-            "code" : "USD",
-            "min" : 1,
-            "max" : 1000000,
-            "multiplier" : 100000000,
-            "decimals" : 2,
-            "name" : "United States Dollar"
-          }, {
-            "symbol" : "$",
-            "code" : "USD",
-            "min" : 1,
-            "max" : 1000000,
-            "multiplier" : 100000000,
-            "decimals" : 2,
-            "name" : "United States Dollar"
-          } ]
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "color" : "#FF0000",
+              "methods" : [ "make_invoice", "make_invoice" ],
+              "lud16" : "$alice@vasp.net",
+              "alias" : "Alice's Wallet",
+              "block_hash" : "abcd1234",
+              "block_height" : 1000,
+              "pubkey" : "abcd1234",
+              "network" : "testnet",
+              "currencies" : [ {
+                "symbol" : "$",
+                "code" : "USD",
+                "min" : 1,
+                "max" : 1000000,
+                "multiplier" : 100000000,
+                "decimals" : 2,
+                "name" : "United States Dollar"
+              }, {
+                "symbol" : "$",
+                "code" : "USD",
+                "min" : 1,
+                "max" : 1000000,
+                "multiplier" : 100000000,
+                "decimals" : 2,
+                "name" : "United States Dollar"
+              } ]
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     get<Paths.lookupInvoice> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "amount" : 1000,
-          "metadata" : { },
-          "expires_at" : "2021-01-01T00:00:00Z",
-          "payment_request" : "lntb1u1pw0k7jw",
-          "preimage" : "abcd1234",
-          "memo" : "Payment for services rendered.",
-          "created_at" : "2021-01-01T00:00:00Z",
-          "settled_at" : "2021-01-01T00:00:00Z",
-          "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
-          "type" : "incoming"
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "amount" : 1000,
+              "metadata" : { },
+              "expires_at" : "2021-01-01T00:00:00Z",
+              "payment_request" : "lntb1u1pw0k7jw",
+              "preimage" : "abcd1234",
+              "memo" : "Payment for services rendered.",
+              "created_at" : "2021-01-01T00:00:00Z",
+              "settled_at" : "2021-01-01T00:00:00Z",
+              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
+              "type" : "incoming"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     get<Paths.lookupUser> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "currencies" : [ {
-            "symbol" : "$",
-            "code" : "USD",
-            "min" : 1,
-            "max" : 1000000,
-            "multiplier" : 100000000,
-            "decimals" : 2,
-            "name" : "United States Dollar"
-          }, {
-            "symbol" : "$",
-            "code" : "USD",
-            "min" : 1,
-            "max" : 1000000,
-            "multiplier" : 100000000,
-            "decimals" : 2,
-            "name" : "United States Dollar"
-          } ]
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "currencies" : [ {
+                "symbol" : "$",
+                "code" : "USD",
+                "min" : 1,
+                "max" : 1000000,
+                "multiplier" : 100000000,
+                "decimals" : 2,
+                "name" : "United States Dollar"
+              }, {
+                "symbol" : "$",
+                "code" : "USD",
+                "min" : 1,
+                "max" : 1000000,
+                "multiplier" : 100000000,
+                "decimals" : 2,
+                "name" : "United States Dollar"
+              } ]
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     post<Paths.makeInvoice> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "amount" : 1000,
-          "metadata" : { },
-          "expires_at" : "2021-01-01T00:00:00Z",
-          "payment_request" : "lntb1u1pw0k7jw",
-          "preimage" : "abcd1234",
-          "memo" : "Payment for services rendered.",
-          "created_at" : "2021-01-01T00:00:00Z",
-          "settled_at" : "2021-01-01T00:00:00Z",
-          "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
-          "type" : "incoming"
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "amount" : 1000,
+              "metadata" : { },
+              "expires_at" : "2021-01-01T00:00:00Z",
+              "payment_request" : "lntb1u1pw0k7jw",
+              "preimage" : "abcd1234",
+              "memo" : "Payment for services rendered.",
+              "created_at" : "2021-01-01T00:00:00Z",
+              "settled_at" : "2021-01-01T00:00:00Z",
+              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
+              "type" : "incoming"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     post<Paths.payInvoice> {
-        val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "preimage" : "abcd1234"
-        }"""
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "preimage" : "abcd1234"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
     }
+    }
 
+    authenticate("bearerAuth") {
     post<Paths.payToAddress> {
+        
+        val principal = null!!
+        
+        
         val exampleContentType = "application/json"
-        val exampleContentString = """{
-          "quote" : {
-            "sending_currency_code" : "MXN",
-            "receiving_currency_code" : "USD",
-            "fees" : 10,
-            "expires_at" : "2021-01-01T00:00:00Z",
-            "total_sending_amount" : 123010,
-            "total_receiving_amount" : 1000,
-            "multiplier" : 123,
-            "created_at" : "2021-01-01T00:00:00Z",
-            "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
-          },
-          "preimage" : "abcd1234"
-        }"""
+            val exampleContentString = """{
+              "quote" : {
+                "sending_currency_code" : "MXN",
+                "receiving_currency_code" : "USD",
+                "fees" : 10,
+                "expires_at" : "2021-01-01T00:00:00Z",
+                "total_sending_amount" : 123010,
+                "total_receiving_amount" : 1000,
+                "multiplier" : 123,
+                "created_at" : "2021-01-01T00:00:00Z",
+                "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+              },
+              "preimage" : "abcd1234"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
         
-        when (exampleContentType) {
-            "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
-            "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
-            else -> call.respondText(exampleContentString)
-        }
-        
+    }
     }
 
 }

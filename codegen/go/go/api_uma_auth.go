@@ -53,47 +53,47 @@ func (c *UmaAuthAPIController) Routes() Routes {
 	return Routes{
 		"ExecuteQuote": Route{
 			strings.ToUpper("Post"),
-			"/quote",
+			"/umanwc/v1/quote",
 			c.ExecuteQuote,
 		},
 		"FetchQuote": Route{
 			strings.ToUpper("Get"),
-			"/quote",
+			"/umanwc/v1/quote",
 			c.FetchQuote,
 		},
 		"GetBalance": Route{
 			strings.ToUpper("Get"),
-			"/balance",
+			"/umanwc/v1/balance",
 			c.GetBalance,
 		},
 		"GetInfo": Route{
 			strings.ToUpper("Get"),
-			"/info",
+			"/umanwc/v1/info",
 			c.GetInfo,
 		},
 		"LookupInvoice": Route{
 			strings.ToUpper("Get"),
-			"/invoices/{payment_hash}",
+			"/umanwc/v1/invoices/{payment_hash}",
 			c.LookupInvoice,
 		},
 		"LookupUser": Route{
 			strings.ToUpper("Get"),
-			"/receiver/uma/{receiver_uma}",
+			"/umanwc/v1/receiver/uma/{receiver_uma}",
 			c.LookupUser,
 		},
 		"MakeInvoice": Route{
 			strings.ToUpper("Post"),
-			"/invoice",
+			"/umanwc/v1/invoice",
 			c.MakeInvoice,
 		},
 		"PayInvoice": Route{
 			strings.ToUpper("Post"),
-			"/payments/bolt11",
+			"/umanwc/v1/payments/bolt11",
 			c.PayInvoice,
 		},
 		"PayToAddress": Route{
 			strings.ToUpper("Post"),
-			"/payments/lnurl",
+			"/umanwc/v1/payments/lnurl",
 			c.PayToAddress,
 		},
 	}

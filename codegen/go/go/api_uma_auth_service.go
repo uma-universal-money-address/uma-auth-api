@@ -35,6 +35,9 @@ func (s *UmaAuthAPIService) ExecuteQuote(ctx context.Context, executeQuoteReques
 	// TODO: Uncomment the next line to return response Response(200, ExecuteQuoteResponse{}) or use other options such as http.Ok ...
 	// return Response(200, ExecuteQuoteResponse{}), nil
 
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
+
 	return Response(http.StatusNotImplemented, nil), errors.New("ExecuteQuote method not implemented")
 }
 
@@ -45,6 +48,9 @@ func (s *UmaAuthAPIService) FetchQuote(ctx context.Context, sendingCurrencyCode 
 
 	// TODO: Uncomment the next line to return response Response(200, Quote{}) or use other options such as http.Ok ...
 	// return Response(200, Quote{}), nil
+
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
 
 	return Response(http.StatusNotImplemented, nil), errors.New("FetchQuote method not implemented")
 }
@@ -57,6 +63,9 @@ func (s *UmaAuthAPIService) GetBalance(ctx context.Context, currencyCode string)
 	// TODO: Uncomment the next line to return response Response(200, GetBalanceResponse{}) or use other options such as http.Ok ...
 	// return Response(200, GetBalanceResponse{}), nil
 
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
+
 	return Response(http.StatusNotImplemented, nil), errors.New("GetBalance method not implemented")
 }
 
@@ -67,6 +76,9 @@ func (s *UmaAuthAPIService) GetInfo(ctx context.Context) (ImplResponse, error) {
 
 	// TODO: Uncomment the next line to return response Response(200, GetInfoResponse{}) or use other options such as http.Ok ...
 	// return Response(200, GetInfoResponse{}), nil
+
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
 
 	return Response(http.StatusNotImplemented, nil), errors.New("GetInfo method not implemented")
 }
@@ -79,6 +91,9 @@ func (s *UmaAuthAPIService) LookupInvoice(ctx context.Context, paymentHash strin
 	// TODO: Uncomment the next line to return response Response(200, Invoice{}) or use other options such as http.Ok ...
 	// return Response(200, Invoice{}), nil
 
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
+
 	return Response(http.StatusNotImplemented, nil), errors.New("LookupInvoice method not implemented")
 }
 
@@ -89,6 +104,9 @@ func (s *UmaAuthAPIService) LookupUser(ctx context.Context, receiverUma string, 
 
 	// TODO: Uncomment the next line to return response Response(200, LookupUserResponse{}) or use other options such as http.Ok ...
 	// return Response(200, LookupUserResponse{}), nil
+
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
 
 	return Response(http.StatusNotImplemented, nil), errors.New("LookupUser method not implemented")
 }
@@ -101,6 +119,9 @@ func (s *UmaAuthAPIService) MakeInvoice(ctx context.Context, makeInvoiceRequest 
 	// TODO: Uncomment the next line to return response Response(200, Invoice{}) or use other options such as http.Ok ...
 	// return Response(200, Invoice{}), nil
 
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
+
 	return Response(http.StatusNotImplemented, nil), errors.New("MakeInvoice method not implemented")
 }
 
@@ -112,6 +133,9 @@ func (s *UmaAuthAPIService) PayInvoice(ctx context.Context, payInvoiceRequest Pa
 	// TODO: Uncomment the next line to return response Response(200, PayInvoiceResponse{}) or use other options such as http.Ok ...
 	// return Response(200, PayInvoiceResponse{}), nil
 
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
+
 	return Response(http.StatusNotImplemented, nil), errors.New("PayInvoice method not implemented")
 }
 
@@ -122,6 +146,9 @@ func (s *UmaAuthAPIService) PayToAddress(ctx context.Context, payToAddressReques
 
 	// TODO: Uncomment the next line to return response Response(200, PayToAddressResponse{}) or use other options such as http.Ok ...
 	// return Response(200, PayToAddressResponse{}), nil
+
+	// TODO: Uncomment the next line to return response Response(400, ErrorResponse{}) or use other options such as http.Ok ...
+	// return Response(400, ErrorResponse{}), nil
 
 	return Response(http.StatusNotImplemented, nil), errors.New("PayToAddress method not implemented")
 }
