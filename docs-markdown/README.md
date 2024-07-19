@@ -3,7 +3,7 @@
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://vasp.net/umanwc/v1*
 
 | Class | Method | HTTP request | Description |
 |------------ | ------------- | ------------- | -------------|
@@ -22,6 +22,7 @@ All URIs are relative to *http://localhost*
 ## Documentation for Models
 
  - [CurrencyPreference](./Models/CurrencyPreference.md)
+ - [ErrorResponse](./Models/ErrorResponse.md)
  - [ExecuteQuoteRequest](./Models/ExecuteQuoteRequest.md)
  - [ExecuteQuoteResponse](./Models/ExecuteQuoteResponse.md)
  - [GetBalanceResponse](./Models/GetBalanceResponse.md)
@@ -39,4 +40,8 @@ All URIs are relative to *http://localhost*
 <a name="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
+<a name="bearerAuth"></a>
+### bearerAuth
+
+- **Type**: HTTP Bearer Token authentication (JWT)
+

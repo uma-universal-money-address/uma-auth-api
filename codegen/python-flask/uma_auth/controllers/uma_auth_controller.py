@@ -3,6 +3,7 @@ from typing import Dict
 from typing import Tuple
 from typing import Union
 
+from uma_auth.models.error_response import ErrorResponse  # noqa: E501
 from uma_auth.models.execute_quote_request import ExecuteQuoteRequest  # noqa: E501
 from uma_auth.models.execute_quote_response import ExecuteQuoteResponse  # noqa: E501
 from uma_auth.models.get_balance_response import GetBalanceResponse  # noqa: E501

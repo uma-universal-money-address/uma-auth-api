@@ -45,7 +45,7 @@ docker run -p 8080:8080 uma-auth-server
 <a id="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://vasp.net/umanwc/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -64,6 +64,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [me.uma.auth.models.CurrencyPreference](docs/CurrencyPreference.md)
+ - [me.uma.auth.models.ErrorResponse](docs/ErrorResponse.md)
  - [me.uma.auth.models.ExecuteQuoteRequest](docs/ExecuteQuoteRequest.md)
  - [me.uma.auth.models.ExecuteQuoteResponse](docs/ExecuteQuoteResponse.md)
  - [me.uma.auth.models.GetBalanceResponse](docs/GetBalanceResponse.md)
@@ -81,5 +82,10 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-authorization"></a>
 ## Documentation for Authorization
 
-Endpoints do not require authorization.
+
+Authentication schemes defined for the API:
+<a id="bearerAuth"></a>
+### bearerAuth
+
+- **Type**: HTTP Bearer Token authentication (JWT)
 

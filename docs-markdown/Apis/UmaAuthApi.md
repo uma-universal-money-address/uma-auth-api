@@ -1,6 +1,6 @@
 # UmaAuthApi
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *https://vasp.net/umanwc/v1*
 
 | Method | HTTP request | Description |
 |------------- | ------------- | -------------|
@@ -33,7 +33,7 @@ execute_quote: Execute a quote
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -62,7 +62,7 @@ fetch_quote: Get a quote for a payment
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -87,7 +87,7 @@ get_balance: Get the balance of the user&#39;s wallet
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -109,7 +109,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -134,7 +134,7 @@ lookup_invoice: Get an invoice by its payment hash
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -160,7 +160,7 @@ lookup_user: Get receiver info by UMA
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -185,7 +185,7 @@ make_invoice: Create a new invoice
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -210,7 +210,7 @@ pay_invoice: Pay a bolt11 invoice
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
@@ -235,7 +235,7 @@ pay_to_address: Pay to an LNURL address
 
 ### Authorization
 
-No authorization required
+[bearerAuth](../README.md#bearerAuth)
 
 ### HTTP request headers
 
