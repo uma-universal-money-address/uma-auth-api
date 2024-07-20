@@ -15,6 +15,9 @@ files:
   pyproject.toml: {}
   .pylintrc: {}
   .pyre_configuration: {}
+  MANIFEST.in: {}
   setup.py: {}
+  openapi.mustache:
+    destinationFilename: src/uma_auth/openapi.yaml
   py.typed:
     folder: src

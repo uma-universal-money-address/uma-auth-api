@@ -3,9 +3,9 @@
 .pylintrc
 .pyre_configuration
 LICENSE
+MANIFEST.in
 Pipfile
 README.md
-openapi.yaml
 pyproject.toml
 pyproject.toml
 setup.cfg
@@ -27,3 +27,4 @@ src/uma_auth/models/pay_invoice_response.py
 src/uma_auth/models/pay_to_address_request.py
 src/uma_auth/models/pay_to_address_response.py
 src/uma_auth/models/quote.py
+src/uma_auth/openapi.yaml
