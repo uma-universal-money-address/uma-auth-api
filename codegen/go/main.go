@@ -14,7 +14,7 @@ import (
 	"log"
 	"net/http"
 
-	umaauth "github.com/GIT_USER_ID/GIT_REPO_ID/go"
+	umaauth "github.com/uma-universal-money-address/uma-auth-api/codegen/go"
 )
 
 func main() {
