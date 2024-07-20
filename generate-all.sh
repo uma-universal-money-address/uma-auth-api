@@ -9,7 +9,7 @@ npx @redocly/cli build-docs uma-auth-api.yml -o docs/index.html
 echo "Generating clients...\n\n"
 
 echo "Generating Golang library..."
-openapi-generator generate -g go-server -i uma-auth-api.yml -o codegen/go --package-name umaauth
+openapi-generator generate -g go-server -i uma-auth-api.yml -o codegen/go --package-name umaauth -c codegen-config/go/config.yml
 
 echo "Generating Python Models library..."
 openapi-generator generate -g python-fastapi -i uma-auth-api.yml -o codegen/python-models -c codegen-config/python-fastapi-models/config.yml --global-property=models,supportingFiles
