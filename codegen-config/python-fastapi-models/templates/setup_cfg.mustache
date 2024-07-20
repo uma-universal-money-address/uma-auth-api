@@ -1,5 +1,5 @@
 [metadata]
-name = {{packageName}}
+name = uma-auth-api
 version = {{appVersion}}
 description = {{appDescription}}
 long_description = file: README.md
@@ -22,7 +22,8 @@ classifiers =
 install_requires = fastapi[all]
 include_package_data = True
 setup_requires = setuptools
-package_dir = ={{sourceFolder}}
+package_dir =
+    = {{sourceFolder}}
 packages = find_namespace:
 
 [options.package_data]

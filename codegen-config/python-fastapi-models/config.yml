@@ -15,5 +15,6 @@ files:
   pyproject.toml: {}
   .pylintrc: {}
   .pyre_configuration: {}
+  setup.py: {}
   py.typed:
     folder: src
