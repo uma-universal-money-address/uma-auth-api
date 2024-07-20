@@ -9,6 +9,7 @@ openapi.yaml
 pyproject.toml
 pyproject.toml
 setup.cfg
+setup.py
 src/py.typed
 src/uma_auth/models/__init__.py
 src/uma_auth/models/currency_preference.py
