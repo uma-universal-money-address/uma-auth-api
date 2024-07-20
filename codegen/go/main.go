@@ -11,9 +11,10 @@
 package main
 
 import (
-	"github.com/uma-universal-money-address/uma-auth-api/codegen/go/umaauth"
 	"log"
 	"net/http"
+
+	umaauth "github.com/uma-universal-money-address/uma-auth-api/codegen/go/umaauth"
 )
 
 func main() {

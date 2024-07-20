@@ -2,7 +2,9 @@ templateDir: codegen-config/go/templates
 additionalProperties:
   sourceFolder: umaauth
   onlyInterfaces: true
-packageName: uma_auth
+gitUserId: uma-universal-money-address
+gitRepoId: uma-auth-api/codegen/go
+packageName: umaauth
 files:
   LICENSE: {}
   go.mod.mustache:
