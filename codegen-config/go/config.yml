@@ -1,0 +1,9 @@
+templateDir: codegen-config/go/templates
+additionalProperties:
+  sourceFolder: umaauth
+  onlyInterfaces: true
+packageName: uma_auth
+files:
+  LICENSE: {}
+  go.mod.mustache:
+    destinationFilename: go.mod
