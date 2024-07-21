@@ -1,0 +1,14 @@
+templateDir: codegen-config/typescript/templates
+additionalProperties:
+  infoEmail: "info@lightspark.com"
+  packageUrl: https://github.com/uma-universal-money-address/uma-auth-api
+  npmVersion: 0.0.1
+  npmName: "@uma-universal-money-address/uma-auth-api"
+  supportsES6: true
+  useObjectParameters: true
+gitUserId: uma-universal-money-address
+gitRepoId: uma-auth-api
+files:
+  LICENSE: {}
+  README.mustache:
+    destinationFilename: README.md

@@ -20,4 +20,7 @@ openapi-generator generate -g python-flask -i uma-auth-api.yml -o codegen/python
 echo "Generating Kotlin library..."
 openapi-generator generate -g kotlin-server -i uma-auth-api.yml -o codegen/kotlin --package-name me.uma.auth --group-id me.uma --artifact-id uma-auth-server
 
+echo "Generating Typescript library..."
+openapi-generator generate -g typescript-fetch -i uma-auth-api.yml -o codegen/typescript --global-property=models,supportingFiles -c codegen-config/typescript/config.yaml
+
 popd > /dev/null
