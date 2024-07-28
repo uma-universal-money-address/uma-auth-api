@@ -22,7 +22,7 @@ type PayToAddressRequest struct {
 	SendingCurrencyCode string `json:"sending_currency_code"`
 
 	// The amount to send in the smallest unit of the sending currency (eg. cents).
-	SendingCurrencyAmount int32 `json:"sending_currency_amount"`
+	SendingCurrencyAmount int64 `json:"sending_currency_amount"`
 
 	// The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.
 	ReceivingCurrencyCode string `json:"receiving_currency_code,omitempty"`

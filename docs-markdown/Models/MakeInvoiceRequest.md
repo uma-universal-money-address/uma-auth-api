@@ -3,7 +3,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **amount** | **Integer** | The amount to invoice in msats. | [default to null] |
+| **amount** | **Long** | The amount to invoice in msats. | [default to null] |
 | **description** | **String** | A memo to attach to the invoice. | [optional] [default to null] |
 | **description\_hash** | **String** | A hash of a longer description field. | [optional] [default to null] |
 | **expiry** | **Integer** | The number of seconds until the invoice expires. | [optional] [default to null] |

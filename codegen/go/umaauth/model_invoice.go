@@ -23,7 +23,7 @@ type Invoice struct {
 	PaymentRequest string `json:"payment_request"`
 
 	// The amount of the invoice in msats.
-	Amount int32 `json:"amount"`
+	Amount int64 `json:"amount"`
 
 	// The payment hash of the invoice.
 	PaymentHash string `json:"payment_hash"`

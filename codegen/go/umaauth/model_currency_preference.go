@@ -31,10 +31,10 @@ type CurrencyPreference struct {
 	Decimals int32 `json:"decimals"`
 
 	// The minimum amount that can be received in this currency.
-	Min int32 `json:"min"`
+	Min int64 `json:"min"`
 
 	// The maximum amount that can be received in this currency.
-	Max int32 `json:"max"`
+	Max int64 `json:"max"`
 }
 
 // AssertCurrencyPreferenceRequired checks if the required fields are not zero-ed

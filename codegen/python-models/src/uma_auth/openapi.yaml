@@ -197,6 +197,7 @@ paths:
         required: true
         schema:
           example: 1000
+          format: int64
           type: integer
         style: form
       - description: "The side of the quote which should be locked and specified in\
@@ -318,6 +319,7 @@ components:
         amount:
           description: The amount of the invoice in msats.
           example: 1000
+          format: int64
           type: integer
         payment_hash:
           description: The payment hash of the invoice.
@@ -408,12 +410,14 @@ components:
           description: The total amount that will be sent in the smallest unit of
             the sending currency (eg. cents).
           example: 123010
+          format: int64
           title: total_sending_amount
           type: integer
         total_receiving_amount:
           description: The total amount that will be received in the smallest unit
             of the receiving currency (eg. cents).
           example: 1000
+          format: int64
           title: total_receiving_amount
           type: integer
         created_at:
@@ -474,11 +478,13 @@ components:
         min:
           description: The minimum amount that can be received in this currency.
           example: 1
+          format: int64
           title: min
           type: integer
         max:
           description: The maximum amount that can be received in this currency.
           example: 1000000
+          format: int64
           title: max
           type: integer
       required:
@@ -510,6 +516,7 @@ components:
         amount:
           description: The amount to invoice in msats.
           example: 1000
+          format: int64
           minimum: 0
           type: integer
         description:
@@ -537,6 +544,7 @@ components:
         amount:
           description: The amount to pay for a 0-amount invoice.
           example: 1000
+          format: int64
           nullable: true
           type: integer
       required:
@@ -612,6 +620,7 @@ components:
           description: The amount to send in the smallest unit of the sending currency
             (eg. cents).
           example: 1000
+          format: int64
           type: integer
         receiving_currency_code:
           description: "The code of the currency being received by the receiver. If\

@@ -25,7 +25,7 @@ data class PayToAddressRequest(
     /* The code of the currency being sent from the sender's wallet. */
     val sendingCurrencyCode: kotlin.String,
     /* The amount to send in the smallest unit of the sending currency (eg. cents). */
-    val sendingCurrencyAmount: kotlin.Int,
+    val sendingCurrencyAmount: kotlin.Long,
     /* The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used. */
     val receivingCurrencyCode: kotlin.String? = null
 ) 

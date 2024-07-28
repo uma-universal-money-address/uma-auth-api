@@ -38,10 +38,10 @@ type Quote struct {
 	Fees int32 `json:"fees"`
 
 	// The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
-	TotalSendingAmount int32 `json:"total_sending_amount"`
+	TotalSendingAmount int64 `json:"total_sending_amount"`
 
 	// The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
-	TotalReceivingAmount int32 `json:"total_receiving_amount"`
+	TotalReceivingAmount int64 `json:"total_receiving_amount"`
 
 	// The time the quote was created.
 	CreatedAt time.Time `json:"created_at"`

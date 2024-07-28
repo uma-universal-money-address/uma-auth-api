@@ -29,7 +29,7 @@ data class Invoice(
     /* The full, encoded payment request. */
     val paymentRequest: kotlin.String,
     /* The amount of the invoice in msats. */
-    val amount: kotlin.Int,
+    val amount: kotlin.Long,
     /* The payment hash of the invoice. */
     val paymentHash: kotlin.String,
     /* The time the invoice was created. */

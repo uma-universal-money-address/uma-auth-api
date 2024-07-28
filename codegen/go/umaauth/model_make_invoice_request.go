@@ -20,7 +20,7 @@ import (
 type MakeInvoiceRequest struct {
 
 	// The amount to invoice in msats.
-	Amount int32 `json:"amount"`
+	Amount int64 `json:"amount"`
 
 	// A memo to attach to the invoice.
 	Description string `json:"description,omitempty"`

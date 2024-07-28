@@ -38,9 +38,9 @@ data class Quote(
     /* The fees associated with the quote in the smallest unit of the sending currency (eg. cents). */
     val fees: kotlin.Int,
     /* The total amount that will be sent in the smallest unit of the sending currency (eg. cents). */
-    val totalSendingAmount: kotlin.Int,
+    val totalSendingAmount: kotlin.Long,
     /* The total amount that will be received in the smallest unit of the receiving currency (eg. cents). */
-    val totalReceivingAmount: kotlin.Int,
+    val totalReceivingAmount: kotlin.Long,
     /* The time the quote was created. */
     val createdAt: java.time.OffsetDateTime
 ) 

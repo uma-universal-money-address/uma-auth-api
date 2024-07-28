@@ -40,6 +40,7 @@ paths:
               properties:
                 amount:
                   type: integer
+                  format: int64
                   description: The amount to invoice in msats.
                   minimum: 0
                   example: 1000
@@ -89,6 +90,7 @@ paths:
                   example: lntb1u1pw0k7jw
                 amount:
                   type: integer
+                  format: int64
                   nullable: true
                   description: The amount to pay for a 0-amount invoice.
                   example: 1000
@@ -256,6 +258,7 @@ paths:
             See `locked_currency_side` for more information.
           schema:
             type: integer
+            format: int64
             example: 1000
         - name: locked_currency_side
           in: query
@@ -353,6 +356,7 @@ paths:
                   example: "MXN"
                 sending_currency_amount:
                   type: integer
+                  format: int64
                   description: The amount to send in the smallest unit of the sending currency (eg. cents).
                   example: 1000
                 receiving_currency_code:
@@ -475,6 +479,7 @@ components:
           example: lntb1u1pw0k7jw
         amount:
           type: integer
+          format: int64
           description: The amount of the invoice in msats.
           example: 1000
         payment_hash:
@@ -555,10 +560,12 @@ components:
           example: 10
         total_sending_amount:
           type: integer
+          format: int64
           description: The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
           example: 123010
         total_receiving_amount:
           type: integer
+          format: int64
           description: The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
           example: 1000
         created_at:
@@ -609,10 +616,12 @@ components:
           example: 2
         min:
           type: integer
+          format: int64
           description: The minimum amount that can be received in this currency.
           example: 1
         max:
           type: integer
+          format: int64
           description: The maximum amount that can be received in this currency.
           example: 1000000
       required:

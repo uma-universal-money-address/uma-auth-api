@@ -153,11 +153,11 @@ func (c *UmaAuthAPIController) FetchQuote(w http.ResponseWriter, r *http.Request
 		c.errorHandler(w, r, &RequiredError{Field: "receiving_currency_code"}, nil)
 		return
 	}
-	var lockedCurrencyAmountParam int32
+	var lockedCurrencyAmountParam int64
 	if query.Has("locked_currency_amount") {
-		param, err := parseNumericParameter[int32](
+		param, err := parseNumericParameter[int64](
 			query.Get("locked_currency_amount"),
-			WithParse[int32](parseInt32),
+			WithParse[int64](parseInt64),
 		)
 		if err != nil {
 			c.errorHandler(w, r, &ParsingError{Param: "locked_currency_amount", Err: err}, nil)

@@ -39,7 +39,7 @@ type UmaAuthAPIRouter interface {
 // and updated with the logic required for the API.
 type UmaAuthAPIServicer interface { 
 	ExecuteQuote(context.Context, ExecuteQuoteRequest) (ImplResponse, error)
-	FetchQuote(context.Context, string, string, int32, string, string) (ImplResponse, error)
+	FetchQuote(context.Context, string, string, int64, string, string) (ImplResponse, error)
 	GetBalance(context.Context, string) (ImplResponse, error)
 	GetInfo(context.Context) (ImplResponse, error)
 	LookupInvoice(context.Context, string) (ImplResponse, error)
