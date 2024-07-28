@@ -438,7 +438,7 @@ components:
           description: Number of sending currency units per receiving currency unit.
           example: 123
           title: multiplier
-          type: integer
+          type: number
         fees:
           description: The fees associated with the quote in the smallest unit of
             the sending currency (eg. cents).

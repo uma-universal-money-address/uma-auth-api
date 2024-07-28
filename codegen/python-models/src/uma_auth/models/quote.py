@@ -22,8 +22,8 @@ import json
 
 
 from datetime import datetime
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List
+from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Union
 try:
     from typing import Self
 except ImportError:
@@ -37,7 +37,7 @@ class Quote(BaseModel):
     receiving_currency_code: StrictStr = Field(description="The currency code of the receiver's balance.")
     payment_hash: StrictStr = Field(description="The payment hash of the quote. Used as an identifier to execute the quote.")
     expires_at: datetime = Field(description="The time the quote expires.")
-    multiplier: StrictInt = Field(description="Number of sending currency units per receiving currency unit.")
+    multiplier: Union[StrictFloat, StrictInt] = Field(description="Number of sending currency units per receiving currency unit.")
     fees: StrictInt = Field(description="The fees associated with the quote in the smallest unit of the sending currency (eg. cents).")
     total_sending_amount: StrictInt = Field(description="The total amount that will be sent in the smallest unit of the sending currency (eg. cents).")
     total_receiving_amount: StrictInt = Field(description="The total amount that will be received in the smallest unit of the receiving currency (eg. cents).")

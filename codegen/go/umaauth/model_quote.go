@@ -32,7 +32,7 @@ type Quote struct {
 	ExpiresAt time.Time `json:"expires_at"`
 
 	// Number of sending currency units per receiving currency unit.
-	Multiplier int32 `json:"multiplier"`
+	Multiplier float32 `json:"multiplier"`
 
 	// The fees associated with the quote in the smallest unit of the sending currency (eg. cents).
 	Fees int32 `json:"fees"`

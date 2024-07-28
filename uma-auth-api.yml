@@ -546,7 +546,7 @@ components:
           description: The time the quote expires.
           example: "2021-01-01T00:00:00Z"
         multiplier:
-          type: integer
+          type: number
           description: Number of sending currency units per receiving currency unit.
           example: 123
         fees:

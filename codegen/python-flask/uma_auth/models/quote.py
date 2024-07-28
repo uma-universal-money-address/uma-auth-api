@@ -24,7 +24,7 @@ class Quote(Model):
         :param expires_at: The expires_at of this Quote.  # noqa: E501
         :type expires_at: datetime
         :param multiplier: The multiplier of this Quote.  # noqa: E501
-        :type multiplier: int
+        :type multiplier: float
         :param fees: The fees of this Quote.  # noqa: E501
         :type fees: int
         :param total_sending_amount: The total_sending_amount of this Quote.  # noqa: E501
@@ -39,7 +39,7 @@ class Quote(Model):
             'receiving_currency_code': str,
             'payment_hash': str,
             'expires_at': datetime,
-            'multiplier': int,
+            'multiplier': float,
             'fees': int,
             'total_sending_amount': int,
             'total_receiving_amount': int,
@@ -180,24 +180,24 @@ class Quote(Model):
         self._expires_at = expires_at
 
     @property
-    def multiplier(self) -> int:
+    def multiplier(self) -> float:
         """Gets the multiplier of this Quote.
 
         Number of sending currency units per receiving currency unit.  # noqa: E501
 
         :return: The multiplier of this Quote.
-        :rtype: int
+        :rtype: float
         """
         return self._multiplier
 
     @multiplier.setter
-    def multiplier(self, multiplier: int):
+    def multiplier(self, multiplier: float):
         """Sets the multiplier of this Quote.
 
         Number of sending currency units per receiving currency unit.  # noqa: E501
 
         :param multiplier: The multiplier of this Quote.
-        :type multiplier: int
+        :type multiplier: float
         """
         if multiplier is None:
             raise ValueError("Invalid value for `multiplier`, must not be `None`")  # noqa: E501

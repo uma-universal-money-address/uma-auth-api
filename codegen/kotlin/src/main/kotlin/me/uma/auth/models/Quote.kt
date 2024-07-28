@@ -34,7 +34,7 @@ data class Quote(
     /* The time the quote expires. */
     val expiresAt: java.time.OffsetDateTime,
     /* Number of sending currency units per receiving currency unit. */
-    val multiplier: kotlin.Int,
+    val multiplier: java.math.BigDecimal,
     /* The fees associated with the quote in the smallest unit of the sending currency (eg. cents). */
     val fees: kotlin.Int,
     /* The total amount that will be sent in the smallest unit of the sending currency (eg. cents). */
