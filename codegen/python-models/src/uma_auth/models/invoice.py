@@ -65,8 +65,7 @@ class Invoice(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return self.model_dump_json(by_alias=True, exclude_unset=True)
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
@@ -84,10 +83,12 @@ class Invoice(BaseModel):
           are ignored.
         """
         _dict = self.model_dump(
+            mode="json",
             by_alias=True,
             exclude={
             },
             exclude_none=True,
+            exclude_unset=True,
         )
         # set to None if memo (nullable) is None
         # and model_fields_set contains the field
