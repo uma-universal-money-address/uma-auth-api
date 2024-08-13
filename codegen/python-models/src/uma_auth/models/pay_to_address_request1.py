@@ -21,27 +21,22 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class Quote(BaseModel):
+class PayToAddressRequest1(BaseModel):
     """
-    Quote
+    PayToAddressRequest1
     """ # noqa: E501
-    sending_currency_code: StrictStr = Field(description="The currency code of the sender's balance.")
-    receiving_currency_code: StrictStr = Field(description="The currency code of the receiver's balance.")
-    payment_hash: StrictStr = Field(description="The payment hash of the quote. Used as an identifier to execute the quote.")
-    expires_at: StrictInt = Field(description="The time the quote expires in unix timestamp.")
-    multiplier: Union[StrictFloat, StrictInt] = Field(description="Number of sending currency units per receiving currency unit.")
-    fees: StrictInt = Field(description="The fees associated with the quote in the smallest unit of the sending currency (eg. cents).")
-    total_sending_amount: StrictInt = Field(description="The total amount that will be sent in the smallest unit of the sending currency (eg. cents).")
-    total_receiving_amount: StrictInt = Field(description="The total amount that will be received in the smallest unit of the receiving currency (eg. cents).")
-    created_at: StrictInt = Field(description="The time the quote was created in unix timestamp.")
-    __properties: ClassVar[List[str]] = ["sending_currency_code", "receiving_currency_code", "payment_hash", "expires_at", "multiplier", "fees", "total_sending_amount", "total_receiving_amount", "created_at"]
+    receiver_address: StrictStr = Field(description="The BOLT12 address to pay.")
+    sending_currency_code: StrictStr = Field(description="The code of the currency being sent from the sender's wallet.")
+    sending_currency_amount: StrictInt = Field(description="The amount to send in the smallest unit of the sending currency (eg. cents).")
+    receiving_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.")
+    __properties: ClassVar[List[str]] = ["receiver_address", "sending_currency_code", "sending_currency_amount", "receiving_currency_code"]
 
     model_config = {
         "populate_by_name": True,
@@ -60,7 +55,7 @@ class Quote(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of Quote from a JSON string"""
+        """Create an instance of PayToAddressRequest1 from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -85,7 +80,7 @@ class Quote(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of Quote from a dict"""
+        """Create an instance of PayToAddressRequest1 from a dict"""
         if obj is None:
             return None
 
@@ -93,15 +88,10 @@ class Quote(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
+            "receiver_address": obj.get("receiver_address"),
             "sending_currency_code": obj.get("sending_currency_code"),
-            "receiving_currency_code": obj.get("receiving_currency_code"),
-            "payment_hash": obj.get("payment_hash"),
-            "expires_at": obj.get("expires_at"),
-            "multiplier": obj.get("multiplier"),
-            "fees": obj.get("fees"),
-            "total_sending_amount": obj.get("total_sending_amount"),
-            "total_receiving_amount": obj.get("total_receiving_amount"),
-            "created_at": obj.get("created_at")
+            "sending_currency_amount": obj.get("sending_currency_amount"),
+            "receiving_currency_code": obj.get("receiving_currency_code")
         })
         return _obj
 

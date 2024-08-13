@@ -10,11 +10,10 @@ src/main/kotlin/me/uma/auth/apis/UmaAuthApi.kt
 src/main/kotlin/me/uma/auth/infrastructure/ApiKeyAuth.kt
 src/main/kotlin/me/uma/auth/models/CurrencyPreference.kt
 src/main/kotlin/me/uma/auth/models/ErrorResponse.kt
-src/main/kotlin/me/uma/auth/models/ExecuteQuoteRequest.kt
 src/main/kotlin/me/uma/auth/models/ExecuteQuoteResponse.kt
 src/main/kotlin/me/uma/auth/models/GetBalanceResponse.kt
 src/main/kotlin/me/uma/auth/models/GetInfoResponse.kt
-src/main/kotlin/me/uma/auth/models/Invoice.kt
+src/main/kotlin/me/uma/auth/models/ListTransactionsResponse.kt
 src/main/kotlin/me/uma/auth/models/LookupUserResponse.kt
 src/main/kotlin/me/uma/auth/models/MakeInvoiceRequest.kt
 src/main/kotlin/me/uma/auth/models/PayInvoiceRequest.kt
@@ -22,5 +21,7 @@ src/main/kotlin/me/uma/auth/models/PayInvoiceResponse.kt
 src/main/kotlin/me/uma/auth/models/PayToAddressRequest.kt
 src/main/kotlin/me/uma/auth/models/PayToAddressResponse.kt
 src/main/kotlin/me/uma/auth/models/Quote.kt
+src/main/kotlin/me/uma/auth/models/Transaction.kt
+src/main/kotlin/me/uma/auth/models/TransactionType.kt
 src/main/resources/application.conf
 src/main/resources/logback.xml

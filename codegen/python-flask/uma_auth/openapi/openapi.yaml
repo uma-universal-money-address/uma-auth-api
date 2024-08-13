@@ -84,7 +84,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Invoice'
+                $ref: '#/components/schemas/Transaction'
           description: OK
         "400":
           content:
@@ -114,7 +114,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Invoice'
+                $ref: '#/components/schemas/Transaction'
           description: OK
         "400":
           content:
@@ -122,6 +122,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
       summary: "lookup_invoice: Get an invoice by its payment hash"
       tags:
       - UmaAuth
@@ -151,9 +157,9 @@ paths:
       tags:
       - UmaAuth
       x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
-  /payments/lnurl:
+  /payments/lud16:
     post:
-      operationId: pay_to_address
+      operationId: pay_to_lud16_address
       requestBody:
         content:
           application/json:
@@ -172,13 +178,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
-      summary: "pay_to_address: Pay to an LNURL address"
+      summary: "pay_to_lud16_address: Pay to an LNURL address"
       tags:
       - UmaAuth
       x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
-  /quote:
+  /quote/lud16:
     get:
-      operationId: fetch_quote
+      operationId: fetch_quote_for_lud16
       parameters:
       - description: The currency code being sent from the sender's wallet.
         explode: true
@@ -226,10 +232,10 @@ paths:
           example: sending
           type: string
         style: form
-      - description: The UMA address to send the payment to.
+      - description: The LUD16 address to send the payment to.
         explode: true
         in: query
-        name: receiving_address
+        name: receiver_address
         required: true
         schema:
           example: $alice@vasp.net
@@ -248,17 +254,23 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
-      summary: "fetch_quote: Get a quote for a payment"
+      summary: "fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address"
       tags:
       - UmaAuth
       x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
+  /quote/{payment_hash}:
     post:
       operationId: execute_quote
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ExecuteQuoteRequest'
+      parameters:
+      - description: The payment hash of the quote to execute.
+        explode: false
+        in: path
+        name: payment_hash
+        required: true
+        schema:
+          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+          type: string
+        style: simple
       responses:
         "200":
           content:
@@ -276,14 +288,14 @@ paths:
       tags:
       - UmaAuth
       x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
-  /receiver/uma/{receiver_uma}:
+  /receiver/lud16/{receiver_address}:
     get:
-      operationId: lookup_user
+      operationId: lookup_user_by_lud16
       parameters:
-      - description: The receiver's UMA.
+      - description: The receiver's LUD16 address.
         explode: false
         in: path
-        name: receiver_uma
+        name: receiver_address
         required: true
         schema:
           example: $alice@vasp.net
@@ -313,105 +325,193 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
-      summary: "lookup_user: Get receiver info by UMA"
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+      summary: "lookup_user_by_lud16: Get receiver info by LUD16 address."
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
+  /transactions:
+    get:
+      operationId: list_transactions
+      parameters:
+      - description: Starting timestamp in seconds since epoch (inclusive).
+        explode: true
+        in: query
+        name: from
+        required: false
+        schema:
+          example: 1683148800
+          type: integer
+        style: form
+      - description: Ending timestamp in seconds since epoch (inclusive).
+        explode: true
+        in: query
+        name: until
+        required: false
+        schema:
+          example: 1683148800
+          type: integer
+        style: form
+      - description: Maximum number of transactions to return.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          example: 10
+          type: integer
+        style: form
+      - description: Offset of the first transaction to return.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          example: 0
+          type: integer
+        style: form
+      - description: Whether to include unpaid invoices.
+        explode: true
+        in: query
+        name: unpaid
+        required: false
+        schema:
+          example: false
+          type: boolean
+        style: form
+      - description: "Type of transactions to return: \"incoming\" for invoices, \"\
+          outgoing\" for payments, undefined for both."
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          $ref: '#/components/schemas/TransactionType'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactionsResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
+      summary: "list_transactions: Lists invoices and payments"
       tags:
       - UmaAuth
       x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
 components:
   schemas:
-    Invoice:
+    TransactionType:
+      description: "Type of transaction: \"incoming\" for invoices, \"outgoing\" for\
+        \ payments."
+      enum:
+      - incoming
+      - outgoing
+      title: TransactionType
+      type: string
+    Transaction:
       example:
         amount: 1000
+        fees_paid: 1000
         metadata: {}
-        expires_at: 2021-01-01T00:00:00Z
-        payment_request: lntb1u1pw0k7jw
+        expires_at: 1683148800
+        description_hash: abcd1234
         preimage: abcd1234
-        memo: Payment for services rendered.
-        created_at: 2021-01-01T00:00:00Z
-        settled_at: 2021-01-01T00:00:00Z
-        payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+        description: Pay for pizza.
+        created_at: 1683148800
+        invoice: lntb1u1pw0k7jw
         type: incoming
+        payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
       properties:
-        payment_request:
-          description: "The full, encoded payment request."
+        type:
+          $ref: '#/components/schemas/TransactionType'
+        invoice:
+          description: "The full, encoded invoice."
           example: lntb1u1pw0k7jw
-          title: payment_request
+          nullable: true
+          title: invoice
+          type: string
+        description:
+          description: The invoice's description.
+          example: Pay for pizza.
+          nullable: true
+          title: description
+          type: string
+        description_hash:
+          description: The invoice's description hash.
+          example: abcd1234
+          nullable: true
+          title: description_hash
+          type: string
+        preimage:
+          description: "The payment preimage, optional if unpaid."
+          example: abcd1234
+          nullable: true
+          title: preimage
+          type: string
+        payment_hash:
+          description: Payment hash for the payment
+          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+          title: payment_hash
           type: string
         amount:
-          description: The amount of the invoice in msats.
+          description: Value in msats.
           example: 1000
           format: int64
           title: amount
           type: integer
-        payment_hash:
-          description: The payment hash of the invoice.
-          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-          title: payment_hash
-          type: string
-        memo:
-          description: A memo attached to the invoice.
-          example: Payment for services rendered.
+        fees_paid:
+          description: Value in msats.
+          example: 1000
+          format: int64
           nullable: true
-          title: memo
-          type: string
+          title: fees_paid
+          type: integer
+        created_at:
+          description: The time the payment/invoice was created.
+          example: 1683148800
+          title: created_at
+          type: integer
+        expires_at:
+          description: The time the invoice expires.
+          example: 1683148800
+          nullable: true
+          title: expires_at
+          type: integer
         metadata:
           description: Additional metadata attached to the invoice.
           example: {}
           nullable: true
           title: metadata
           type: object
-        preimage:
-          description: The payment preimage of the invoice.
-          example: abcd1234
-          nullable: true
-          title: preimage
-          type: string
-        expires_at:
-          description: The time the invoice expires.
-          example: 2021-01-01T00:00:00Z
-          format: date-time
-          nullable: true
-          title: expires_at
-          type: string
-        created_at:
-          description: The time the invoice was created.
-          example: 2021-01-01T00:00:00Z
-          format: date-time
-          title: created_at
-          type: string
-        settled_at:
-          description: The time the invoice was settled.
-          example: 2021-01-01T00:00:00Z
-          format: date-time
-          nullable: true
-          title: settled_at
-          type: string
-        type:
-          description: Whether the invoice is incoming (created by this user) or outgoing
-            (created by another user).
-          enum:
-          - incoming
-          - outgoing
-          title: type
-          type: string
       required:
       - amount
       - created_at
       - payment_hash
-      - payment_request
       - type
-      title: Invoice
+      title: Transaction
       type: object
     Quote:
       example:
         sending_currency_code: MXN
         receiving_currency_code: USD
         fees: 10
-        expires_at: 2021-01-01T00:00:00Z
+        expires_at: 1683148800
         total_sending_amount: 123010
         total_receiving_amount: 1000
         multiplier: 123
-        created_at: 2021-01-01T00:00:00Z
+        created_at: 1683148800
         payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
       properties:
         sending_currency_code:
@@ -431,11 +531,10 @@ components:
           title: payment_hash
           type: string
         expires_at:
-          description: The time the quote expires.
-          example: 2021-01-01T00:00:00Z
-          format: date-time
+          description: The time the quote expires in unix timestamp.
+          example: 1683148800
           title: expires_at
-          type: string
+          type: integer
         multiplier:
           description: Number of sending currency units per receiving currency unit.
           example: 123
@@ -462,11 +561,10 @@ components:
           title: total_receiving_amount
           type: integer
         created_at:
-          description: The time the quote was created.
-          example: 2021-01-01T00:00:00Z
-          format: date-time
+          description: The time the quote was created in unix timestamp.
+          example: 1683148800
           title: created_at
-          type: string
+          type: integer
       required:
       - created_at
       - expires_at
@@ -680,19 +778,6 @@ components:
           type: array
       title: LookupUserResponse
       type: object
-    ExecuteQuoteRequest:
-      example:
-        payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-      properties:
-        payment_hash:
-          description: The payment hash of the quote to execute.
-          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-          title: payment_hash
-          type: string
-      required:
-      - payment_hash
-      title: ExecuteQuoteRequest
-      type: object
     ExecuteQuoteResponse:
       example:
         preimage: abcd1234
@@ -714,7 +799,7 @@ components:
         sending_currency_amount: 1000
       properties:
         receiver_address:
-          description: The address to pay.
+          description: The LUD16 address to pay.
           example: $alice@vasp.net
           title: receiver_address
           type: string
@@ -748,11 +833,11 @@ components:
           sending_currency_code: MXN
           receiving_currency_code: USD
           fees: 10
-          expires_at: 2021-01-01T00:00:00Z
+          expires_at: 1683148800
           total_sending_amount: 123010
           total_receiving_amount: 1000
           multiplier: 123
-          created_at: 2021-01-01T00:00:00Z
+          created_at: 1683148800
           payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
         preimage: abcd1234
       properties:
@@ -856,6 +941,42 @@ components:
       - network
       - pubkey
       title: GetInfoResponse
+      type: object
+    ListTransactionsResponse:
+      example:
+        transactions:
+        - amount: 1000
+          fees_paid: 1000
+          metadata: {}
+          expires_at: 1683148800
+          description_hash: abcd1234
+          preimage: abcd1234
+          description: Pay for pizza.
+          created_at: 1683148800
+          invoice: lntb1u1pw0k7jw
+          type: incoming
+          payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+        - amount: 1000
+          fees_paid: 1000
+          metadata: {}
+          expires_at: 1683148800
+          description_hash: abcd1234
+          preimage: abcd1234
+          description: Pay for pizza.
+          created_at: 1683148800
+          invoice: lntb1u1pw0k7jw
+          type: incoming
+          payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+      properties:
+        transactions:
+          description: A list of transactions including invoices and payments.
+          items:
+            $ref: '#/components/schemas/Transaction'
+          title: transactions
+          type: array
+      required:
+      - transactions
+      title: ListTransactionsResponse
       type: object
   securitySchemes:
     bearerAuth:

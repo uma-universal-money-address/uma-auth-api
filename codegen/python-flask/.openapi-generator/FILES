@@ -17,11 +17,10 @@ uma_auth/models/__init__.py
 uma_auth/models/base_model.py
 uma_auth/models/currency_preference.py
 uma_auth/models/error_response.py
-uma_auth/models/execute_quote_request.py
 uma_auth/models/execute_quote_response.py
 uma_auth/models/get_balance_response.py
 uma_auth/models/get_info_response.py
-uma_auth/models/invoice.py
+uma_auth/models/list_transactions_response.py
 uma_auth/models/lookup_user_response.py
 uma_auth/models/make_invoice_request.py
 uma_auth/models/pay_invoice_request.py
@@ -29,6 +28,8 @@ uma_auth/models/pay_invoice_response.py
 uma_auth/models/pay_to_address_request.py
 uma_auth/models/pay_to_address_response.py
 uma_auth/models/quote.py
+uma_auth/models/transaction.py
+uma_auth/models/transaction_type.py
 uma_auth/openapi/openapi.yaml
 uma_auth/py.typed
 uma_auth/typing_utils.py

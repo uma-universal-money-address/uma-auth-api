@@ -11,10 +11,6 @@
 package umaauth
 
 
-import (
-	"time"
-)
-
 
 
 type Quote struct {
@@ -28,8 +24,8 @@ type Quote struct {
 	// The payment hash of the quote. Used as an identifier to execute the quote.
 	PaymentHash string `json:"payment_hash"`
 
-	// The time the quote expires.
-	ExpiresAt time.Time `json:"expires_at"`
+	// The time the quote expires in unix timestamp.
+	ExpiresAt int32 `json:"expires_at"`
 
 	// Number of sending currency units per receiving currency unit.
 	Multiplier float32 `json:"multiplier"`
@@ -43,8 +39,8 @@ type Quote struct {
 	// The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
 	TotalReceivingAmount int64 `json:"total_receiving_amount"`
 
-	// The time the quote was created.
-	CreatedAt time.Time `json:"created_at"`
+	// The time the quote was created in unix timestamp.
+	CreatedAt int32 `json:"created_at"`
 }
 
 // AssertQuoteRequired checks if the required fields are not zero-ed

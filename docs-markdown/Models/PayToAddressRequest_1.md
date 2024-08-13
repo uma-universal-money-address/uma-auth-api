@@ -1,9 +1,9 @@
-# PayToAddressRequest
+# PayToAddressRequest_1
 ## Properties
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **receiver\_address** | **String** | The LUD16 address to pay. | [default to null] |
+| **receiver\_address** | **String** | The BOLT12 address to pay. | [default to null] |
 | **sending\_currency\_code** | **String** | The code of the currency being sent from the sender&#39;s wallet. | [default to null] |
 | **sending\_currency\_amount** | **Long** | The amount to send in the smallest unit of the sending currency (eg. cents). | [default to null] |
 | **receiving\_currency\_code** | **String** | The code of the currency being received by the receiver. If not provided, the receiver&#39;s default currency will be used. | [optional] [default to null] |

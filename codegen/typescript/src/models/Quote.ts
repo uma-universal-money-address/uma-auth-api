@@ -38,11 +38,11 @@ export interface Quote {
      */
     paymentHash: string;
     /**
-     * The time the quote expires.
-     * @type {Date}
+     * The time the quote expires in unix timestamp.
+     * @type {number}
      * @memberof Quote
      */
-    expiresAt: Date;
+    expiresAt: number;
     /**
      * Number of sending currency units per receiving currency unit.
      * @type {number}
@@ -68,11 +68,11 @@ export interface Quote {
      */
     totalReceivingAmount: number;
     /**
-     * The time the quote was created.
-     * @type {Date}
+     * The time the quote was created in unix timestamp.
+     * @type {number}
      * @memberof Quote
      */
-    createdAt: Date;
+    createdAt: number;
 }
 
 /**
@@ -104,12 +104,12 @@ export function QuoteFromJSONTyped(json: any, ignoreDiscriminator: boolean): Quo
         'sendingCurrencyCode': json['sending_currency_code'],
         'receivingCurrencyCode': json['receiving_currency_code'],
         'paymentHash': json['payment_hash'],
-        'expiresAt': (new Date(json['expires_at'])),
+        'expiresAt': json['expires_at'],
         'multiplier': json['multiplier'],
         'fees': json['fees'],
         'totalSendingAmount': json['total_sending_amount'],
         'totalReceivingAmount': json['total_receiving_amount'],
-        'createdAt': (new Date(json['created_at'])),
+        'createdAt': json['created_at'],
     };
 }
 
@@ -122,12 +122,12 @@ export function QuoteToJSON(value?: Quote | null): any {
         'sending_currency_code': value['sendingCurrencyCode'],
         'receiving_currency_code': value['receivingCurrencyCode'],
         'payment_hash': value['paymentHash'],
-        'expires_at': ((value['expiresAt']).toISOString()),
+        'expires_at': value['expiresAt'],
         'multiplier': value['multiplier'],
         'fees': value['fees'],
         'total_sending_amount': value['totalSendingAmount'],
         'total_receiving_amount': value['totalReceivingAmount'],
-        'created_at': ((value['createdAt']).toISOString()),
+        'created_at': value['createdAt'],
     };
 }
 

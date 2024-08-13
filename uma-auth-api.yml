@@ -64,13 +64,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Invoice'
+                $ref: '#/components/schemas/Transaction'
         '400':
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
   /payments/bolt11:
     post:
       operationId: pay_invoice
@@ -117,6 +118,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
   /invoices/{payment_hash}:
     get:
       operationId: lookup_invoice
@@ -137,13 +139,20 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Invoice'
+                $ref: '#/components/schemas/Transaction'
         '400':
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
   /balance:
     get:
       operationId: get_balance
@@ -185,17 +194,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /receiver/uma/{receiver_uma}:
+
+  /receiver/lud16/{receiver_address}:
     get:
-      operationId: lookup_user
+      operationId: lookup_user_by_lud16
       tags:
         - UmaAuth
-      summary: "lookup_user: Get receiver info by UMA"
+      summary: "lookup_user_by_lud16: Get receiver info by LUD16 address."
       parameters:
-        - name: receiver_uma
+        - name: receiver_address
           in: path
           required: true
-          description: The receiver's UMA.
+          description: The receiver's LUD16 address.
           schema:
             type: string
             example: "$alice@vasp.net"
@@ -228,13 +238,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
-  /quote:
+  /quote/lud16:
     get:
-      operationId: fetch_quote
+      operationId: fetch_quote_for_lud16
       tags:
         - UmaAuth
-      summary: "fetch_quote: Get a quote for a payment"
+      summary: "fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address"
       parameters:
         - name: sending_currency_code
           in: query
@@ -274,10 +290,10 @@ paths:
               - sending
               - receiving
             example: "sending"
-        - name: receiving_address
+        - name: receiver_address
           in: query
           required: true
-          description: The UMA address to send the payment to.
+          description: The LUD16 address to send the payment to.
           schema:
             type: string
             example: "$alice@vasp.net"
@@ -294,24 +310,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+  
+  /quote/{payment_hash}:
     post:
       operationId: execute_quote
       tags:
         - UmaAuth
       summary: "execute_quote: Execute a quote"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              title: ExecuteQuoteRequest
-              type: object
-              properties:
-                payment_hash:
-                  type: string
-                  description: The payment hash of the quote to execute.
-                  example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-              required:
-                - payment_hash
+      parameters:
+        - name: payment_hash
+          in: path
+          required: true
+          description: The payment hash of the quote to execute.
+          schema:
+            type: string
+            example: "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
       responses:
         '200':
           description: OK
@@ -333,12 +346,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /payments/lnurl:
+
+  /payments/lud16:
     post:
-      operationId: pay_to_address
+      operationId: pay_to_lud16_address
       tags:
         - UmaAuth
-      summary: "pay_to_address: Pay to an LNURL address"
+      summary: "pay_to_lud16_address: Pay to an LNURL address"
       requestBody:
         content:
           application/json:
@@ -348,7 +362,7 @@ paths:
               properties:
                 receiver_address:
                   type: string
-                  description: The address to pay.
+                  description: The LUD16 address to pay.
                   example: "$alice@vasp.net"
                 sending_currency_code:
                   type: string
@@ -392,6 +406,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
   /info:
     get:
       operationId: get_info
@@ -463,6 +478,79 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /transactions:
+    get:
+      operationId: list_transactions
+      tags:
+        - UmaAuth
+      summary: "list_transactions: Lists invoices and payments"
+      parameters:       
+        - name: from
+          in: query
+          required: false
+          description: Starting timestamp in seconds since epoch (inclusive).
+          schema:
+            type: integer
+            example: 1683148800
+        - name: until
+          in: query
+          required: false
+          description: Ending timestamp in seconds since epoch (inclusive).
+          schema:
+            type: integer
+            example: 1683148800
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of transactions to return.
+          schema:
+            type: integer
+            example: 10
+        - name: offset
+          in: query
+          required: false
+          description: Offset of the first transaction to return.
+          schema:
+            type: integer
+            example: 0
+        - name: unpaid
+          in: query
+          required: false
+          description: Whether to include unpaid invoices.
+          schema:
+            type: boolean
+            example: false
+        - name: type
+          in: query
+          required: false
+          description: >-
+            Type of transactions to return: "incoming" for invoices, "outgoing"
+            for payments, undefined for both.
+          schema:
+            $ref: '#/components/schemas/TransactionType'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: ListTransactionsResponse
+                type: object
+                properties:
+                  transactions:
+                    type: array
+                    description: A list of transactions including invoices and payments.
+                    items:
+                      $ref: '#/components/schemas/Transaction'
+                required:
+                  - transactions
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -470,62 +558,68 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    Invoice:
+    TransactionType:
+      type: string
+      enum:
+        - incoming
+        - outgoing
+      description: >-
+        Type of transaction: "incoming" for invoices, "outgoing" for payments.
+    Transaction:
       type: object
       properties:
-        payment_request:
+        type:
+          $ref: '#/components/schemas/TransactionType'
+        invoice:
           type: string
-          description: The full, encoded payment request.
+          description: The full, encoded invoice.
           example: lntb1u1pw0k7jw
+          nullable: true
+        description:
+          type: string
+          description: The invoice's description.
+          example: Pay for pizza.
+          nullable: true
+        description_hash:
+          type: string
+          description: The invoice's description hash.
+          example: abcd1234
+          nullable: true
+        preimage:
+          type: string
+          description: The payment preimage, optional if unpaid.
+          example: abcd1234
+          nullable: true
+        payment_hash:
+          type: string
+          description: Payment hash for the payment
+          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
         amount:
           type: integer
           format: int64
-          description: The amount of the invoice in msats.
+          description: Value in msats.
           example: 1000
-        payment_hash:
-          type: string
-          description: The payment hash of the invoice.
-          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
-        memo:
-          type: string
+        fees_paid:
+          type: integer
+          format: int64
+          description: Value in msats.
+          example: 1000
           nullable: true
-          description: A memo attached to the invoice.
-          example: "Payment for services rendered."
+        created_at:
+          type: integer
+          description: The time the payment/invoice was created.
+          example: 1683148800
+        expires_at:
+          type: integer
+          nullable: true
+          description: The time the invoice expires.
+          example: 1683148800
         metadata:
           type: object
           description: Additional metadata attached to the invoice.
           example: {}
           nullable: true
-        preimage:
-          type: string
-          description: The payment preimage of the invoice.
-          example: abcd1234
-          nullable: true
-        expires_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The time the invoice expires.
-          example: "2021-01-01T00:00:00Z"
-        created_at:
-          type: string
-          format: date-time
-          description: The time the invoice was created.
-          example: "2021-01-01T00:00:00Z"
-        settled_at:
-          type: string
-          format: date-time
-          nullable: true
-          description: The time the invoice was settled.
-          example: "2021-01-01T00:00:00Z"
-        type:
-          type: string
-          enum:
-            - incoming
-            - outgoing
-          description: Whether the invoice is incoming (created by this user) or outgoing (created by another user).
       required:
-        - payment_request
         - amount
         - payment_hash
         - created_at
@@ -546,10 +640,9 @@ components:
           description: The payment hash of the quote. Used as an identifier to execute the quote.
           example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
         expires_at:
-          type: string
-          format: date-time
-          description: The time the quote expires.
-          example: "2021-01-01T00:00:00Z"
+          type: integer
+          description: The time the quote expires in unix timestamp.
+          example: 1683148800
         multiplier:
           type: number
           description: Number of sending currency units per receiving currency unit.
@@ -569,10 +662,9 @@ components:
           description: The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
           example: 1000
         created_at:
-          type: string
-          format: date-time
-          description: The time the quote was created.
-          example: "2021-01-01T00:00:00Z"
+          type: integer
+          description: The time the quote was created in unix timestamp.
+          example: 1683148800
       required:
         - sending_currency_code
         - receiving_currency_code

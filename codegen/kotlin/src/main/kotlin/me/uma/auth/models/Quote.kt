@@ -17,12 +17,12 @@ package me.uma.auth.models
  * @param sendingCurrencyCode The currency code of the sender's balance.
  * @param receivingCurrencyCode The currency code of the receiver's balance.
  * @param paymentHash The payment hash of the quote. Used as an identifier to execute the quote.
- * @param expiresAt The time the quote expires.
+ * @param expiresAt The time the quote expires in unix timestamp.
  * @param multiplier Number of sending currency units per receiving currency unit.
  * @param fees The fees associated with the quote in the smallest unit of the sending currency (eg. cents).
  * @param totalSendingAmount The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
  * @param totalReceivingAmount The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
- * @param createdAt The time the quote was created.
+ * @param createdAt The time the quote was created in unix timestamp.
  */
 data class Quote(
     /* The currency code of the sender's balance. */
@@ -31,8 +31,8 @@ data class Quote(
     val receivingCurrencyCode: kotlin.String,
     /* The payment hash of the quote. Used as an identifier to execute the quote. */
     val paymentHash: kotlin.String,
-    /* The time the quote expires. */
-    val expiresAt: java.time.OffsetDateTime,
+    /* The time the quote expires in unix timestamp. */
+    val expiresAt: kotlin.Int,
     /* Number of sending currency units per receiving currency unit. */
     val multiplier: java.math.BigDecimal,
     /* The fees associated with the quote in the smallest unit of the sending currency (eg. cents). */
@@ -41,7 +41,7 @@ data class Quote(
     val totalSendingAmount: kotlin.Long,
     /* The total amount that will be received in the smallest unit of the receiving currency (eg. cents). */
     val totalReceivingAmount: kotlin.Long,
-    /* The time the quote was created. */
-    val createdAt: java.time.OffsetDateTime
+    /* The time the quote was created in unix timestamp. */
+    val createdAt: kotlin.Int
 ) 
 

@@ -49,15 +49,16 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*UmaAuthApi* | [**executeQuote**](docs/UmaAuthApi.md#executequote) | **POST** /quote | execute_quote: Execute a quote
-*UmaAuthApi* | [**fetchQuote**](docs/UmaAuthApi.md#fetchquote) | **GET** /quote | fetch_quote: Get a quote for a payment
+*UmaAuthApi* | [**executeQuote**](docs/UmaAuthApi.md#executequote) | **POST** /quote/{payment_hash} | execute_quote: Execute a quote
+*UmaAuthApi* | [**fetchQuoteForLud16**](docs/UmaAuthApi.md#fetchquoteforlud16) | **GET** /quote/lud16 | fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address
 *UmaAuthApi* | [**getBalance**](docs/UmaAuthApi.md#getbalance) | **GET** /balance | get_balance: Get the balance of the user's wallet
 *UmaAuthApi* | [**getInfo**](docs/UmaAuthApi.md#getinfo) | **GET** /info | get_info: Get information about the user's wallet connection
+*UmaAuthApi* | [**listTransactions**](docs/UmaAuthApi.md#listtransactions) | **GET** /transactions | list_transactions: Lists invoices and payments
 *UmaAuthApi* | [**lookupInvoice**](docs/UmaAuthApi.md#lookupinvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash
-*UmaAuthApi* | [**lookupUser**](docs/UmaAuthApi.md#lookupuser) | **GET** /receiver/uma/{receiver_uma} | lookup_user: Get receiver info by UMA
+*UmaAuthApi* | [**lookupUserByLud16**](docs/UmaAuthApi.md#lookupuserbylud16) | **GET** /receiver/lud16/{receiver_address} | lookup_user_by_lud16: Get receiver info by LUD16 address.
 *UmaAuthApi* | [**makeInvoice**](docs/UmaAuthApi.md#makeinvoice) | **POST** /invoice | make_invoice: Create a new invoice
 *UmaAuthApi* | [**payInvoice**](docs/UmaAuthApi.md#payinvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice
-*UmaAuthApi* | [**payToAddress**](docs/UmaAuthApi.md#paytoaddress) | **POST** /payments/lnurl | pay_to_address: Pay to an LNURL address
+*UmaAuthApi* | [**payToLud16Address**](docs/UmaAuthApi.md#paytolud16address) | **POST** /payments/lud16 | pay_to_lud16_address: Pay to an LNURL address
 
 
 <a id="documentation-for-models"></a>
@@ -65,11 +66,10 @@ Class | Method | HTTP request | Description
 
  - [me.uma.auth.models.CurrencyPreference](docs/CurrencyPreference.md)
  - [me.uma.auth.models.ErrorResponse](docs/ErrorResponse.md)
- - [me.uma.auth.models.ExecuteQuoteRequest](docs/ExecuteQuoteRequest.md)
  - [me.uma.auth.models.ExecuteQuoteResponse](docs/ExecuteQuoteResponse.md)
  - [me.uma.auth.models.GetBalanceResponse](docs/GetBalanceResponse.md)
  - [me.uma.auth.models.GetInfoResponse](docs/GetInfoResponse.md)
- - [me.uma.auth.models.Invoice](docs/Invoice.md)
+ - [me.uma.auth.models.ListTransactionsResponse](docs/ListTransactionsResponse.md)
  - [me.uma.auth.models.LookupUserResponse](docs/LookupUserResponse.md)
  - [me.uma.auth.models.MakeInvoiceRequest](docs/MakeInvoiceRequest.md)
  - [me.uma.auth.models.PayInvoiceRequest](docs/PayInvoiceRequest.md)
@@ -77,6 +77,8 @@ Class | Method | HTTP request | Description
  - [me.uma.auth.models.PayToAddressRequest](docs/PayToAddressRequest.md)
  - [me.uma.auth.models.PayToAddressResponse](docs/PayToAddressResponse.md)
  - [me.uma.auth.models.Quote](docs/Quote.md)
+ - [me.uma.auth.models.Transaction](docs/Transaction.md)
+ - [me.uma.auth.models.TransactionType](docs/TransactionType.md)
 
 
 <a id="documentation-for-authorization"></a>
