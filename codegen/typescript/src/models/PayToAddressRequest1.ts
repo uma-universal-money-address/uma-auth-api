@@ -16,50 +16,50 @@ import { mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface PayToAddressRequest
+ * @interface PayToAddressRequest1
  */
-export interface PayToAddressRequest {
+export interface PayToAddressRequest1 {
     /**
-     * The LUD16 address to pay.
+     * The BOLT12 address to pay.
      * @type {string}
-     * @memberof PayToAddressRequest
+     * @memberof PayToAddressRequest1
      */
     receiverAddress: string;
     /**
      * The code of the currency being sent from the sender's wallet.
      * @type {string}
-     * @memberof PayToAddressRequest
+     * @memberof PayToAddressRequest1
      */
     sendingCurrencyCode: string;
     /**
      * The amount to send in the smallest unit of the sending currency (eg. cents).
      * @type {number}
-     * @memberof PayToAddressRequest
+     * @memberof PayToAddressRequest1
      */
     sendingCurrencyAmount: number;
     /**
      * The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.
      * @type {string}
-     * @memberof PayToAddressRequest
+     * @memberof PayToAddressRequest1
      */
     receivingCurrencyCode?: string;
 }
 
 /**
- * Check if a given object implements the PayToAddressRequest interface.
+ * Check if a given object implements the PayToAddressRequest1 interface.
  */
-export function instanceOfPayToAddressRequest(value: object): value is PayToAddressRequest {
+export function instanceOfPayToAddressRequest1(value: object): value is PayToAddressRequest1 {
     if (!('receiverAddress' in value) || value['receiverAddress'] === undefined) return false;
     if (!('sendingCurrencyCode' in value) || value['sendingCurrencyCode'] === undefined) return false;
     if (!('sendingCurrencyAmount' in value) || value['sendingCurrencyAmount'] === undefined) return false;
     return true;
 }
 
-export function PayToAddressRequestFromJSON(json: any): PayToAddressRequest {
-    return PayToAddressRequestFromJSONTyped(json, false);
+export function PayToAddressRequest1FromJSON(json: any): PayToAddressRequest1 {
+    return PayToAddressRequest1FromJSONTyped(json, false);
 }
 
-export function PayToAddressRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): PayToAddressRequest {
+export function PayToAddressRequest1FromJSONTyped(json: any, ignoreDiscriminator: boolean): PayToAddressRequest1 {
     if (json == null) {
         return json;
     }
@@ -72,7 +72,7 @@ export function PayToAddressRequestFromJSONTyped(json: any, ignoreDiscriminator:
     };
 }
 
-export function PayToAddressRequestToJSON(value?: PayToAddressRequest | null): any {
+export function PayToAddressRequest1ToJSON(value?: PayToAddressRequest1 | null): any {
     if (value == null) {
         return value;
     }

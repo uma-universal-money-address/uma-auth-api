@@ -55,13 +55,13 @@ func (c *UmaAuthAPIController) Routes() Routes {
 	return Routes{
 		"ExecuteQuote": Route{
 			strings.ToUpper("Post"),
-			"/umanwc/v1/quote",
+			"/umanwc/v1/quote/{payment_hash}",
 			c.ExecuteQuote,
 		},
-		"FetchQuote": Route{
+		"FetchQuoteForLud16": Route{
 			strings.ToUpper("Get"),
-			"/umanwc/v1/quote",
-			c.FetchQuote,
+			"/umanwc/v1/quote/lud16",
+			c.FetchQuoteForLud16,
 		},
 		"GetBalance": Route{
 			strings.ToUpper("Get"),
@@ -73,15 +73,20 @@ func (c *UmaAuthAPIController) Routes() Routes {
 			"/umanwc/v1/info",
 			c.GetInfo,
 		},
+		"ListTransactions": Route{
+			strings.ToUpper("Get"),
+			"/umanwc/v1/transactions",
+			c.ListTransactions,
+		},
 		"LookupInvoice": Route{
 			strings.ToUpper("Get"),
 			"/umanwc/v1/invoices/{payment_hash}",
 			c.LookupInvoice,
 		},
-		"LookupUser": Route{
+		"LookupUserByLud16": Route{
 			strings.ToUpper("Get"),
-			"/umanwc/v1/receiver/uma/{receiver_uma}",
-			c.LookupUser,
+			"/umanwc/v1/receiver/lud16/{receiver_address}",
+			c.LookupUserByLud16,
 		},
 		"MakeInvoice": Route{
 			strings.ToUpper("Post"),
@@ -93,32 +98,23 @@ func (c *UmaAuthAPIController) Routes() Routes {
 			"/umanwc/v1/payments/bolt11",
 			c.PayInvoice,
 		},
-		"PayToAddress": Route{
+		"PayToLud16Address": Route{
 			strings.ToUpper("Post"),
-			"/umanwc/v1/payments/lnurl",
-			c.PayToAddress,
+			"/umanwc/v1/payments/lud16",
+			c.PayToLud16Address,
 		},
 	}
 }
 
 // ExecuteQuote - execute_quote: Execute a quote
 func (c *UmaAuthAPIController) ExecuteQuote(w http.ResponseWriter, r *http.Request) {
-	executeQuoteRequestParam := ExecuteQuoteRequest{}
-	d := json.NewDecoder(r.Body)
-	d.DisallowUnknownFields()
-	if err := d.Decode(&executeQuoteRequestParam); err != nil && !errors.Is(err, io.EOF) {
-		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
+	params := mux.Vars(r)
+	paymentHashParam := params["payment_hash"]
+	if paymentHashParam == "" {
+		c.errorHandler(w, r, &RequiredError{"payment_hash"}, nil)
 		return
 	}
-	if err := AssertExecuteQuoteRequestRequired(executeQuoteRequestParam); err != nil {
-		c.errorHandler(w, r, err, nil)
-		return
-	}
-	if err := AssertExecuteQuoteRequestConstraints(executeQuoteRequestParam); err != nil {
-		c.errorHandler(w, r, err, nil)
-		return
-	}
-	result, err := c.service.ExecuteQuote(r.Context(), executeQuoteRequestParam)
+	result, err := c.service.ExecuteQuote(r.Context(), paymentHashParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -128,8 +124,8 @@ func (c *UmaAuthAPIController) ExecuteQuote(w http.ResponseWriter, r *http.Reque
 	_ = EncodeJSONResponse(result.Body, &result.Code, w)
 }
 
-// FetchQuote - fetch_quote: Get a quote for a payment
-func (c *UmaAuthAPIController) FetchQuote(w http.ResponseWriter, r *http.Request) {
+// FetchQuoteForLud16 - fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address
+func (c *UmaAuthAPIController) FetchQuoteForLud16(w http.ResponseWriter, r *http.Request) {
 	query, err := parseQuery(r.URL.RawQuery)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
@@ -178,16 +174,16 @@ func (c *UmaAuthAPIController) FetchQuote(w http.ResponseWriter, r *http.Request
 		c.errorHandler(w, r, &RequiredError{Field: "locked_currency_side"}, nil)
 		return
 	}
-	var receivingAddressParam string
-	if query.Has("receiving_address") {
-		param := query.Get("receiving_address")
+	var receiverAddressParam string
+	if query.Has("receiver_address") {
+		param := query.Get("receiver_address")
 
-		receivingAddressParam = param
+		receiverAddressParam = param
 	} else {
-		c.errorHandler(w, r, &RequiredError{Field: "receiving_address"}, nil)
+		c.errorHandler(w, r, &RequiredError{Field: "receiver_address"}, nil)
 		return
 	}
-	result, err := c.service.FetchQuote(r.Context(), sendingCurrencyCodeParam, receivingCurrencyCodeParam, lockedCurrencyAmountParam, lockedCurrencySideParam, receivingAddressParam)
+	result, err := c.service.FetchQuoteForLud16(r.Context(), sendingCurrencyCodeParam, receivingCurrencyCodeParam, lockedCurrencyAmountParam, lockedCurrencySideParam, receiverAddressParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -233,6 +229,100 @@ func (c *UmaAuthAPIController) GetInfo(w http.ResponseWriter, r *http.Request) {
 	_ = EncodeJSONResponse(result.Body, &result.Code, w)
 }
 
+// ListTransactions - list_transactions: Lists invoices and payments
+func (c *UmaAuthAPIController) ListTransactions(w http.ResponseWriter, r *http.Request) {
+	query, err := parseQuery(r.URL.RawQuery)
+	if err != nil {
+		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
+		return
+	}
+	var fromParam int32
+	if query.Has("from") {
+		param, err := parseNumericParameter[int32](
+			query.Get("from"),
+			WithParse[int32](parseInt32),
+		)
+		if err != nil {
+			c.errorHandler(w, r, &ParsingError{Param: "from", Err: err}, nil)
+			return
+		}
+
+		fromParam = param
+	} else {
+	}
+	var untilParam int32
+	if query.Has("until") {
+		param, err := parseNumericParameter[int32](
+			query.Get("until"),
+			WithParse[int32](parseInt32),
+		)
+		if err != nil {
+			c.errorHandler(w, r, &ParsingError{Param: "until", Err: err}, nil)
+			return
+		}
+
+		untilParam = param
+	} else {
+	}
+	var limitParam int32
+	if query.Has("limit") {
+		param, err := parseNumericParameter[int32](
+			query.Get("limit"),
+			WithParse[int32](parseInt32),
+		)
+		if err != nil {
+			c.errorHandler(w, r, &ParsingError{Param: "limit", Err: err}, nil)
+			return
+		}
+
+		limitParam = param
+	} else {
+	}
+	var offsetParam int32
+	if query.Has("offset") {
+		param, err := parseNumericParameter[int32](
+			query.Get("offset"),
+			WithParse[int32](parseInt32),
+		)
+		if err != nil {
+			c.errorHandler(w, r, &ParsingError{Param: "offset", Err: err}, nil)
+			return
+		}
+
+		offsetParam = param
+	} else {
+	}
+	var unpaidParam bool
+	if query.Has("unpaid") {
+		param, err := parseBoolParameter(
+			query.Get("unpaid"),
+			WithParse[bool](parseBool),
+		)
+		if err != nil {
+			c.errorHandler(w, r, &ParsingError{Param: "unpaid", Err: err}, nil)
+			return
+		}
+
+		unpaidParam = param
+	} else {
+	}
+	var type_Param TransactionType
+	if query.Has("type") {
+		param := TransactionType(query.Get("type"))
+
+		type_Param = param
+	} else {
+	}
+	result, err := c.service.ListTransactions(r.Context(), fromParam, untilParam, limitParam, offsetParam, unpaidParam, type_Param)
+	// If an error occurred, encode the error with the status code
+	if err != nil {
+		c.errorHandler(w, r, err, &result)
+		return
+	}
+	// If no error, encode the body and the result code
+	_ = EncodeJSONResponse(result.Body, &result.Code, w)
+}
+
 // LookupInvoice - lookup_invoice: Get an invoice by its payment hash
 func (c *UmaAuthAPIController) LookupInvoice(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
@@ -251,17 +341,17 @@ func (c *UmaAuthAPIController) LookupInvoice(w http.ResponseWriter, r *http.Requ
 	_ = EncodeJSONResponse(result.Body, &result.Code, w)
 }
 
-// LookupUser - lookup_user: Get receiver info by UMA
-func (c *UmaAuthAPIController) LookupUser(w http.ResponseWriter, r *http.Request) {
+// LookupUserByLud16 - lookup_user_by_lud16: Get receiver info by LUD16 address.
+func (c *UmaAuthAPIController) LookupUserByLud16(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	query, err := parseQuery(r.URL.RawQuery)
 	if err != nil {
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	receiverUmaParam := params["receiver_uma"]
-	if receiverUmaParam == "" {
-		c.errorHandler(w, r, &RequiredError{"receiver_uma"}, nil)
+	receiverAddressParam := params["receiver_address"]
+	if receiverAddressParam == "" {
+		c.errorHandler(w, r, &RequiredError{"receiver_address"}, nil)
 		return
 	}
 	var baseSendingCurrencyCodeParam string
@@ -271,7 +361,7 @@ func (c *UmaAuthAPIController) LookupUser(w http.ResponseWriter, r *http.Request
 		baseSendingCurrencyCodeParam = param
 	} else {
 	}
-	result, err := c.service.LookupUser(r.Context(), receiverUmaParam, baseSendingCurrencyCodeParam)
+	result, err := c.service.LookupUserByLud16(r.Context(), receiverAddressParam, baseSendingCurrencyCodeParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -335,8 +425,8 @@ func (c *UmaAuthAPIController) PayInvoice(w http.ResponseWriter, r *http.Request
 	_ = EncodeJSONResponse(result.Body, &result.Code, w)
 }
 
-// PayToAddress - pay_to_address: Pay to an LNURL address
-func (c *UmaAuthAPIController) PayToAddress(w http.ResponseWriter, r *http.Request) {
+// PayToLud16Address - pay_to_lud16_address: Pay to an LNURL address
+func (c *UmaAuthAPIController) PayToLud16Address(w http.ResponseWriter, r *http.Request) {
 	payToAddressRequestParam := PayToAddressRequest{}
 	d := json.NewDecoder(r.Body)
 	d.DisallowUnknownFields()
@@ -352,7 +442,7 @@ func (c *UmaAuthAPIController) PayToAddress(w http.ResponseWriter, r *http.Reque
 		c.errorHandler(w, r, err, nil)
 		return
 	}
-	result, err := c.service.PayToAddress(r.Context(), payToAddressRequestParam)
+	result, err := c.service.PayToLud16Address(r.Context(), payToAddressRequestParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)

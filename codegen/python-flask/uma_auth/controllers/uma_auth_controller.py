@@ -4,11 +4,10 @@ from typing import Tuple
 from typing import Union
 
 from uma_auth.models.error_response import ErrorResponse  # noqa: E501
-from uma_auth.models.execute_quote_request import ExecuteQuoteRequest  # noqa: E501
 from uma_auth.models.execute_quote_response import ExecuteQuoteResponse  # noqa: E501
 from uma_auth.models.get_balance_response import GetBalanceResponse  # noqa: E501
 from uma_auth.models.get_info_response import GetInfoResponse  # noqa: E501
-from uma_auth.models.invoice import Invoice  # noqa: E501
+from uma_auth.models.list_transactions_response import ListTransactionsResponse  # noqa: E501
 from uma_auth.models.lookup_user_response import LookupUserResponse  # noqa: E501
 from uma_auth.models.make_invoice_request import MakeInvoiceRequest  # noqa: E501
 from uma_auth.models.pay_invoice_request import PayInvoiceRequest  # noqa: E501
@@ -16,26 +15,26 @@ from uma_auth.models.pay_invoice_response import PayInvoiceResponse  # noqa: E50
 from uma_auth.models.pay_to_address_request import PayToAddressRequest  # noqa: E501
 from uma_auth.models.pay_to_address_response import PayToAddressResponse  # noqa: E501
 from uma_auth.models.quote import Quote  # noqa: E501
+from uma_auth.models.transaction import Transaction  # noqa: E501
+from uma_auth.models.transaction_type import TransactionType  # noqa: E501
 from uma_auth import util
 
 
-def execute_quote(execute_quote_request=None):  # noqa: E501
+def execute_quote(payment_hash):  # noqa: E501
     """execute_quote: Execute a quote
 
      # noqa: E501
 
-    :param execute_quote_request: 
-    :type execute_quote_request: dict | bytes
+    :param payment_hash: The payment hash of the quote to execute.
+    :type payment_hash: str
 
     :rtype: Union[ExecuteQuoteResponse, Tuple[ExecuteQuoteResponse, int], Tuple[ExecuteQuoteResponse, int, Dict[str, str]]
     """
-    if connexion.request.is_json:
-        execute_quote_request = ExecuteQuoteRequest.from_dict(connexion.request.get_json())  # noqa: E501
     return 'do some magic!'
 
 
-def fetch_quote(sending_currency_code, receiving_currency_code, locked_currency_amount, locked_currency_side, receiving_address):  # noqa: E501
-    """fetch_quote: Get a quote for a payment
+def fetch_quote_for_lud16(sending_currency_code, receiving_currency_code, locked_currency_amount, locked_currency_side, receiver_address):  # noqa: E501
+    """fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address
 
      # noqa: E501
 
@@ -47,8 +46,8 @@ def fetch_quote(sending_currency_code, receiving_currency_code, locked_currency_
     :type locked_currency_amount: int
     :param locked_currency_side: The side of the quote which should be locked and specified in the &#x60;locked_currency_amount&#x60;. For example, if I want to send exactly $5 MXN from my wallet, I would set this to \&quot;sending\&quot;, and the &#x60;locked_currency_amount&#x60; to 500 (in cents). If I want the receiver to receive exactly $10 USD, I would set this to \&quot;receiving\&quot; and the &#x60;locked_currency_amount&#x60; to 10000 (in cents).
     :type locked_currency_side: str
-    :param receiving_address: The UMA address to send the payment to.
-    :type receiving_address: str
+    :param receiver_address: The LUD16 address to send the payment to.
+    :type receiver_address: str
 
     :rtype: Union[Quote, Tuple[Quote, int], Tuple[Quote, int, Dict[str, str]]
     """
@@ -79,6 +78,31 @@ def get_info():  # noqa: E501
     return 'do some magic!'
 
 
+def list_transactions(_from=None, until=None, limit=None, offset=None, unpaid=None, type=None):  # noqa: E501
+    """list_transactions: Lists invoices and payments
+
+     # noqa: E501
+
+    :param _from: Starting timestamp in seconds since epoch (inclusive).
+    :type _from: int
+    :param until: Ending timestamp in seconds since epoch (inclusive).
+    :type until: int
+    :param limit: Maximum number of transactions to return.
+    :type limit: int
+    :param offset: Offset of the first transaction to return.
+    :type offset: int
+    :param unpaid: Whether to include unpaid invoices.
+    :type unpaid: bool
+    :param type: Type of transactions to return: \&quot;incoming\&quot; for invoices, \&quot;outgoing\&quot; for payments, undefined for both.
+    :type type: dict | bytes
+
+    :rtype: Union[ListTransactionsResponse, Tuple[ListTransactionsResponse, int], Tuple[ListTransactionsResponse, int, Dict[str, str]]
+    """
+    if connexion.request.is_json:
+        type =  TransactionType.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
+
+
 def lookup_invoice(payment_hash):  # noqa: E501
     """lookup_invoice: Get an invoice by its payment hash
 
@@ -87,18 +111,18 @@ def lookup_invoice(payment_hash):  # noqa: E501
     :param payment_hash: The payment hash of the invoice.
     :type payment_hash: str
 
-    :rtype: Union[Invoice, Tuple[Invoice, int], Tuple[Invoice, int, Dict[str, str]]
+    :rtype: Union[Transaction, Tuple[Transaction, int], Tuple[Transaction, int, Dict[str, str]]
     """
     return 'do some magic!'
 
 
-def lookup_user(receiver_uma, base_sending_currency_code=None):  # noqa: E501
-    """lookup_user: Get receiver info by UMA
+def lookup_user_by_lud16(receiver_address, base_sending_currency_code=None):  # noqa: E501
+    """lookup_user_by_lud16: Get receiver info by LUD16 address.
 
      # noqa: E501
 
-    :param receiver_uma: The receiver&#39;s UMA.
-    :type receiver_uma: str
+    :param receiver_address: The receiver&#39;s LUD16 address.
+    :type receiver_address: str
     :param base_sending_currency_code: The currency code of the sender&#39;s balance. Assumed to be in msats if not provided.  This is used to calculate the multiplier for the receiver&#39;s currencies.
     :type base_sending_currency_code: str
 
@@ -115,7 +139,7 @@ def make_invoice(make_invoice_request=None):  # noqa: E501
     :param make_invoice_request: 
     :type make_invoice_request: dict | bytes
 
-    :rtype: Union[Invoice, Tuple[Invoice, int], Tuple[Invoice, int, Dict[str, str]]
+    :rtype: Union[Transaction, Tuple[Transaction, int], Tuple[Transaction, int, Dict[str, str]]
     """
     if connexion.request.is_json:
         make_invoice_request = MakeInvoiceRequest.from_dict(connexion.request.get_json())  # noqa: E501
@@ -137,8 +161,8 @@ def pay_invoice(pay_invoice_request=None):  # noqa: E501
     return 'do some magic!'
 
 
-def pay_to_address(pay_to_address_request=None):  # noqa: E501
-    """pay_to_address: Pay to an LNURL address
+def pay_to_lud16_address(pay_to_address_request=None):  # noqa: E501
+    """pay_to_lud16_address: Pay to an LNURL address
 
      # noqa: E501
 

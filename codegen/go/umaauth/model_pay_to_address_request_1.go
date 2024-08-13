@@ -13,9 +13,9 @@ package umaauth
 
 
 
-type PayToAddressRequest struct {
+type PayToAddressRequest1 struct {
 
-	// The LUD16 address to pay.
+	// The BOLT12 address to pay.
 	ReceiverAddress string `json:"receiver_address"`
 
 	// The code of the currency being sent from the sender's wallet.
@@ -28,8 +28,8 @@ type PayToAddressRequest struct {
 	ReceivingCurrencyCode string `json:"receiving_currency_code,omitempty"`
 }
 
-// AssertPayToAddressRequestRequired checks if the required fields are not zero-ed
-func AssertPayToAddressRequestRequired(obj PayToAddressRequest) error {
+// AssertPayToAddressRequest1Required checks if the required fields are not zero-ed
+func AssertPayToAddressRequest1Required(obj PayToAddressRequest1) error {
 	elements := map[string]interface{}{
 		"receiver_address": obj.ReceiverAddress,
 		"sending_currency_code": obj.SendingCurrencyCode,
@@ -44,7 +44,7 @@ func AssertPayToAddressRequestRequired(obj PayToAddressRequest) error {
 	return nil
 }
 
-// AssertPayToAddressRequestConstraints checks if the values respects the defined constraints
-func AssertPayToAddressRequestConstraints(obj PayToAddressRequest) error {
+// AssertPayToAddressRequest1Constraints checks if the values respects the defined constraints
+func AssertPayToAddressRequest1Constraints(obj PayToAddressRequest1) error {
 	return nil
 }

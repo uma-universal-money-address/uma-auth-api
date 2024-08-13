@@ -22,7 +22,7 @@ class Quote(Model):
         :param payment_hash: The payment_hash of this Quote.  # noqa: E501
         :type payment_hash: str
         :param expires_at: The expires_at of this Quote.  # noqa: E501
-        :type expires_at: datetime
+        :type expires_at: int
         :param multiplier: The multiplier of this Quote.  # noqa: E501
         :type multiplier: float
         :param fees: The fees of this Quote.  # noqa: E501
@@ -32,18 +32,18 @@ class Quote(Model):
         :param total_receiving_amount: The total_receiving_amount of this Quote.  # noqa: E501
         :type total_receiving_amount: int
         :param created_at: The created_at of this Quote.  # noqa: E501
-        :type created_at: datetime
+        :type created_at: int
         """
         self.openapi_types = {
             'sending_currency_code': str,
             'receiving_currency_code': str,
             'payment_hash': str,
-            'expires_at': datetime,
+            'expires_at': int,
             'multiplier': float,
             'fees': int,
             'total_sending_amount': int,
             'total_receiving_amount': int,
-            'created_at': datetime
+            'created_at': int
         }
 
         self.attribute_map = {
@@ -155,24 +155,24 @@ class Quote(Model):
         self._payment_hash = payment_hash
 
     @property
-    def expires_at(self) -> datetime:
+    def expires_at(self) -> int:
         """Gets the expires_at of this Quote.
 
-        The time the quote expires.  # noqa: E501
+        The time the quote expires in unix timestamp.  # noqa: E501
 
         :return: The expires_at of this Quote.
-        :rtype: datetime
+        :rtype: int
         """
         return self._expires_at
 
     @expires_at.setter
-    def expires_at(self, expires_at: datetime):
+    def expires_at(self, expires_at: int):
         """Sets the expires_at of this Quote.
 
-        The time the quote expires.  # noqa: E501
+        The time the quote expires in unix timestamp.  # noqa: E501
 
         :param expires_at: The expires_at of this Quote.
-        :type expires_at: datetime
+        :type expires_at: int
         """
         if expires_at is None:
             raise ValueError("Invalid value for `expires_at`, must not be `None`")  # noqa: E501
@@ -280,24 +280,24 @@ class Quote(Model):
         self._total_receiving_amount = total_receiving_amount
 
     @property
-    def created_at(self) -> datetime:
+    def created_at(self) -> int:
         """Gets the created_at of this Quote.
 
-        The time the quote was created.  # noqa: E501
+        The time the quote was created in unix timestamp.  # noqa: E501
 
         :return: The created_at of this Quote.
-        :rtype: datetime
+        :rtype: int
         """
         return self._created_at
 
     @created_at.setter
-    def created_at(self, created_at: datetime):
+    def created_at(self, created_at: int):
         """Sets the created_at of this Quote.
 
-        The time the quote was created.  # noqa: E501
+        The time the quote was created in unix timestamp.  # noqa: E501
 
         :param created_at: The created_at of this Quote.
-        :type created_at: datetime
+        :type created_at: int
         """
         if created_at is None:
             raise ValueError("Invalid value for `created_at`, must not be `None`")  # noqa: E501

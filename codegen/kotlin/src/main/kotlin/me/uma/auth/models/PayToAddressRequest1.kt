@@ -14,13 +14,13 @@ package me.uma.auth.models
 
 /**
  * 
- * @param receiverAddress The LUD16 address to pay.
+ * @param receiverAddress The BOLT12 address to pay.
  * @param sendingCurrencyCode The code of the currency being sent from the sender's wallet.
  * @param sendingCurrencyAmount The amount to send in the smallest unit of the sending currency (eg. cents).
  * @param receivingCurrencyCode The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.
  */
-data class PayToAddressRequest(
-    /* The LUD16 address to pay. */
+data class PayToAddressRequest1(
+    /* The BOLT12 address to pay. */
     val receiverAddress: kotlin.String,
     /* The code of the currency being sent from the sender's wallet. */
     val sendingCurrencyCode: kotlin.String,

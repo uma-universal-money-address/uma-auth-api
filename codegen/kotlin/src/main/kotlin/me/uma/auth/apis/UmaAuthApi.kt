@@ -27,11 +27,10 @@ import io.ktor.server.resources.patch
 import io.ktor.server.routing.*
 import me.uma.auth.infrastructure.ApiPrincipal
 import me.uma.auth.models.ErrorResponse
-import me.uma.auth.models.ExecuteQuoteRequest
 import me.uma.auth.models.ExecuteQuoteResponse
 import me.uma.auth.models.GetBalanceResponse
 import me.uma.auth.models.GetInfoResponse
-import me.uma.auth.models.Invoice
+import me.uma.auth.models.ListTransactionsResponse
 import me.uma.auth.models.LookupUserResponse
 import me.uma.auth.models.MakeInvoiceRequest
 import me.uma.auth.models.PayInvoiceRequest
@@ -39,6 +38,8 @@ import me.uma.auth.models.PayInvoiceResponse
 import me.uma.auth.models.PayToAddressRequest
 import me.uma.auth.models.PayToAddressResponse
 import me.uma.auth.models.Quote
+import me.uma.auth.models.Transaction
+import me.uma.auth.models.TransactionType
 
 fun Route.UmaAuthApi() {
     val gson = Gson()
@@ -65,7 +66,7 @@ fun Route.UmaAuthApi() {
     }
 
     authenticate("bearerAuth") {
-    get<Paths.fetchQuote> {
+    get<Paths.fetchQuoteForLud16> {
         
         val principal = null!!
         
@@ -75,11 +76,11 @@ fun Route.UmaAuthApi() {
               "sending_currency_code" : "MXN",
               "receiving_currency_code" : "USD",
               "fees" : 10,
-              "expires_at" : "2021-01-01T00:00:00Z",
+              "expires_at" : 1683148800,
               "total_sending_amount" : 123010,
               "total_receiving_amount" : 1000,
               "multiplier" : 123,
-              "created_at" : "2021-01-01T00:00:00Z",
+              "created_at" : 1683148800,
               "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
             }"""
             
@@ -158,23 +159,38 @@ fun Route.UmaAuthApi() {
     }
 
     authenticate("bearerAuth") {
-    get<Paths.lookupInvoice> {
+    get<Paths.listTransactions> {
         
         val principal = null!!
         
         
         val exampleContentType = "application/json"
             val exampleContentString = """{
-              "amount" : 1000,
-              "metadata" : { },
-              "expires_at" : "2021-01-01T00:00:00Z",
-              "payment_request" : "lntb1u1pw0k7jw",
-              "preimage" : "abcd1234",
-              "memo" : "Payment for services rendered.",
-              "created_at" : "2021-01-01T00:00:00Z",
-              "settled_at" : "2021-01-01T00:00:00Z",
-              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
-              "type" : "incoming"
+              "transactions" : [ {
+                "amount" : 1000,
+                "fees_paid" : 1000,
+                "metadata" : { },
+                "expires_at" : 1683148800,
+                "description_hash" : "abcd1234",
+                "preimage" : "abcd1234",
+                "description" : "Pay for pizza.",
+                "created_at" : 1683148800,
+                "invoice" : "lntb1u1pw0k7jw",
+                "type" : "incoming",
+                "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+              }, {
+                "amount" : 1000,
+                "fees_paid" : 1000,
+                "metadata" : { },
+                "expires_at" : 1683148800,
+                "description_hash" : "abcd1234",
+                "preimage" : "abcd1234",
+                "description" : "Pay for pizza.",
+                "created_at" : 1683148800,
+                "invoice" : "lntb1u1pw0k7jw",
+                "type" : "incoming",
+                "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+              } ]
             }"""
             
             when (exampleContentType) {
@@ -187,7 +203,37 @@ fun Route.UmaAuthApi() {
     }
 
     authenticate("bearerAuth") {
-    get<Paths.lookupUser> {
+    get<Paths.lookupInvoice> {
+        
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "amount" : 1000,
+              "fees_paid" : 1000,
+              "metadata" : { },
+              "expires_at" : 1683148800,
+              "description_hash" : "abcd1234",
+              "preimage" : "abcd1234",
+              "description" : "Pay for pizza.",
+              "created_at" : 1683148800,
+              "invoice" : "lntb1u1pw0k7jw",
+              "type" : "incoming",
+              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
+        
+    }
+    }
+
+    authenticate("bearerAuth") {
+    get<Paths.lookupUserByLud16> {
         
         val principal = null!!
         
@@ -231,15 +277,16 @@ fun Route.UmaAuthApi() {
         val exampleContentType = "application/json"
             val exampleContentString = """{
               "amount" : 1000,
+              "fees_paid" : 1000,
               "metadata" : { },
-              "expires_at" : "2021-01-01T00:00:00Z",
-              "payment_request" : "lntb1u1pw0k7jw",
+              "expires_at" : 1683148800,
+              "description_hash" : "abcd1234",
               "preimage" : "abcd1234",
-              "memo" : "Payment for services rendered.",
-              "created_at" : "2021-01-01T00:00:00Z",
-              "settled_at" : "2021-01-01T00:00:00Z",
-              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
-              "type" : "incoming"
+              "description" : "Pay for pizza.",
+              "created_at" : 1683148800,
+              "invoice" : "lntb1u1pw0k7jw",
+              "type" : "incoming",
+              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
             }"""
             
             when (exampleContentType) {
@@ -272,7 +319,7 @@ fun Route.UmaAuthApi() {
     }
 
     authenticate("bearerAuth") {
-    post<Paths.payToAddress> {
+    post<Paths.payToLud16Address> {
         
         val principal = null!!
         
@@ -283,11 +330,11 @@ fun Route.UmaAuthApi() {
                 "sending_currency_code" : "MXN",
                 "receiving_currency_code" : "USD",
                 "fees" : 10,
-                "expires_at" : "2021-01-01T00:00:00Z",
+                "expires_at" : 1683148800,
                 "total_sending_amount" : 123010,
                 "total_receiving_amount" : 1000,
                 "multiplier" : 123,
-                "created_at" : "2021-01-01T00:00:00Z",
+                "created_at" : 1683148800,
                 "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
               },
               "preimage" : "abcd1234"

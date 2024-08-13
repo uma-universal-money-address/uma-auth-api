@@ -21,22 +21,20 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List
+from uma_auth.models.transaction import Transaction
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PayToAddressRequest(BaseModel):
+class ListTransactionsResponse(BaseModel):
     """
-    PayToAddressRequest
+    ListTransactionsResponse
     """ # noqa: E501
-    receiver_address: StrictStr = Field(description="The LUD16 address to pay.")
-    sending_currency_code: StrictStr = Field(description="The code of the currency being sent from the sender's wallet.")
-    sending_currency_amount: StrictInt = Field(description="The amount to send in the smallest unit of the sending currency (eg. cents).")
-    receiving_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.")
-    __properties: ClassVar[List[str]] = ["receiver_address", "sending_currency_code", "sending_currency_amount", "receiving_currency_code"]
+    transactions: List[Transaction] = Field(description="A list of transactions including invoices and payments.")
+    __properties: ClassVar[List[str]] = ["transactions"]
 
     model_config = {
         "populate_by_name": True,
@@ -55,7 +53,7 @@ class PayToAddressRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PayToAddressRequest from a JSON string"""
+        """Create an instance of ListTransactionsResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -76,11 +74,18 @@ class PayToAddressRequest(BaseModel):
             exclude_none=True,
             exclude_unset=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in transactions (list)
+        _items = []
+        if self.transactions:
+            for _item in self.transactions:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['transactions'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PayToAddressRequest from a dict"""
+        """Create an instance of ListTransactionsResponse from a dict"""
         if obj is None:
             return None
 
@@ -88,10 +93,7 @@ class PayToAddressRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "receiver_address": obj.get("receiver_address"),
-            "sending_currency_code": obj.get("sending_currency_code"),
-            "sending_currency_amount": obj.get("sending_currency_amount"),
-            "receiving_currency_code": obj.get("receiving_currency_code")
+            "transactions": [Transaction.from_dict(_item) for _item in obj.get("transactions")] if obj.get("transactions") is not None else None
         })
         return _obj
 
