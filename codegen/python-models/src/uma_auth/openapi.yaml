@@ -512,6 +512,7 @@ components:
           description: The fees associated with the quote in the smallest unit of
             the sending currency (eg. cents).
           example: 10
+          format: int64
           title: fees
           type: integer
         total_sending_amount:
