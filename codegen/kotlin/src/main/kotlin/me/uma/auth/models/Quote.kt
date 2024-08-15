@@ -36,7 +36,7 @@ data class Quote(
     /* Number of sending currency units per receiving currency unit. */
     val multiplier: java.math.BigDecimal,
     /* The fees associated with the quote in the smallest unit of the sending currency (eg. cents). */
-    val fees: kotlin.Int,
+    val fees: kotlin.Long,
     /* The total amount that will be sent in the smallest unit of the sending currency (eg. cents). */
     val totalSendingAmount: kotlin.Long,
     /* The total amount that will be received in the smallest unit of the receiving currency (eg. cents). */

@@ -31,7 +31,7 @@ type Quote struct {
 	Multiplier float32 `json:"multiplier"`
 
 	// The fees associated with the quote in the smallest unit of the sending currency (eg. cents).
-	Fees int32 `json:"fees"`
+	Fees int64 `json:"fees"`
 
 	// The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
 	TotalSendingAmount int64 `json:"total_sending_amount"`
