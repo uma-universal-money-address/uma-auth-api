@@ -16,7 +16,8 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
 *UmaAuthApi* | [**lookupUserByLud16**](Apis/UmaAuthApi.md#lookupuserbylud16) | **GET** /receiver/lud16/{receiver_address} | lookup_user_by_lud16: Get receiver info by LUD16 address. |
 *UmaAuthApi* | [**makeInvoice**](Apis/UmaAuthApi.md#makeinvoice) | **POST** /invoice | make_invoice: Create a new invoice |
 *UmaAuthApi* | [**payInvoice**](Apis/UmaAuthApi.md#payinvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice |
-*UmaAuthApi* | [**payToLud16Address**](Apis/UmaAuthApi.md#paytolud16address) | **POST** /payments/lud16 | pay_to_lud16_address: Pay to an LNURL address |
+*UmaAuthApi* | [**payKeysend**](Apis/UmaAuthApi.md#paykeysend) | **POST** /payments/keysend | pay_keysend: Pay directly to the pubkey of the receiver node based on a fixed receiving amount |
+*UmaAuthApi* | [**payToLud16Address**](Apis/UmaAuthApi.md#paytolud16address) | **POST** /payments/lud16 | pay_to_lud16_address: Pay directly to an LNURL address based on a fixed sending amount. |
 
 
 <a name="documentation-for-models"></a>
@@ -32,6 +33,9 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
  - [MakeInvoiceRequest](./Models/MakeInvoiceRequest.md)
  - [PayInvoiceRequest](./Models/PayInvoiceRequest.md)
  - [PayInvoiceResponse](./Models/PayInvoiceResponse.md)
+ - [PayKeysendRequest](./Models/PayKeysendRequest.md)
+ - [PayKeysendRequest_tlv_records_inner](./Models/PayKeysendRequest_tlv_records_inner.md)
+ - [PayKeysendResponse](./Models/PayKeysendResponse.md)
  - [PayToAddressRequest](./Models/PayToAddressRequest.md)
  - [PayToAddressResponse](./Models/PayToAddressResponse.md)
  - [Quote](./Models/Quote.md)

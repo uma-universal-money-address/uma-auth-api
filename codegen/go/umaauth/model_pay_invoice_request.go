@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type PayInvoiceRequest struct {
@@ -38,5 +42,8 @@ func AssertPayInvoiceRequestRequired(obj PayInvoiceRequest) error {
 
 // AssertPayInvoiceRequestConstraints checks if the values respects the defined constraints
 func AssertPayInvoiceRequestConstraints(obj PayInvoiceRequest) error {
+	if obj.Amount != nil && *obj.Amount < 0 {
+		return &ParsingError{Param: "Amount", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

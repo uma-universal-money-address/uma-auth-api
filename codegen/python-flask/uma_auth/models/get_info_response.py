@@ -201,6 +201,8 @@ class GetInfoResponse(Model):
         :param block_height: The block_height of this GetInfoResponse.
         :type block_height: int
         """
+        if block_height is not None and block_height < 0:  # noqa: E501
+            raise ValueError("Invalid value for `block_height`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._block_height = block_height
 

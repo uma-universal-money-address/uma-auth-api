@@ -20,6 +20,9 @@ umaauth/model_lookup_user_response.go
 umaauth/model_make_invoice_request.go
 umaauth/model_pay_invoice_request.go
 umaauth/model_pay_invoice_response.go
+umaauth/model_pay_keysend_request.go
+umaauth/model_pay_keysend_request_tlv_records_inner.go
+umaauth/model_pay_keysend_response.go
 umaauth/model_pay_to_address_request.go
 umaauth/model_pay_to_address_response.go
 umaauth/model_quote.go

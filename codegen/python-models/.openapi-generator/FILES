@@ -23,6 +23,9 @@ src/uma_auth/models/lookup_user_response.py
 src/uma_auth/models/make_invoice_request.py
 src/uma_auth/models/pay_invoice_request.py
 src/uma_auth/models/pay_invoice_response.py
+src/uma_auth/models/pay_keysend_request.py
+src/uma_auth/models/pay_keysend_request_tlv_records_inner.py
+src/uma_auth/models/pay_keysend_response.py
 src/uma_auth/models/pay_to_address_request.py
 src/uma_auth/models/pay_to_address_response.py
 src/uma_auth/models/quote.py

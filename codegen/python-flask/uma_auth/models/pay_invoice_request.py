@@ -89,5 +89,7 @@ class PayInvoiceRequest(Model):
         :param amount: The amount of this PayInvoiceRequest.
         :type amount: int
         """
+        if amount is not None and amount <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `amount`, must be a value greater than `0`")  # noqa: E501
 
         self._amount = amount

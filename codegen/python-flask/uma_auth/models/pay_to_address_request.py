@@ -126,6 +126,8 @@ class PayToAddressRequest(Model):
         """
         if sending_currency_amount is None:
             raise ValueError("Invalid value for `sending_currency_amount`, must not be `None`")  # noqa: E501
+        if sending_currency_amount is not None and sending_currency_amount <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `sending_currency_amount`, must be a value greater than `0`")  # noqa: E501
 
         self._sending_currency_amount = sending_currency_amount
 

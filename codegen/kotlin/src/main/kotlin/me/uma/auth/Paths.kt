@@ -89,7 +89,14 @@ object Paths {
     @Serializable @Resource("/payments/bolt11") class payInvoice(val payInvoiceRequest: PayInvoiceRequest? = null)
 
     /**
-     * pay_to_lud16_address: Pay to an LNURL address
+     * pay_keysend: Pay directly to the pubkey of the receiver node based on a fixed receiving amount
+     * 
+     * @param payKeysendRequest  (optional)
+     */
+    @Serializable @Resource("/payments/keysend") class payKeysend(val payKeysendRequest: PayKeysendRequest? = null)
+
+    /**
+     * pay_to_lud16_address: Pay directly to an LNURL address based on a fixed sending amount.
      * 
      * @param payToAddressRequest  (optional)
      */

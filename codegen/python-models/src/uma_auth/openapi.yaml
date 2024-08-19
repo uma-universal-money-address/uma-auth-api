@@ -209,7 +209,9 @@ paths:
         required: true
         schema:
           example: 1000
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           type: integer
         style: form
       - description: "The side of the quote which should be locked and specified in\
@@ -304,7 +306,33 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
-      summary: "pay_to_lud16_address: Pay to an LNURL address"
+      summary: "pay_to_lud16_address: Pay directly to an LNURL address based on a\
+        \ fixed sending amount."
+      tags:
+      - UmaAuth
+  /payments/keysend:
+    post:
+      operationId: pay_keysend
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayKeysendRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayKeysendResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
+      summary: "pay_keysend: Pay directly to the pubkey of the receiver node based\
+        \ on a fixed receiving amount"
       tags:
       - UmaAuth
   /info:
@@ -355,6 +383,8 @@ paths:
         required: false
         schema:
           example: 10
+          exclusiveMinimum: true
+          minimum: 0
           type: integer
         style: form
       - description: Offset of the first transaction to return.
@@ -364,6 +394,7 @@ paths:
         required: false
         schema:
           example: 0
+          minimum: 0
           type: integer
         style: form
       - description: Whether to include unpaid invoices.
@@ -416,7 +447,7 @@ components:
           $ref: '#/components/schemas/TransactionType'
         invoice:
           description: "The full, encoded invoice."
-          example: lntb1u1pw0k7jw
+          example: lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv
           nullable: true
           title: invoice
           type: string
@@ -428,31 +459,34 @@ components:
           type: string
         description_hash:
           description: The invoice's description hash.
-          example: abcd1234
+          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
           nullable: true
           title: description_hash
           type: string
         preimage:
           description: "The payment preimage, optional if unpaid."
-          example: abcd1234
+          example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
           nullable: true
           title: preimage
           type: string
         payment_hash:
           description: Payment hash for the payment
-          example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
+          example: 7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08
           title: payment_hash
           type: string
         amount:
           description: Value in msats.
           example: 1000
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           title: amount
           type: integer
         fees_paid:
           description: Value in msats.
           example: 1000
           format: int64
+          minimum: 0
           nullable: true
           title: fees_paid
           type: integer
@@ -506,6 +540,8 @@ components:
         multiplier:
           description: Number of sending currency units per receiving currency unit.
           example: 123
+          exclusiveMinimum: true
+          minimum: 0
           title: multiplier
           type: number
         fees:
@@ -513,20 +549,25 @@ components:
             the sending currency (eg. cents).
           example: 10
           format: int64
+          minimum: 0
           title: fees
           type: integer
         total_sending_amount:
           description: The total amount that will be sent in the smallest unit of
             the sending currency (eg. cents).
           example: 123010
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           title: total_sending_amount
           type: integer
         total_receiving_amount:
           description: The total amount that will be received in the smallest unit
             of the receiving currency (eg. cents).
           example: 1000
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           title: total_receiving_amount
           type: integer
         created_at:
@@ -568,6 +609,8 @@ components:
             \ (eg. cents) If base_sending_currency_code was specified, this is the\
             \ rate relative to that currency instead of milli-sats."
           example: 100000000
+          exclusiveMinimum: true
+          minimum: 0
           title: multiplier
           type: number
         decimals:
@@ -581,18 +624,23 @@ components:
             \ the multiplier is 1000, really we're exchanging in SATs, so `decimals`\
             \ would be 8."
           example: 2
+          minimum: 0
           title: decimals
           type: integer
         min:
           description: The minimum amount that can be received in this currency.
           example: 1
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           title: min
           type: integer
         max:
           description: The maximum amount that can be received in this currency.
           example: 1000000
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           title: max
           type: integer
       required:
@@ -624,6 +672,7 @@ components:
         amount:
           description: The amount to invoice in msats.
           example: 1000
+          exclusiveMinimum: true
           format: int64
           minimum: 0
           type: integer
@@ -638,6 +687,8 @@ components:
         expiry:
           description: The number of seconds until the invoice expires.
           example: 3600
+          exclusiveMinimum: true
+          minimum: 0
           type: integer
       required:
       - amount
@@ -652,7 +703,9 @@ components:
         amount:
           description: The amount to pay for a 0-amount invoice.
           example: 1000
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           nullable: true
           type: integer
       required:
@@ -674,6 +727,7 @@ components:
         balance:
           description: The balance of the user's wallet.
           example: 1000
+          minimum: 0
           type: number
         currency_code:
           description: The currency code of the balance. Assumed to be msats if not
@@ -698,7 +752,7 @@ components:
       properties:
         preimage:
           description: The preimage of the payment.
-          example: abcd1234
+          example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
           type: string
       required:
       - preimage
@@ -718,7 +772,9 @@ components:
           description: The amount to send in the smallest unit of the sending currency
             (eg. cents).
           example: 1000
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           type: integer
         receiving_currency_code:
           description: "The code of the currency being received by the receiver. If\
@@ -735,7 +791,7 @@ components:
       properties:
         preimage:
           description: The preimage of the payment.
-          example: abcd1234
+          example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
           type: string
         quote:
           $ref: '#/components/schemas/Quote'
@@ -743,6 +799,59 @@ components:
       - preimage
       - quote
       title: PayToAddressResponse
+      type: object
+    PayKeysendRequest_tlv_records_inner:
+      description: The tlv record.
+      properties:
+        type:
+          description: The tlv type
+          example: 5482373484
+          title: type
+          type: integer
+        value:
+          description: The hex encoded tlv value.
+          example: 0123456789abcdef
+          title: value
+          type: string
+      required:
+      - type
+      - value
+      title: PayKeysendRequest_tlv_records_inner
+      type: object
+    PayKeysendRequest:
+      properties:
+        amount:
+          description: The amount to pay in msats.
+          example: 10000
+          format: int64
+          type: integer
+        pubkey:
+          description: The public key of the receiver's node.
+          example: 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
+          type: string
+        preimage:
+          description: Preimage of the payment.
+          example: "1000"
+          type: string
+        tlv_records:
+          description: The tlv records.
+          items:
+            $ref: '#/components/schemas/PayKeysendRequest_tlv_records_inner'
+          type: array
+      required:
+      - amount
+      - pubkey
+      title: PayKeysendRequest
+      type: object
+    PayKeysendResponse:
+      properties:
+        preimage:
+          description: The preimage of the payment.
+          example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+          type: string
+      required:
+      - preimage
+      title: PayKeysendResponse
       type: object
     GetInfoResponse:
       properties:
@@ -770,6 +879,7 @@ components:
         block_height:
           description: The current block height of the user's node.
           example: 1000
+          minimum: 0
           type: integer
         block_hash:
           description: The current block hash of the user's node.

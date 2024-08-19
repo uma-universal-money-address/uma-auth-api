@@ -21,8 +21,9 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from uma_auth.models.currency_preference import CurrencyPreference
 try:
     from typing import Self
@@ -37,7 +38,7 @@ class GetInfoResponse(BaseModel):
     color: Optional[StrictStr] = Field(default=None, description="The color of the user's node.")
     pubkey: StrictStr = Field(description="The pubkey of the user's node.")
     network: StrictStr = Field(description="The bitcoin network of the user's node.")
-    block_height: Optional[StrictInt] = Field(default=None, description="The current block height of the user's node.")
+    block_height: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="The current block height of the user's node.")
     block_hash: Optional[StrictStr] = Field(default=None, description="The current block hash of the user's node.")
     methods: List[StrictStr] = Field(description="A list of supported methods for this connection.")
     lud16: Optional[StrictStr] = Field(default=None, description="The lightning or UMA address for the user.")

@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type Quote struct {
@@ -67,5 +71,17 @@ func AssertQuoteRequired(obj Quote) error {
 
 // AssertQuoteConstraints checks if the values respects the defined constraints
 func AssertQuoteConstraints(obj Quote) error {
+	if obj.Multiplier < 0 {
+		return &ParsingError{Param: "Multiplier", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if obj.Fees < 0 {
+		return &ParsingError{Param: "Fees", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if obj.TotalSendingAmount < 0 {
+		return &ParsingError{Param: "TotalSendingAmount", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if obj.TotalReceivingAmount < 0 {
+		return &ParsingError{Param: "TotalReceivingAmount", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

@@ -21,8 +21,9 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
@@ -34,7 +35,7 @@ class PayToAddressRequest(BaseModel):
     """ # noqa: E501
     receiver_address: StrictStr = Field(description="The LUD16 address to pay.")
     sending_currency_code: StrictStr = Field(description="The code of the currency being sent from the sender's wallet.")
-    sending_currency_amount: StrictInt = Field(description="The amount to send in the smallest unit of the sending currency (eg. cents).")
+    sending_currency_amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The amount to send in the smallest unit of the sending currency (eg. cents).")
     receiving_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.")
     __properties: ClassVar[List[str]] = ["receiver_address", "sending_currency_code", "sending_currency_amount", "receiving_currency_code"]
 

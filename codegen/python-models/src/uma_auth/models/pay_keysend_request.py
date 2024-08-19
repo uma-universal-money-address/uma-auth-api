@@ -21,21 +21,23 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from uma_auth.models.pay_keysend_request_tlv_records_inner import PayKeysendRequestTlvRecordsInner
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PayInvoiceRequest(BaseModel):
+class PayKeysendRequest(BaseModel):
     """
-    PayInvoiceRequest
+    PayKeysendRequest
     """ # noqa: E501
-    invoice: StrictStr = Field(description="The bolt11 invoice to pay.")
-    amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The amount to pay for a 0-amount invoice.")
-    __properties: ClassVar[List[str]] = ["invoice", "amount"]
+    amount: StrictInt = Field(description="The amount to pay in msats.")
+    pubkey: StrictStr = Field(description="The public key of the receiver's node.")
+    preimage: Optional[StrictStr] = Field(default=None, description="Preimage of the payment.")
+    tlv_records: Optional[List[PayKeysendRequestTlvRecordsInner]] = Field(default=None, description="The tlv records.")
+    __properties: ClassVar[List[str]] = ["amount", "pubkey", "preimage", "tlv_records"]
 
     model_config = {
         "populate_by_name": True,
@@ -54,7 +56,7 @@ class PayInvoiceRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PayInvoiceRequest from a JSON string"""
+        """Create an instance of PayKeysendRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,16 +77,18 @@ class PayInvoiceRequest(BaseModel):
             exclude_none=True,
             exclude_unset=True,
         )
-        # set to None if amount (nullable) is None
-        # and model_fields_set contains the field
-        if self.amount is None and "amount" in self.model_fields_set:
-            _dict['amount'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of each item in tlv_records (list)
+        _items = []
+        if self.tlv_records:
+            for _item in self.tlv_records:
+                if _item:
+                    _items.append(_item.to_dict())
+            _dict['tlv_records'] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PayInvoiceRequest from a dict"""
+        """Create an instance of PayKeysendRequest from a dict"""
         if obj is None:
             return None
 
@@ -92,8 +96,10 @@ class PayInvoiceRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "invoice": obj.get("invoice"),
-            "amount": obj.get("amount")
+            "amount": obj.get("amount"),
+            "pubkey": obj.get("pubkey"),
+            "preimage": obj.get("preimage"),
+            "tlv_records": [PayKeysendRequestTlvRecordsInner.from_dict(_item) for _item in obj.get("tlv_records")] if obj.get("tlv_records") is not None else None
         })
         return _obj
 

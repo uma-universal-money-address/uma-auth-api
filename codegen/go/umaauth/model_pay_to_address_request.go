@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type PayToAddressRequest struct {
@@ -46,5 +50,8 @@ func AssertPayToAddressRequestRequired(obj PayToAddressRequest) error {
 
 // AssertPayToAddressRequestConstraints checks if the values respects the defined constraints
 func AssertPayToAddressRequestConstraints(obj PayToAddressRequest) error {
+	if obj.SendingCurrencyAmount < 0 {
+		return &ParsingError{Param: "SendingCurrencyAmount", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

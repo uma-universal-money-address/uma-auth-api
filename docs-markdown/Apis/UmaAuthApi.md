@@ -13,7 +13,8 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
 | [**lookupUserByLud16**](UmaAuthApi.md#lookupUserByLud16) | **GET** /receiver/lud16/{receiver_address} | lookup_user_by_lud16: Get receiver info by LUD16 address. |
 | [**makeInvoice**](UmaAuthApi.md#makeInvoice) | **POST** /invoice | make_invoice: Create a new invoice |
 | [**payInvoice**](UmaAuthApi.md#payInvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice |
-| [**payToLud16Address**](UmaAuthApi.md#payToLud16Address) | **POST** /payments/lud16 | pay_to_lud16_address: Pay to an LNURL address |
+| [**payKeysend**](UmaAuthApi.md#payKeysend) | **POST** /payments/keysend | pay_keysend: Pay directly to the pubkey of the receiver node based on a fixed receiving amount |
+| [**payToLud16Address**](UmaAuthApi.md#payToLud16Address) | **POST** /payments/lud16 | pay_to_lud16_address: Pay directly to an LNURL address based on a fixed sending amount. |
 
 
 <a name="executeQuote"></a>
@@ -248,11 +249,36 @@ pay_invoice: Pay a bolt11 invoice
 - **Content-Type**: application/json
 - **Accept**: application/json
 
+<a name="payKeysend"></a>
+# **payKeysend**
+> PayKeysendResponse payKeysend(PayKeysendRequest)
+
+pay_keysend: Pay directly to the pubkey of the receiver node based on a fixed receiving amount
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **PayKeysendRequest** | [**PayKeysendRequest**](../Models/PayKeysendRequest.md)|  | [optional] |
+
+### Return type
+
+[**PayKeysendResponse**](../Models/PayKeysendResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
 <a name="payToLud16Address"></a>
 # **payToLud16Address**
 > PayToAddressResponse payToLud16Address(PayToAddressRequest)
 
-pay_to_lud16_address: Pay to an LNURL address
+pay_to_lud16_address: Pay directly to an LNURL address based on a fixed sending amount.
 
 ### Parameters
 

@@ -21,7 +21,7 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
 try:
@@ -33,10 +33,10 @@ class MakeInvoiceRequest(BaseModel):
     """
     MakeInvoiceRequest
     """ # noqa: E501
-    amount: Annotated[int, Field(strict=True, ge=0)] = Field(description="The amount to invoice in msats.")
+    amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The amount to invoice in msats.")
     description: Optional[StrictStr] = Field(default=None, description="A memo to attach to the invoice.")
     description_hash: Optional[StrictStr] = Field(default=None, description="A hash of a longer description field.")
-    expiry: Optional[StrictInt] = Field(default=None, description="The number of seconds until the invoice expires.")
+    expiry: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The number of seconds until the invoice expires.")
     __properties: ClassVar[List[str]] = ["amount", "description", "description_hash", "expiry"]
 
     model_config = {

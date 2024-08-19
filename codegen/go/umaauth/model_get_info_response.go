@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type GetInfoResponse struct {
@@ -66,6 +70,9 @@ func AssertGetInfoResponseRequired(obj GetInfoResponse) error {
 
 // AssertGetInfoResponseConstraints checks if the values respects the defined constraints
 func AssertGetInfoResponseConstraints(obj GetInfoResponse) error {
+	if obj.BlockHeight < 0 {
+		return &ParsingError{Param: "BlockHeight", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	for _, el := range obj.Currencies {
 		if err := AssertCurrencyPreferenceConstraints(el); err != nil {
 			return err

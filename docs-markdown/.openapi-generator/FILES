@@ -9,6 +9,9 @@ Models/LookupUserResponse.md
 Models/MakeInvoiceRequest.md
 Models/PayInvoiceRequest.md
 Models/PayInvoiceResponse.md
+Models/PayKeysendRequest.md
+Models/PayKeysendRequest_tlv_records_inner.md
+Models/PayKeysendResponse.md
 Models/PayToAddressRequest.md
 Models/PayToAddressResponse.md
 Models/Quote.md

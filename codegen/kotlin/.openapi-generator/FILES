@@ -18,6 +18,9 @@ src/main/kotlin/me/uma/auth/models/LookupUserResponse.kt
 src/main/kotlin/me/uma/auth/models/MakeInvoiceRequest.kt
 src/main/kotlin/me/uma/auth/models/PayInvoiceRequest.kt
 src/main/kotlin/me/uma/auth/models/PayInvoiceResponse.kt
+src/main/kotlin/me/uma/auth/models/PayKeysendRequest.kt
+src/main/kotlin/me/uma/auth/models/PayKeysendRequestTlvRecordsInner.kt
+src/main/kotlin/me/uma/auth/models/PayKeysendResponse.kt
 src/main/kotlin/me/uma/auth/models/PayToAddressRequest.kt
 src/main/kotlin/me/uma/auth/models/PayToAddressResponse.kt
 src/main/kotlin/me/uma/auth/models/Quote.kt

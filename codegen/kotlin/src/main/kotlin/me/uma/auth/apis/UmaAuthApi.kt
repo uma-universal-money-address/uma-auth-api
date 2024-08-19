@@ -35,6 +35,8 @@ import me.uma.auth.models.LookupUserResponse
 import me.uma.auth.models.MakeInvoiceRequest
 import me.uma.auth.models.PayInvoiceRequest
 import me.uma.auth.models.PayInvoiceResponse
+import me.uma.auth.models.PayKeysendRequest
+import me.uma.auth.models.PayKeysendResponse
 import me.uma.auth.models.PayToAddressRequest
 import me.uma.auth.models.PayToAddressResponse
 import me.uma.auth.models.Quote
@@ -53,7 +55,7 @@ fun Route.UmaAuthApi() {
         
         val exampleContentType = "application/json"
             val exampleContentString = """{
-              "preimage" : "abcd1234"
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             }"""
             
             when (exampleContentType) {
@@ -171,25 +173,25 @@ fun Route.UmaAuthApi() {
                 "fees_paid" : 1000,
                 "metadata" : { },
                 "expires_at" : 1683148800,
-                "description_hash" : "abcd1234",
-                "preimage" : "abcd1234",
+                "description_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
+                "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
                 "description" : "Pay for pizza.",
                 "created_at" : 1683148800,
-                "invoice" : "lntb1u1pw0k7jw",
+                "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
                 "type" : "incoming",
-                "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+                "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
               }, {
                 "amount" : 1000,
                 "fees_paid" : 1000,
                 "metadata" : { },
                 "expires_at" : 1683148800,
-                "description_hash" : "abcd1234",
-                "preimage" : "abcd1234",
+                "description_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
+                "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
                 "description" : "Pay for pizza.",
                 "created_at" : 1683148800,
-                "invoice" : "lntb1u1pw0k7jw",
+                "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
                 "type" : "incoming",
-                "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+                "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
               } ]
             }"""
             
@@ -214,13 +216,13 @@ fun Route.UmaAuthApi() {
               "fees_paid" : 1000,
               "metadata" : { },
               "expires_at" : 1683148800,
-              "description_hash" : "abcd1234",
-              "preimage" : "abcd1234",
+              "description_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "description" : "Pay for pizza.",
               "created_at" : 1683148800,
-              "invoice" : "lntb1u1pw0k7jw",
+              "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
               "type" : "incoming",
-              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+              "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
             }"""
             
             when (exampleContentType) {
@@ -280,13 +282,13 @@ fun Route.UmaAuthApi() {
               "fees_paid" : 1000,
               "metadata" : { },
               "expires_at" : 1683148800,
-              "description_hash" : "abcd1234",
-              "preimage" : "abcd1234",
+              "description_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15",
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
               "description" : "Pay for pizza.",
               "created_at" : 1683148800,
-              "invoice" : "lntb1u1pw0k7jw",
+              "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
               "type" : "incoming",
-              "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+              "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
             }"""
             
             when (exampleContentType) {
@@ -319,6 +321,26 @@ fun Route.UmaAuthApi() {
     }
 
     authenticate("bearerAuth") {
+    post<Paths.payKeysend> {
+        
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
+        
+    }
+    }
+
+    authenticate("bearerAuth") {
     post<Paths.payToLud16Address> {
         
         val principal = null!!
@@ -337,7 +359,7 @@ fun Route.UmaAuthApi() {
                 "created_at" : 1683148800,
                 "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
               },
-              "preimage" : "abcd1234"
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             }"""
             
             when (exampleContentType) {
