@@ -24,11 +24,13 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
 ## Documentation for Models
 
  - [CurrencyPreference](./Models/CurrencyPreference.md)
+ - [ErrorCode](./Models/ErrorCode.md)
  - [ErrorResponse](./Models/ErrorResponse.md)
  - [ExecuteQuoteResponse](./Models/ExecuteQuoteResponse.md)
  - [GetBalanceResponse](./Models/GetBalanceResponse.md)
  - [GetInfoResponse](./Models/GetInfoResponse.md)
  - [ListTransactionsResponse](./Models/ListTransactionsResponse.md)
+ - [LockedCurrencySide](./Models/LockedCurrencySide.md)
  - [LookupUserResponse](./Models/LookupUserResponse.md)
  - [MakeInvoiceRequest](./Models/MakeInvoiceRequest.md)
  - [PayInvoiceRequest](./Models/PayInvoiceRequest.md)

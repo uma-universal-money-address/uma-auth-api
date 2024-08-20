@@ -55,7 +55,7 @@ fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address
 | **sending\_currency\_code** | **String**| The currency code being sent from the sender&#39;s wallet. | [default to null] |
 | **receiving\_currency\_code** | **String**| The currency code of the currency that the receiver will receive. | [default to null] |
 | **locked\_currency\_amount** | **Long**| The amount to send/receive in the smallest unit of the locked currency (eg. cents). See &#x60;locked_currency_side&#x60; for more information. | [default to null] |
-| **locked\_currency\_side** | **String**| The side of the quote which should be locked and specified in the &#x60;locked_currency_amount&#x60;. For example, if I want to send exactly $5 MXN from my wallet, I would set this to \&quot;sending\&quot;, and the &#x60;locked_currency_amount&#x60; to 500 (in cents). If I want the receiver to receive exactly $10 USD, I would set this to \&quot;receiving\&quot; and the &#x60;locked_currency_amount&#x60; to 10000 (in cents). | [default to null] [enum: sending, receiving] |
+| **locked\_currency\_side** | [**LockedCurrencySide**](../Models/.md)| The side of the quote which should be locked and specified in the &#x60;locked_currency_amount&#x60;. For example, if I want to send exactly $5 MXN from my wallet, I would set this to \&quot;sending\&quot;, and the &#x60;locked_currency_amount&#x60; to 500 (in cents). If I want the receiver to receive exactly $10 USD, I would set this to \&quot;receiving\&quot; and the &#x60;locked_currency_amount&#x60; to 10000 (in cents). | [default to null] [enum: sending, receiving] |
 | **receiver\_address** | **String**| The LUD16 address to send the payment to. | [default to null] |
 
 ### Return type

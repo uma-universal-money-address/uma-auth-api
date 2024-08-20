@@ -11,15 +11,15 @@
 */
 package me.uma.auth.models
 
+import me.uma.auth.models.ErrorCode
 
 /**
  * 
- * @param code The error code.
+ * @param code 
  * @param message The error message.
  */
 data class ErrorResponse(
-    /* The error code. */
-    val code: kotlin.String,
+    val code: ErrorCode,
     /* The error message. */
     val message: kotlin.String
 ) 

@@ -23,6 +23,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
+from uma_auth.models.error_code import ErrorCode
 try:
     from typing import Self
 except ImportError:
@@ -32,7 +33,7 @@ class ErrorResponse(BaseModel):
     """
     ErrorResponse
     """ # noqa: E501
-    code: StrictStr = Field(description="The error code.")
+    code: ErrorCode
     message: StrictStr = Field(description="The error message.")
     __properties: ClassVar[List[str]] = ["code", "message"]
 

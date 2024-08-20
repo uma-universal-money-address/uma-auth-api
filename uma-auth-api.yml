@@ -74,7 +74,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
   /payments/bolt11:
     post:
       operationId: pay_invoice
@@ -123,6 +128,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /invoices/{payment_hash}:
     get:
@@ -153,6 +164,12 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '404':
           description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -196,6 +213,12 @@ paths:
                   - balance
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -250,6 +273,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /quote/lud16:
     get:
@@ -293,11 +322,7 @@ paths:
             and the `locked_currency_amount` to 500 (in cents). If I want the receiver to receive exactly $10 USD,
             I would set this to "receiving" and the `locked_currency_amount` to 10000 (in cents).
           schema:
-            type: string
-            enum:
-              - sending
-              - receiving
-            example: "sending"
+            $ref: '#/components/schemas/LockedCurrencySide'
         - name: receiver_address
           in: query
           required: true
@@ -314,6 +339,12 @@ paths:
                 $ref: '#/components/schemas/Quote'
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -350,6 +381,12 @@ paths:
                   - preimage
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -412,6 +449,12 @@ paths:
                   - quote
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -481,6 +524,12 @@ paths:
                   - preimage
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -557,6 +606,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
 
   /transactions:
     get:
@@ -629,6 +684,12 @@ paths:
                   - transactions
         '400':
           description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
           content:
             application/json:
               schema:
@@ -825,13 +886,25 @@ components:
         - decimals
         - min
         - max
+    ErrorCode:
+      type: string
+      enum:
+        - RATE_LIMITED
+        - NOT_IMPLEMENTED
+        - INSUFFICIENT_BALANCE
+        - PAYMENT_FAILED
+        - NOT_FOUND
+        - QUOTA_EXCEEDED
+        - RESTRICTED
+        - UNAUTHORIZED
+        - INTERNAL
+        - OTHER
+      description: The NIP47 response error code.
     ErrorResponse:
       type: object
       properties:
         code:
-          type: string
-          description: The error code.
-          example: "NOT_IMPLEMENTED"
+          $ref: '#/components/schemas/ErrorCode'
         message:
           type: string
           description: The error message.
@@ -839,3 +912,13 @@ components:
       required: 
         - code
         - message
+    LockedCurrencySide:
+      type: string
+      enum:
+        - sending
+        - receiving
+      description: >-
+        The side of the quote which should be locked and specified in the `locked_currency_amount`.
+        For example, if I want to send exactly $5 MXN from my wallet, I would set this to "sending",
+        and the `locked_currency_amount` to 500 (in cents). If I want the receiver to receive exactly $10 USD,
+        I would set this to "receiving" and the `locked_currency_amount` to 10000 (in cents).

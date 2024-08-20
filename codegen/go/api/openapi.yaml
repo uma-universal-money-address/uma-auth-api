@@ -41,6 +41,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "make_invoice: Create a new invoice"
       tags:
       - UmaAuth
@@ -65,6 +71,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "pay_invoice: Pay a bolt11 invoice"
       tags:
       - UmaAuth
@@ -100,6 +112,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Not Found
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "lookup_invoice: Get an invoice by its payment hash"
       tags:
       - UmaAuth
@@ -130,6 +148,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "get_balance: Get the balance of the user's wallet"
       tags:
       - UmaAuth
@@ -176,6 +200,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Not Found
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "lookup_user_by_lud16: Get receiver info by LUD16 address."
       tags:
       - UmaAuth
@@ -225,11 +255,7 @@ paths:
         name: locked_currency_side
         required: true
         schema:
-          enum:
-          - sending
-          - receiving
-          example: sending
-          type: string
+          $ref: '#/components/schemas/LockedCurrencySide'
         style: form
       - description: The LUD16 address to send the payment to.
         explode: true
@@ -253,6 +279,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address"
       tags:
       - UmaAuth
@@ -282,6 +314,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "execute_quote: Execute a quote"
       tags:
       - UmaAuth
@@ -306,6 +344,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "pay_to_lud16_address: Pay directly to an LNURL address based on a\
         \ fixed sending amount."
       tags:
@@ -331,6 +375,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "pay_keysend: Pay directly to the pubkey of the receiver node based\
         \ on a fixed receiving amount"
       tags:
@@ -351,6 +401,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "get_info: Get information about the user's wallet connection"
       tags:
       - UmaAuth
@@ -428,6 +484,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
       summary: "list_transactions: Lists invoices and payments"
       tags:
       - UmaAuth
@@ -653,15 +715,27 @@ components:
       - name
       - symbol
       type: object
+    ErrorCode:
+      description: The NIP47 response error code.
+      enum:
+      - RATE_LIMITED
+      - NOT_IMPLEMENTED
+      - INSUFFICIENT_BALANCE
+      - PAYMENT_FAILED
+      - NOT_FOUND
+      - QUOTA_EXCEEDED
+      - RESTRICTED
+      - UNAUTHORIZED
+      - INTERNAL
+      - OTHER
+      type: string
     ErrorResponse:
       example:
-        code: NOT_IMPLEMENTED
+        code: RATE_LIMITED
         message: This feature is not implemented.
       properties:
         code:
-          description: The error code.
-          example: NOT_IMPLEMENTED
-          type: string
+          $ref: '#/components/schemas/ErrorCode'
         message:
           description: The error message.
           example: This feature is not implemented.
@@ -670,6 +744,17 @@ components:
       - code
       - message
       type: object
+    LockedCurrencySide:
+      description: "The side of the quote which should be locked and specified in\
+        \ the `locked_currency_amount`. For example, if I want to send exactly $5\
+        \ MXN from my wallet, I would set this to \"sending\", and the `locked_currency_amount`\
+        \ to 500 (in cents). If I want the receiver to receive exactly $10 USD, I\
+        \ would set this to \"receiving\" and the `locked_currency_amount` to 10000\
+        \ (in cents)."
+      enum:
+      - sending
+      - receiving
+      type: string
     MakeInvoiceRequest:
       example:
         amount: 1000

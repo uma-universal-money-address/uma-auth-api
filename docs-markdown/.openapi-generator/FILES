@@ -1,10 +1,12 @@
 Apis/UmaAuthApi.md
 Models/CurrencyPreference.md
+Models/ErrorCode.md
 Models/ErrorResponse.md
 Models/ExecuteQuoteResponse.md
 Models/GetBalanceResponse.md
 Models/GetInfoResponse.md
 Models/ListTransactionsResponse.md
+Models/LockedCurrencySide.md
 Models/LookupUserResponse.md
 Models/MakeInvoiceRequest.md
 Models/PayInvoiceRequest.md

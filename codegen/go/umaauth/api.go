@@ -41,7 +41,7 @@ type UmaAuthAPIRouter interface {
 // and updated with the logic required for the API.
 type UmaAuthAPIServicer interface { 
 	ExecuteQuote(context.Context, string) (ImplResponse, error)
-	FetchQuoteForLud16(context.Context, string, string, int64, string, string) (ImplResponse, error)
+	FetchQuoteForLud16(context.Context, string, string, int64, LockedCurrencySide, string) (ImplResponse, error)
 	GetBalance(context.Context, string) (ImplResponse, error)
 	GetInfo(context.Context) (ImplResponse, error)
 	ListTransactions(context.Context, int32, int32, int32, int32, bool, TransactionType) (ImplResponse, error)
