@@ -23,6 +23,7 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from uma_auth.models.transaction_type import TransactionType
 try:
     from typing import Self
@@ -39,8 +40,8 @@ class Transaction(BaseModel):
     description_hash: Optional[StrictStr] = Field(default=None, description="The invoice's description hash.")
     preimage: Optional[StrictStr] = Field(default=None, description="The payment preimage, optional if unpaid.")
     payment_hash: StrictStr = Field(description="Payment hash for the payment")
-    amount: StrictInt = Field(description="Value in msats.")
-    fees_paid: Optional[StrictInt] = Field(default=None, description="Value in msats.")
+    amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="Value in msats.")
+    fees_paid: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Value in msats.")
     created_at: StrictInt = Field(description="The time the payment/invoice was created.")
     expires_at: Optional[StrictInt] = Field(default=None, description="The time the invoice expires.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata attached to the invoice.")

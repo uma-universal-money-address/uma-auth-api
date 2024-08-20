@@ -21,8 +21,9 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Union
+from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
@@ -36,10 +37,10 @@ class Quote(BaseModel):
     receiving_currency_code: StrictStr = Field(description="The currency code of the receiver's balance.")
     payment_hash: StrictStr = Field(description="The payment hash of the quote. Used as an identifier to execute the quote.")
     expires_at: StrictInt = Field(description="The time the quote expires in unix timestamp.")
-    multiplier: Union[StrictFloat, StrictInt] = Field(description="Number of sending currency units per receiving currency unit.")
-    fees: StrictInt = Field(description="The fees associated with the quote in the smallest unit of the sending currency (eg. cents).")
-    total_sending_amount: StrictInt = Field(description="The total amount that will be sent in the smallest unit of the sending currency (eg. cents).")
-    total_receiving_amount: StrictInt = Field(description="The total amount that will be received in the smallest unit of the receiving currency (eg. cents).")
+    multiplier: Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]] = Field(description="Number of sending currency units per receiving currency unit.")
+    fees: Annotated[int, Field(strict=True, ge=0)] = Field(description="The fees associated with the quote in the smallest unit of the sending currency (eg. cents).")
+    total_sending_amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The total amount that will be sent in the smallest unit of the sending currency (eg. cents).")
+    total_receiving_amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The total amount that will be received in the smallest unit of the receiving currency (eg. cents).")
     created_at: StrictInt = Field(description="The time the quote was created in unix timestamp.")
     __properties: ClassVar[List[str]] = ["sending_currency_code", "receiving_currency_code", "payment_hash", "expires_at", "multiplier", "fees", "total_sending_amount", "total_receiving_amount", "created_at"]
 

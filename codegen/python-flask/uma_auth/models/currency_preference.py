@@ -166,6 +166,8 @@ class CurrencyPreference(Model):
         """
         if multiplier is None:
             raise ValueError("Invalid value for `multiplier`, must not be `None`")  # noqa: E501
+        if multiplier is not None and multiplier <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `multiplier`, must be a value greater than `0`")  # noqa: E501
 
         self._multiplier = multiplier
 
@@ -191,6 +193,8 @@ class CurrencyPreference(Model):
         """
         if decimals is None:
             raise ValueError("Invalid value for `decimals`, must not be `None`")  # noqa: E501
+        if decimals is not None and decimals < 0:  # noqa: E501
+            raise ValueError("Invalid value for `decimals`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._decimals = decimals
 
@@ -216,6 +220,8 @@ class CurrencyPreference(Model):
         """
         if min is None:
             raise ValueError("Invalid value for `min`, must not be `None`")  # noqa: E501
+        if min is not None and min <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `min`, must be a value greater than `0`")  # noqa: E501
 
         self._min = min
 
@@ -241,5 +247,7 @@ class CurrencyPreference(Model):
         """
         if max is None:
             raise ValueError("Invalid value for `max`, must not be `None`")  # noqa: E501
+        if max is not None and max <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `max`, must be a value greater than `0`")  # noqa: E501
 
         self._max = max

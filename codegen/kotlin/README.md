@@ -58,7 +58,8 @@ Class | Method | HTTP request | Description
 *UmaAuthApi* | [**lookupUserByLud16**](docs/UmaAuthApi.md#lookupuserbylud16) | **GET** /receiver/lud16/{receiver_address} | lookup_user_by_lud16: Get receiver info by LUD16 address.
 *UmaAuthApi* | [**makeInvoice**](docs/UmaAuthApi.md#makeinvoice) | **POST** /invoice | make_invoice: Create a new invoice
 *UmaAuthApi* | [**payInvoice**](docs/UmaAuthApi.md#payinvoice) | **POST** /payments/bolt11 | pay_invoice: Pay a bolt11 invoice
-*UmaAuthApi* | [**payToLud16Address**](docs/UmaAuthApi.md#paytolud16address) | **POST** /payments/lud16 | pay_to_lud16_address: Pay to an LNURL address
+*UmaAuthApi* | [**payKeysend**](docs/UmaAuthApi.md#paykeysend) | **POST** /payments/keysend | pay_keysend: Pay directly to the pubkey of the receiver node based on a fixed receiving amount
+*UmaAuthApi* | [**payToLud16Address**](docs/UmaAuthApi.md#paytolud16address) | **POST** /payments/lud16 | pay_to_lud16_address: Pay directly to an LNURL address based on a fixed sending amount.
 
 
 <a id="documentation-for-models"></a>
@@ -74,6 +75,9 @@ Class | Method | HTTP request | Description
  - [me.uma.auth.models.MakeInvoiceRequest](docs/MakeInvoiceRequest.md)
  - [me.uma.auth.models.PayInvoiceRequest](docs/PayInvoiceRequest.md)
  - [me.uma.auth.models.PayInvoiceResponse](docs/PayInvoiceResponse.md)
+ - [me.uma.auth.models.PayKeysendRequest](docs/PayKeysendRequest.md)
+ - [me.uma.auth.models.PayKeysendRequestTlvRecordsInner](docs/PayKeysendRequestTlvRecordsInner.md)
+ - [me.uma.auth.models.PayKeysendResponse](docs/PayKeysendResponse.md)
  - [me.uma.auth.models.PayToAddressRequest](docs/PayToAddressRequest.md)
  - [me.uma.auth.models.PayToAddressResponse](docs/PayToAddressResponse.md)
  - [me.uma.auth.models.Quote](docs/Quote.md)

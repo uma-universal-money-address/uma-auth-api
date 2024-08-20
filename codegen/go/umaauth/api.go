@@ -30,6 +30,7 @@ type UmaAuthAPIRouter interface {
 	LookupUserByLud16(http.ResponseWriter, *http.Request)
 	MakeInvoice(http.ResponseWriter, *http.Request)
 	PayInvoice(http.ResponseWriter, *http.Request)
+	PayKeysend(http.ResponseWriter, *http.Request)
 	PayToLud16Address(http.ResponseWriter, *http.Request)
 }
 
@@ -48,5 +49,6 @@ type UmaAuthAPIServicer interface {
 	LookupUserByLud16(context.Context, string, string) (ImplResponse, error)
 	MakeInvoice(context.Context, MakeInvoiceRequest) (ImplResponse, error)
 	PayInvoice(context.Context, PayInvoiceRequest) (ImplResponse, error)
+	PayKeysend(context.Context, PayKeysendRequest) (ImplResponse, error)
 	PayToLud16Address(context.Context, PayToAddressRequest) (ImplResponse, error)
 }

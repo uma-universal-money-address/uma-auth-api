@@ -98,6 +98,11 @@ func (c *UmaAuthAPIController) Routes() Routes {
 			"/umanwc/v1/payments/bolt11",
 			c.PayInvoice,
 		},
+		"PayKeysend": Route{
+			strings.ToUpper("Post"),
+			"/umanwc/v1/payments/keysend",
+			c.PayKeysend,
+		},
 		"PayToLud16Address": Route{
 			strings.ToUpper("Post"),
 			"/umanwc/v1/payments/lud16",
@@ -154,6 +159,7 @@ func (c *UmaAuthAPIController) FetchQuoteForLud16(w http.ResponseWriter, r *http
 		param, err := parseNumericParameter[int64](
 			query.Get("locked_currency_amount"),
 			WithParse[int64](parseInt64),
+			WithMinimum[int64](0),
 		)
 		if err != nil {
 			c.errorHandler(w, r, &ParsingError{Param: "locked_currency_amount", Err: err}, nil)
@@ -269,6 +275,7 @@ func (c *UmaAuthAPIController) ListTransactions(w http.ResponseWriter, r *http.R
 		param, err := parseNumericParameter[int32](
 			query.Get("limit"),
 			WithParse[int32](parseInt32),
+			WithMinimum[int32](0),
 		)
 		if err != nil {
 			c.errorHandler(w, r, &ParsingError{Param: "limit", Err: err}, nil)
@@ -283,6 +290,7 @@ func (c *UmaAuthAPIController) ListTransactions(w http.ResponseWriter, r *http.R
 		param, err := parseNumericParameter[int32](
 			query.Get("offset"),
 			WithParse[int32](parseInt32),
+			WithMinimum[int32](0),
 		)
 		if err != nil {
 			c.errorHandler(w, r, &ParsingError{Param: "offset", Err: err}, nil)
@@ -425,7 +433,34 @@ func (c *UmaAuthAPIController) PayInvoice(w http.ResponseWriter, r *http.Request
 	_ = EncodeJSONResponse(result.Body, &result.Code, w)
 }
 
-// PayToLud16Address - pay_to_lud16_address: Pay to an LNURL address
+// PayKeysend - pay_keysend: Pay directly to the pubkey of the receiver node based on a fixed receiving amount
+func (c *UmaAuthAPIController) PayKeysend(w http.ResponseWriter, r *http.Request) {
+	payKeysendRequestParam := PayKeysendRequest{}
+	d := json.NewDecoder(r.Body)
+	d.DisallowUnknownFields()
+	if err := d.Decode(&payKeysendRequestParam); err != nil && !errors.Is(err, io.EOF) {
+		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
+		return
+	}
+	if err := AssertPayKeysendRequestRequired(payKeysendRequestParam); err != nil {
+		c.errorHandler(w, r, err, nil)
+		return
+	}
+	if err := AssertPayKeysendRequestConstraints(payKeysendRequestParam); err != nil {
+		c.errorHandler(w, r, err, nil)
+		return
+	}
+	result, err := c.service.PayKeysend(r.Context(), payKeysendRequestParam)
+	// If an error occurred, encode the error with the status code
+	if err != nil {
+		c.errorHandler(w, r, err, &result)
+		return
+	}
+	// If no error, encode the body and the result code
+	_ = EncodeJSONResponse(result.Body, &result.Code, w)
+}
+
+// PayToLud16Address - pay_to_lud16_address: Pay directly to an LNURL address based on a fixed sending amount.
 func (c *UmaAuthAPIController) PayToLud16Address(w http.ResponseWriter, r *http.Request) {
 	payToAddressRequestParam := PayToAddressRequest{}
 	d := json.NewDecoder(r.Body)

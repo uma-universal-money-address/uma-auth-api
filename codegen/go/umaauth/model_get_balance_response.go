@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type GetBalanceResponse struct {
@@ -38,5 +42,8 @@ func AssertGetBalanceResponseRequired(obj GetBalanceResponse) error {
 
 // AssertGetBalanceResponseConstraints checks if the values respects the defined constraints
 func AssertGetBalanceResponseConstraints(obj GetBalanceResponse) error {
+	if obj.Balance < 0 {
+		return &ParsingError{Param: "Balance", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

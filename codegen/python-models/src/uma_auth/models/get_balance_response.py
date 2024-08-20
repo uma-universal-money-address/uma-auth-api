@@ -21,8 +21,9 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
@@ -32,7 +33,7 @@ class GetBalanceResponse(BaseModel):
     """
     GetBalanceResponse
     """ # noqa: E501
-    balance: Union[StrictFloat, StrictInt] = Field(description="The balance of the user's wallet.")
+    balance: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The balance of the user's wallet.")
     currency_code: Optional[StrictStr] = Field(default=None, description="The currency code of the balance. Assumed to be msats if not provided.")
     __properties: ClassVar[List[str]] = ["balance", "currency_code"]
 

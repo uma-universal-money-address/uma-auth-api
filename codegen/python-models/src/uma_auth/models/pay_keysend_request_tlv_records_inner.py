@@ -21,21 +21,20 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
+from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PayInvoiceRequest(BaseModel):
+class PayKeysendRequestTlvRecordsInner(BaseModel):
     """
-    PayInvoiceRequest
+    The tlv record.
     """ # noqa: E501
-    invoice: StrictStr = Field(description="The bolt11 invoice to pay.")
-    amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The amount to pay for a 0-amount invoice.")
-    __properties: ClassVar[List[str]] = ["invoice", "amount"]
+    type: StrictInt = Field(description="The tlv type")
+    value: StrictStr = Field(description="The hex encoded tlv value.")
+    __properties: ClassVar[List[str]] = ["type", "value"]
 
     model_config = {
         "populate_by_name": True,
@@ -54,7 +53,7 @@ class PayInvoiceRequest(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PayInvoiceRequest from a JSON string"""
+        """Create an instance of PayKeysendRequestTlvRecordsInner from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,16 +74,11 @@ class PayInvoiceRequest(BaseModel):
             exclude_none=True,
             exclude_unset=True,
         )
-        # set to None if amount (nullable) is None
-        # and model_fields_set contains the field
-        if self.amount is None and "amount" in self.model_fields_set:
-            _dict['amount'] = None
-
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PayInvoiceRequest from a dict"""
+        """Create an instance of PayKeysendRequestTlvRecordsInner from a dict"""
         if obj is None:
             return None
 
@@ -92,8 +86,8 @@ class PayInvoiceRequest(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "invoice": obj.get("invoice"),
-            "amount": obj.get("amount")
+            "type": obj.get("type"),
+            "value": obj.get("value")
         })
         return _obj
 

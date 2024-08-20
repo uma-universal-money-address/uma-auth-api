@@ -201,6 +201,8 @@ class Quote(Model):
         """
         if multiplier is None:
             raise ValueError("Invalid value for `multiplier`, must not be `None`")  # noqa: E501
+        if multiplier is not None and multiplier <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `multiplier`, must be a value greater than `0`")  # noqa: E501
 
         self._multiplier = multiplier
 
@@ -226,6 +228,8 @@ class Quote(Model):
         """
         if fees is None:
             raise ValueError("Invalid value for `fees`, must not be `None`")  # noqa: E501
+        if fees is not None and fees < 0:  # noqa: E501
+            raise ValueError("Invalid value for `fees`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._fees = fees
 
@@ -251,6 +255,8 @@ class Quote(Model):
         """
         if total_sending_amount is None:
             raise ValueError("Invalid value for `total_sending_amount`, must not be `None`")  # noqa: E501
+        if total_sending_amount is not None and total_sending_amount <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `total_sending_amount`, must be a value greater than `0`")  # noqa: E501
 
         self._total_sending_amount = total_sending_amount
 
@@ -276,6 +282,8 @@ class Quote(Model):
         """
         if total_receiving_amount is None:
             raise ValueError("Invalid value for `total_receiving_amount`, must not be `None`")  # noqa: E501
+        if total_receiving_amount is not None and total_receiving_amount <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `total_receiving_amount`, must be a value greater than `0`")  # noqa: E501
 
         self._total_receiving_amount = total_receiving_amount
 

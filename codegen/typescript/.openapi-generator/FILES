@@ -14,6 +14,9 @@ src/models/LookupUserResponse.ts
 src/models/MakeInvoiceRequest.ts
 src/models/PayInvoiceRequest.ts
 src/models/PayInvoiceResponse.ts
+src/models/PayKeysendRequest.ts
+src/models/PayKeysendRequestTlvRecordsInner.ts
+src/models/PayKeysendResponse.ts
 src/models/PayToAddressRequest.ts
 src/models/PayToAddressResponse.ts
 src/models/Quote.ts

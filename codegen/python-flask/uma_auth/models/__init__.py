@@ -10,6 +10,9 @@ from uma_auth.models.lookup_user_response import LookupUserResponse
 from uma_auth.models.make_invoice_request import MakeInvoiceRequest
 from uma_auth.models.pay_invoice_request import PayInvoiceRequest
 from uma_auth.models.pay_invoice_response import PayInvoiceResponse
+from uma_auth.models.pay_keysend_request import PayKeysendRequest
+from uma_auth.models.pay_keysend_request_tlv_records_inner import PayKeysendRequestTlvRecordsInner
+from uma_auth.models.pay_keysend_response import PayKeysendResponse
 from uma_auth.models.pay_to_address_request import PayToAddressRequest
 from uma_auth.models.pay_to_address_response import PayToAddressResponse
 from uma_auth.models.quote import Quote

@@ -51,5 +51,8 @@ func AssertMakeInvoiceRequestConstraints(obj MakeInvoiceRequest) error {
 	if obj.Amount < 0 {
 		return &ParsingError{Param: "Amount", Err: errors.New(errMsgMinValueConstraint)}
 	}
+	if obj.Expiry < 0 {
+		return &ParsingError{Param: "Expiry", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type CurrencyPreference struct {
@@ -59,5 +63,17 @@ func AssertCurrencyPreferenceRequired(obj CurrencyPreference) error {
 
 // AssertCurrencyPreferenceConstraints checks if the values respects the defined constraints
 func AssertCurrencyPreferenceConstraints(obj CurrencyPreference) error {
+	if obj.Multiplier < 0 {
+		return &ParsingError{Param: "Multiplier", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if obj.Decimals < 0 {
+		return &ParsingError{Param: "Decimals", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if obj.Min < 0 {
+		return &ParsingError{Param: "Min", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if obj.Max < 0 {
+		return &ParsingError{Param: "Max", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

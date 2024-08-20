@@ -66,6 +66,8 @@ class GetBalanceResponse(Model):
         """
         if balance is None:
             raise ValueError("Invalid value for `balance`, must not be `None`")  # noqa: E501
+        if balance is not None and balance < 0:  # noqa: E501
+            raise ValueError("Invalid value for `balance`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._balance = balance
 

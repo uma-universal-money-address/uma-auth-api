@@ -253,6 +253,8 @@ class Transaction(Model):
         """
         if amount is None:
             raise ValueError("Invalid value for `amount`, must not be `None`")  # noqa: E501
+        if amount is not None and amount <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `amount`, must be a value greater than `0`")  # noqa: E501
 
         self._amount = amount
 
@@ -276,6 +278,8 @@ class Transaction(Model):
         :param fees_paid: The fees_paid of this Transaction.
         :type fees_paid: int
         """
+        if fees_paid is not None and fees_paid < 0:  # noqa: E501
+            raise ValueError("Invalid value for `fees_paid`, must be a value greater than or equal to `0`")  # noqa: E501
 
         self._fees_paid = fees_paid
 

@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type Transaction struct {
@@ -67,5 +71,11 @@ func AssertTransactionRequired(obj Transaction) error {
 
 // AssertTransactionConstraints checks if the values respects the defined constraints
 func AssertTransactionConstraints(obj Transaction) error {
+	if obj.Amount < 0 {
+		return &ParsingError{Param: "Amount", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if obj.FeesPaid != nil && *obj.FeesPaid < 0 {
+		return &ParsingError{Param: "FeesPaid", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

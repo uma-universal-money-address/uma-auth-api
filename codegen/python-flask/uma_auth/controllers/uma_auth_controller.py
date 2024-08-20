@@ -12,6 +12,8 @@ from uma_auth.models.lookup_user_response import LookupUserResponse  # noqa: E50
 from uma_auth.models.make_invoice_request import MakeInvoiceRequest  # noqa: E501
 from uma_auth.models.pay_invoice_request import PayInvoiceRequest  # noqa: E501
 from uma_auth.models.pay_invoice_response import PayInvoiceResponse  # noqa: E501
+from uma_auth.models.pay_keysend_request import PayKeysendRequest  # noqa: E501
+from uma_auth.models.pay_keysend_response import PayKeysendResponse  # noqa: E501
 from uma_auth.models.pay_to_address_request import PayToAddressRequest  # noqa: E501
 from uma_auth.models.pay_to_address_response import PayToAddressResponse  # noqa: E501
 from uma_auth.models.quote import Quote  # noqa: E501
@@ -161,8 +163,23 @@ def pay_invoice(pay_invoice_request=None):  # noqa: E501
     return 'do some magic!'
 
 
+def pay_keysend(pay_keysend_request=None):  # noqa: E501
+    """pay_keysend: Pay directly to the pubkey of the receiver node based on a fixed receiving amount
+
+     # noqa: E501
+
+    :param pay_keysend_request: 
+    :type pay_keysend_request: dict | bytes
+
+    :rtype: Union[PayKeysendResponse, Tuple[PayKeysendResponse, int], Tuple[PayKeysendResponse, int, Dict[str, str]]
+    """
+    if connexion.request.is_json:
+        pay_keysend_request = PayKeysendRequest.from_dict(connexion.request.get_json())  # noqa: E501
+    return 'do some magic!'
+
+
 def pay_to_lud16_address(pay_to_address_request=None):  # noqa: E501
-    """pay_to_lud16_address: Pay to an LNURL address
+    """pay_to_lud16_address: Pay directly to an LNURL address based on a fixed sending amount.
 
      # noqa: E501
 

@@ -21,8 +21,9 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictFloat, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Union
+from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
@@ -35,10 +36,10 @@ class CurrencyPreference(BaseModel):
     code: StrictStr = Field(description="The ISO-4217 currency code.")
     symbol: StrictStr = Field(description="The currency symbol.")
     name: StrictStr = Field(description="The currency name.")
-    multiplier: Union[StrictFloat, StrictInt] = Field(description="Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.")
-    decimals: StrictInt = Field(description="Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.")
-    min: StrictInt = Field(description="The minimum amount that can be received in this currency.")
-    max: StrictInt = Field(description="The maximum amount that can be received in this currency.")
+    multiplier: Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]] = Field(description="Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.")
+    decimals: Annotated[int, Field(strict=True, ge=0)] = Field(description="Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.")
+    min: Annotated[int, Field(strict=True, gt=0)] = Field(description="The minimum amount that can be received in this currency.")
+    max: Annotated[int, Field(strict=True, gt=0)] = Field(description="The maximum amount that can be received in this currency.")
     __properties: ClassVar[List[str]] = ["code", "symbol", "name", "multiplier", "decimals", "min", "max"]
 
     model_config = {
