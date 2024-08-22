@@ -32,7 +32,7 @@ object Paths {
      * @param lockedCurrencySide The side of the quote which should be locked and specified in the &#x60;locked_currency_amount&#x60;. For example, if I want to send exactly $5 MXN from my wallet, I would set this to \&quot;sending\&quot;, and the &#x60;locked_currency_amount&#x60; to 500 (in cents). If I want the receiver to receive exactly $10 USD, I would set this to \&quot;receiving\&quot; and the &#x60;locked_currency_amount&#x60; to 10000 (in cents). 
      * @param receiverAddress The LUD16 address to send the payment to. 
      */
-    @Serializable @Resource("/quote/lud16") class fetchQuoteForLud16(val sendingCurrencyCode: kotlin.String, val receivingCurrencyCode: kotlin.String, val lockedCurrencyAmount: kotlin.Long, val lockedCurrencySide: kotlin.String, val receiverAddress: kotlin.String)
+    @Serializable @Resource("/quote/lud16") class fetchQuoteForLud16(val sendingCurrencyCode: kotlin.String, val receivingCurrencyCode: kotlin.String, val lockedCurrencyAmount: kotlin.Long, val lockedCurrencySide: LockedCurrencySide, val receiverAddress: kotlin.String)
 
     /**
      * get_balance: Get the balance of the user&#39;s wallet

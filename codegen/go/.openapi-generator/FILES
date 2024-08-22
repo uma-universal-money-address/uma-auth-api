@@ -11,11 +11,13 @@ umaauth/helpers.go
 umaauth/impl.go
 umaauth/logger.go
 umaauth/model_currency_preference.go
+umaauth/model_error_code.go
 umaauth/model_error_response.go
 umaauth/model_execute_quote_response.go
 umaauth/model_get_balance_response.go
 umaauth/model_get_info_response.go
 umaauth/model_list_transactions_response.go
+umaauth/model_locked_currency_side.go
 umaauth/model_lookup_user_response.go
 umaauth/model_make_invoice_request.go
 umaauth/model_pay_invoice_request.go

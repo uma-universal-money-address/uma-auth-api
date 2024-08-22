@@ -1,11 +1,13 @@
 # flake8: noqa
 # import models into model package
 from uma_auth.models.currency_preference import CurrencyPreference
+from uma_auth.models.error_code import ErrorCode
 from uma_auth.models.error_response import ErrorResponse
 from uma_auth.models.execute_quote_response import ExecuteQuoteResponse
 from uma_auth.models.get_balance_response import GetBalanceResponse
 from uma_auth.models.get_info_response import GetInfoResponse
 from uma_auth.models.list_transactions_response import ListTransactionsResponse
+from uma_auth.models.locked_currency_side import LockedCurrencySide
 from uma_auth.models.lookup_user_response import LookupUserResponse
 from uma_auth.models.make_invoice_request import MakeInvoiceRequest
 from uma_auth.models.pay_invoice_request import PayInvoiceRequest

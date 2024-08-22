@@ -15,8 +15,7 @@ package umaauth
 
 type ErrorResponse struct {
 
-	// The error code.
-	Code string `json:"code"`
+	Code ErrorCode `json:"code"`
 
 	// The error message.
 	Message string `json:"message"`

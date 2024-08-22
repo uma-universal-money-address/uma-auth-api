@@ -13,12 +13,14 @@ setup.py
 src/py.typed
 src/uma_auth/models/__init__.py
 src/uma_auth/models/currency_preference.py
+src/uma_auth/models/error_code.py
 src/uma_auth/models/error_response.py
 src/uma_auth/models/execute_quote_response.py
 src/uma_auth/models/extra_models.py
 src/uma_auth/models/get_balance_response.py
 src/uma_auth/models/get_info_response.py
 src/uma_auth/models/list_transactions_response.py
+src/uma_auth/models/locked_currency_side.py
 src/uma_auth/models/lookup_user_response.py
 src/uma_auth/models/make_invoice_request.py
 src/uma_auth/models/pay_invoice_request.py

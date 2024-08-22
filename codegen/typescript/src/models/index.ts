@@ -1,11 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './CurrencyPreference';
+export * from './ErrorCode';
 export * from './ErrorResponse';
 export * from './ExecuteQuoteResponse';
 export * from './GetBalanceResponse';
 export * from './GetInfoResponse';
 export * from './ListTransactionsResponse';
+export * from './LockedCurrencySide';
 export * from './LookupUserResponse';
 export * from './MakeInvoiceRequest';
 export * from './PayInvoiceRequest';

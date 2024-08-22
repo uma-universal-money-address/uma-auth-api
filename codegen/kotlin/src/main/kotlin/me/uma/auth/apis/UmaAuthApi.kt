@@ -31,6 +31,7 @@ import me.uma.auth.models.ExecuteQuoteResponse
 import me.uma.auth.models.GetBalanceResponse
 import me.uma.auth.models.GetInfoResponse
 import me.uma.auth.models.ListTransactionsResponse
+import me.uma.auth.models.LockedCurrencySide
 import me.uma.auth.models.LookupUserResponse
 import me.uma.auth.models.MakeInvoiceRequest
 import me.uma.auth.models.PayInvoiceRequest

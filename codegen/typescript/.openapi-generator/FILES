@@ -5,11 +5,13 @@ README.md
 package.json
 src/index.ts
 src/models/CurrencyPreference.ts
+src/models/ErrorCode.ts
 src/models/ErrorResponse.ts
 src/models/ExecuteQuoteResponse.ts
 src/models/GetBalanceResponse.ts
 src/models/GetInfoResponse.ts
 src/models/ListTransactionsResponse.ts
+src/models/LockedCurrencySide.ts
 src/models/LookupUserResponse.ts
 src/models/MakeInvoiceRequest.ts
 src/models/PayInvoiceRequest.ts

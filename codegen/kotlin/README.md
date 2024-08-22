@@ -66,11 +66,13 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [me.uma.auth.models.CurrencyPreference](docs/CurrencyPreference.md)
+ - [me.uma.auth.models.ErrorCode](docs/ErrorCode.md)
  - [me.uma.auth.models.ErrorResponse](docs/ErrorResponse.md)
  - [me.uma.auth.models.ExecuteQuoteResponse](docs/ExecuteQuoteResponse.md)
  - [me.uma.auth.models.GetBalanceResponse](docs/GetBalanceResponse.md)
  - [me.uma.auth.models.GetInfoResponse](docs/GetInfoResponse.md)
  - [me.uma.auth.models.ListTransactionsResponse](docs/ListTransactionsResponse.md)
+ - [me.uma.auth.models.LockedCurrencySide](docs/LockedCurrencySide.md)
  - [me.uma.auth.models.LookupUserResponse](docs/LookupUserResponse.md)
  - [me.uma.auth.models.MakeInvoiceRequest](docs/MakeInvoiceRequest.md)
  - [me.uma.auth.models.PayInvoiceRequest](docs/PayInvoiceRequest.md)

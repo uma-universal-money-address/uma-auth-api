@@ -171,9 +171,9 @@ func (c *UmaAuthAPIController) FetchQuoteForLud16(w http.ResponseWriter, r *http
 		c.errorHandler(w, r, &RequiredError{Field: "locked_currency_amount"}, nil)
 		return
 	}
-	var lockedCurrencySideParam string
+	var lockedCurrencySideParam LockedCurrencySide
 	if query.Has("locked_currency_side") {
-		param := query.Get("locked_currency_side")
+		param := LockedCurrencySide(query.Get("locked_currency_side"))
 
 		lockedCurrencySideParam = param
 	} else {

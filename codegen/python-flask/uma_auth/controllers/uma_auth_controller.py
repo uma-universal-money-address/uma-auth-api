@@ -8,6 +8,7 @@ from uma_auth.models.execute_quote_response import ExecuteQuoteResponse  # noqa:
 from uma_auth.models.get_balance_response import GetBalanceResponse  # noqa: E501
 from uma_auth.models.get_info_response import GetInfoResponse  # noqa: E501
 from uma_auth.models.list_transactions_response import ListTransactionsResponse  # noqa: E501
+from uma_auth.models.locked_currency_side import LockedCurrencySide  # noqa: E501
 from uma_auth.models.lookup_user_response import LookupUserResponse  # noqa: E501
 from uma_auth.models.make_invoice_request import MakeInvoiceRequest  # noqa: E501
 from uma_auth.models.pay_invoice_request import PayInvoiceRequest  # noqa: E501
@@ -47,12 +48,14 @@ def fetch_quote_for_lud16(sending_currency_code, receiving_currency_code, locked
     :param locked_currency_amount: The amount to send/receive in the smallest unit of the locked currency (eg. cents). See &#x60;locked_currency_side&#x60; for more information.
     :type locked_currency_amount: int
     :param locked_currency_side: The side of the quote which should be locked and specified in the &#x60;locked_currency_amount&#x60;. For example, if I want to send exactly $5 MXN from my wallet, I would set this to \&quot;sending\&quot;, and the &#x60;locked_currency_amount&#x60; to 500 (in cents). If I want the receiver to receive exactly $10 USD, I would set this to \&quot;receiving\&quot; and the &#x60;locked_currency_amount&#x60; to 10000 (in cents).
-    :type locked_currency_side: str
+    :type locked_currency_side: dict | bytes
     :param receiver_address: The LUD16 address to send the payment to.
     :type receiver_address: str
 
     :rtype: Union[Quote, Tuple[Quote, int], Tuple[Quote, int, Dict[str, str]]
     """
+    if connexion.request.is_json:
+        locked_currency_side =  LockedCurrencySide.from_dict(connexion.request.get_json())  # noqa: E501
     return 'do some magic!'
 
 
