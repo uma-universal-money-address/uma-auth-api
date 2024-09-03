@@ -44,8 +44,9 @@ class Transaction(BaseModel):
     fees_paid: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(default=None, description="Value in msats.")
     created_at: StrictInt = Field(description="The time the payment/invoice was created.")
     expires_at: Optional[StrictInt] = Field(default=None, description="The time the invoice expires.")
+    settled_at: Optional[StrictInt] = Field(default=None, description="The time at which the transaction was settled, if it was settled.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata attached to the invoice.")
-    __properties: ClassVar[List[str]] = ["type", "invoice", "description", "description_hash", "preimage", "payment_hash", "amount", "fees_paid", "created_at", "expires_at", "metadata"]
+    __properties: ClassVar[List[str]] = ["type", "invoice", "description", "description_hash", "preimage", "payment_hash", "amount", "fees_paid", "created_at", "expires_at", "settled_at", "metadata"]
 
     model_config = {
         "populate_by_name": True,
@@ -115,6 +116,11 @@ class Transaction(BaseModel):
         if self.expires_at is None and "expires_at" in self.model_fields_set:
             _dict['expires_at'] = None
 
+        # set to None if settled_at (nullable) is None
+        # and model_fields_set contains the field
+        if self.settled_at is None and "settled_at" in self.model_fields_set:
+            _dict['settled_at'] = None
+
         # set to None if metadata (nullable) is None
         # and model_fields_set contains the field
         if self.metadata is None and "metadata" in self.model_fields_set:
@@ -142,6 +148,7 @@ class Transaction(BaseModel):
             "fees_paid": obj.get("fees_paid"),
             "created_at": obj.get("created_at"),
             "expires_at": obj.get("expires_at"),
+            "settled_at": obj.get("settled_at"),
             "metadata": obj.get("metadata")
         })
         return _obj

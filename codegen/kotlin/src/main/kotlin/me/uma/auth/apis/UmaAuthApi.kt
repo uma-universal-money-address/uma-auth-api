@@ -179,6 +179,7 @@ fun Route.UmaAuthApi() {
                 "description" : "Pay for pizza.",
                 "created_at" : 1683148800,
                 "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
+                "settled_at" : 1683148800,
                 "type" : "incoming",
                 "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
               }, {
@@ -191,6 +192,7 @@ fun Route.UmaAuthApi() {
                 "description" : "Pay for pizza.",
                 "created_at" : 1683148800,
                 "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
+                "settled_at" : 1683148800,
                 "type" : "incoming",
                 "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
               } ]
@@ -222,6 +224,7 @@ fun Route.UmaAuthApi() {
               "description" : "Pay for pizza.",
               "created_at" : 1683148800,
               "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
+              "settled_at" : 1683148800,
               "type" : "incoming",
               "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
             }"""
@@ -288,6 +291,7 @@ fun Route.UmaAuthApi() {
               "description" : "Pay for pizza.",
               "created_at" : 1683148800,
               "invoice" : "lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv",
+              "settled_at" : 1683148800,
               "type" : "incoming",
               "payment_hash" : "7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08"
             }"""

@@ -626,6 +626,7 @@ paths:
           description: Starting timestamp in seconds since epoch (inclusive).
           schema:
             type: integer
+            format: int64
             example: 1683148800
         - name: until
           in: query
@@ -633,6 +634,7 @@ paths:
           description: Ending timestamp in seconds since epoch (inclusive).
           schema:
             type: integer
+            format: int64
             example: 1683148800
         - name: limit
           in: query
@@ -754,12 +756,20 @@ components:
           nullable: true
         created_at:
           type: integer
+          format: int64
           description: The time the payment/invoice was created.
           example: 1683148800
         expires_at:
           type: integer
+          format: int64
           nullable: true
           description: The time the invoice expires.
+          example: 1683148800
+        settled_at:
+          type: integer
+          format: int64
+          nullable: true
+          description: The time at which the transaction was settled, if it was settled.
           example: 1683148800
         metadata:
           type: object
@@ -788,6 +798,7 @@ components:
           example: "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
         expires_at:
           type: integer
+          format: int64
           description: The time the quote expires in unix timestamp.
           example: 1683148800
         multiplier:
@@ -818,6 +829,7 @@ components:
           example: 1000
         created_at:
           type: integer
+          format: int64
           description: The time the quote was created in unix timestamp.
           example: 1683148800
       required:

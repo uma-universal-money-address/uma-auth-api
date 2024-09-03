@@ -29,7 +29,7 @@ type Quote struct {
 	PaymentHash string `json:"payment_hash"`
 
 	// The time the quote expires in unix timestamp.
-	ExpiresAt int32 `json:"expires_at"`
+	ExpiresAt int64 `json:"expires_at"`
 
 	// Number of sending currency units per receiving currency unit.
 	Multiplier float32 `json:"multiplier"`
@@ -44,7 +44,7 @@ type Quote struct {
 	TotalReceivingAmount int64 `json:"total_receiving_amount"`
 
 	// The time the quote was created in unix timestamp.
-	CreatedAt int32 `json:"created_at"`
+	CreatedAt int64 `json:"created_at"`
 }
 
 // AssertQuoteRequired checks if the required fields are not zero-ed

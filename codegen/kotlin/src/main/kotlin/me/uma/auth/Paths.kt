@@ -57,7 +57,7 @@ object Paths {
      * @param unpaid Whether to include unpaid invoices. (optional)
      * @param type Type of transactions to return: \&quot;incoming\&quot; for invoices, \&quot;outgoing\&quot; for payments, undefined for both. (optional)
      */
-    @Serializable @Resource("/transactions") class listTransactions(val from: kotlin.Int? = null, val until: kotlin.Int? = null, val limit: kotlin.Int? = null, val offset: kotlin.Int? = null, val unpaid: kotlin.Boolean? = null, val type: TransactionType? = null)
+    @Serializable @Resource("/transactions") class listTransactions(val from: kotlin.Long? = null, val until: kotlin.Long? = null, val limit: kotlin.Int? = null, val offset: kotlin.Int? = null, val unpaid: kotlin.Boolean? = null, val type: TransactionType? = null)
 
     /**
      * lookup_invoice: Get an invoice by its payment hash

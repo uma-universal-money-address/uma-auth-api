@@ -11,8 +11,9 @@
 | **payment\_hash** | **String** | Payment hash for the payment | [default to null] |
 | **amount** | **Long** | Value in msats. | [default to null] |
 | **fees\_paid** | **Long** | Value in msats. | [optional] [default to null] |
-| **created\_at** | **Integer** | The time the payment/invoice was created. | [default to null] |
-| **expires\_at** | **Integer** | The time the invoice expires. | [optional] [default to null] |
+| **created\_at** | **Long** | The time the payment/invoice was created. | [default to null] |
+| **expires\_at** | **Long** | The time the invoice expires. | [optional] [default to null] |
+| **settled\_at** | **Long** | The time at which the transaction was settled, if it was settled. | [optional] [default to null] |
 | **metadata** | [**Object**](.md) | Additional metadata attached to the invoice. | [optional] [default to null] |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

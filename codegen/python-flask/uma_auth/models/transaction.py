@@ -14,7 +14,7 @@ class Transaction(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, type=None, invoice=None, description=None, description_hash=None, preimage=None, payment_hash=None, amount=None, fees_paid=None, created_at=None, expires_at=None, metadata=None):  # noqa: E501
+    def __init__(self, type=None, invoice=None, description=None, description_hash=None, preimage=None, payment_hash=None, amount=None, fees_paid=None, created_at=None, expires_at=None, settled_at=None, metadata=None):  # noqa: E501
         """Transaction - a model defined in OpenAPI
 
         :param type: The type of this Transaction.  # noqa: E501
@@ -37,6 +37,8 @@ class Transaction(Model):
         :type created_at: int
         :param expires_at: The expires_at of this Transaction.  # noqa: E501
         :type expires_at: int
+        :param settled_at: The settled_at of this Transaction.  # noqa: E501
+        :type settled_at: int
         :param metadata: The metadata of this Transaction.  # noqa: E501
         :type metadata: object
         """
@@ -51,6 +53,7 @@ class Transaction(Model):
             'fees_paid': int,
             'created_at': int,
             'expires_at': int,
+            'settled_at': int,
             'metadata': object
         }
 
@@ -65,6 +68,7 @@ class Transaction(Model):
             'fees_paid': 'fees_paid',
             'created_at': 'created_at',
             'expires_at': 'expires_at',
+            'settled_at': 'settled_at',
             'metadata': 'metadata'
         }
 
@@ -78,6 +82,7 @@ class Transaction(Model):
         self._fees_paid = fees_paid
         self._created_at = created_at
         self._expires_at = expires_at
+        self._settled_at = settled_at
         self._metadata = metadata
 
     @classmethod
@@ -330,6 +335,29 @@ class Transaction(Model):
         """
 
         self._expires_at = expires_at
+
+    @property
+    def settled_at(self) -> int:
+        """Gets the settled_at of this Transaction.
+
+        The time at which the transaction was settled, if it was settled.  # noqa: E501
+
+        :return: The settled_at of this Transaction.
+        :rtype: int
+        """
+        return self._settled_at
+
+    @settled_at.setter
+    def settled_at(self, settled_at: int):
+        """Sets the settled_at of this Transaction.
+
+        The time at which the transaction was settled, if it was settled.  # noqa: E501
+
+        :param settled_at: The settled_at of this Transaction.
+        :type settled_at: int
+        """
+
+        self._settled_at = settled_at
 
     @property
     def metadata(self) -> object:
