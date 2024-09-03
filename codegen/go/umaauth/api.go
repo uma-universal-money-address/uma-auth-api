@@ -44,7 +44,7 @@ type UmaAuthAPIServicer interface {
 	FetchQuoteForLud16(context.Context, string, string, int64, LockedCurrencySide, string) (ImplResponse, error)
 	GetBalance(context.Context, string) (ImplResponse, error)
 	GetInfo(context.Context) (ImplResponse, error)
-	ListTransactions(context.Context, int32, int32, int32, int32, bool, TransactionType) (ImplResponse, error)
+	ListTransactions(context.Context, int64, int64, int32, int32, bool, TransactionType) (ImplResponse, error)
 	LookupInvoice(context.Context, string) (ImplResponse, error)
 	LookupUserByLud16(context.Context, string, string) (ImplResponse, error)
 	MakeInvoice(context.Context, MakeInvoiceRequest) (ImplResponse, error)

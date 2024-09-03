@@ -128,8 +128,8 @@ list_transactions: Lists invoices and payments
 
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
-| **from** | **Integer**| Starting timestamp in seconds since epoch (inclusive). | [optional] [default to null] |
-| **until** | **Integer**| Ending timestamp in seconds since epoch (inclusive). | [optional] [default to null] |
+| **from** | **Long**| Starting timestamp in seconds since epoch (inclusive). | [optional] [default to null] |
+| **until** | **Long**| Ending timestamp in seconds since epoch (inclusive). | [optional] [default to null] |
 | **limit** | **Integer**| Maximum number of transactions to return. | [optional] [default to null] |
 | **offset** | **Integer**| Offset of the first transaction to return. | [optional] [default to null] |
 | **unpaid** | **Boolean**| Whether to include unpaid invoices. | [optional] [default to null] |

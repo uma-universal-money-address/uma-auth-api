@@ -242,11 +242,11 @@ func (c *UmaAuthAPIController) ListTransactions(w http.ResponseWriter, r *http.R
 		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
 		return
 	}
-	var fromParam int32
+	var fromParam int64
 	if query.Has("from") {
-		param, err := parseNumericParameter[int32](
+		param, err := parseNumericParameter[int64](
 			query.Get("from"),
-			WithParse[int32](parseInt32),
+			WithParse[int64](parseInt64),
 		)
 		if err != nil {
 			c.errorHandler(w, r, &ParsingError{Param: "from", Err: err}, nil)
@@ -256,11 +256,11 @@ func (c *UmaAuthAPIController) ListTransactions(w http.ResponseWriter, r *http.R
 		fromParam = param
 	} else {
 	}
-	var untilParam int32
+	var untilParam int64
 	if query.Has("until") {
-		param, err := parseNumericParameter[int32](
+		param, err := parseNumericParameter[int64](
 			query.Get("until"),
-			WithParse[int32](parseInt32),
+			WithParse[int64](parseInt64),
 		)
 		if err != nil {
 			c.errorHandler(w, r, &ParsingError{Param: "until", Err: err}, nil)

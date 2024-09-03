@@ -87,6 +87,12 @@ export interface Transaction {
      */
     expiresAt?: number | null;
     /**
+     * The time at which the transaction was settled, if it was settled.
+     * @type {number}
+     * @memberof Transaction
+     */
+    settledAt?: number | null;
+    /**
      * Additional metadata attached to the invoice.
      * @type {object}
      * @memberof Transaction
@@ -125,6 +131,7 @@ export function TransactionFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'feesPaid': json['fees_paid'] == null ? undefined : json['fees_paid'],
         'createdAt': json['created_at'],
         'expiresAt': json['expires_at'] == null ? undefined : json['expires_at'],
+        'settledAt': json['settled_at'] == null ? undefined : json['settled_at'],
         'metadata': json['metadata'] == null ? undefined : json['metadata'],
     };
 }
@@ -145,6 +152,7 @@ export function TransactionToJSON(value?: Transaction | null): any {
         'fees_paid': value['feesPaid'],
         'created_at': value['createdAt'],
         'expires_at': value['expiresAt'],
+        'settled_at': value['settledAt'],
         'metadata': value['metadata'],
     };
 }

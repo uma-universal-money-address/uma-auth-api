@@ -25,6 +25,7 @@ import me.uma.auth.models.TransactionType
  * @param preimage The payment preimage, optional if unpaid.
  * @param feesPaid Value in msats.
  * @param expiresAt The time the invoice expires.
+ * @param settledAt The time at which the transaction was settled, if it was settled.
  * @param metadata Additional metadata attached to the invoice.
  */
 data class Transaction(
@@ -34,7 +35,7 @@ data class Transaction(
     /* Value in msats. */
     val amount: kotlin.Long,
     /* The time the payment/invoice was created. */
-    val createdAt: kotlin.Int,
+    val createdAt: kotlin.Long,
     /* The full, encoded invoice. */
     val invoice: kotlin.String? = null,
     /* The invoice's description. */
@@ -46,7 +47,9 @@ data class Transaction(
     /* Value in msats. */
     val feesPaid: kotlin.Long? = null,
     /* The time the invoice expires. */
-    val expiresAt: kotlin.Int? = null,
+    val expiresAt: kotlin.Long? = null,
+    /* The time at which the transaction was settled, if it was settled. */
+    val settledAt: kotlin.Long? = null,
     /* Additional metadata attached to the invoice. */
     val metadata: kotlin.Any? = null
 ) 

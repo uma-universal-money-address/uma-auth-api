@@ -32,7 +32,7 @@ data class Quote(
     /* The payment hash of the quote. Used as an identifier to execute the quote. */
     val paymentHash: kotlin.String,
     /* The time the quote expires in unix timestamp. */
-    val expiresAt: kotlin.Int,
+    val expiresAt: kotlin.Long,
     /* Number of sending currency units per receiving currency unit. */
     val multiplier: java.math.BigDecimal,
     /* The fees associated with the quote in the smallest unit of the sending currency (eg. cents). */
@@ -42,6 +42,6 @@ data class Quote(
     /* The total amount that will be received in the smallest unit of the receiving currency (eg. cents). */
     val totalReceivingAmount: kotlin.Long,
     /* The time the quote was created in unix timestamp. */
-    val createdAt: kotlin.Int
+    val createdAt: kotlin.Long
 ) 
 

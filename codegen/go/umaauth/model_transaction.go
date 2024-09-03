@@ -43,10 +43,13 @@ type Transaction struct {
 	FeesPaid *int64 `json:"fees_paid,omitempty"`
 
 	// The time the payment/invoice was created.
-	CreatedAt int32 `json:"created_at"`
+	CreatedAt int64 `json:"created_at"`
 
 	// The time the invoice expires.
-	ExpiresAt *int32 `json:"expires_at,omitempty"`
+	ExpiresAt *int64 `json:"expires_at,omitempty"`
+
+	// The time at which the transaction was settled, if it was settled.
+	SettledAt *int64 `json:"settled_at,omitempty"`
 
 	// Additional metadata attached to the invoice.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
