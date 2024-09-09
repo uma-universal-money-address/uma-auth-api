@@ -57,6 +57,66 @@ paths:
       tags:
       - UmaAuth
       x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
+  /budget_estimate:
+    get:
+      operationId: get_budget_estimate
+      parameters:
+      - description: The code of the currency that will be sent from the sender's
+          wallet.
+        explode: true
+        in: query
+        name: sending_currency_code
+        required: true
+        schema:
+          example: SAT
+          type: string
+        style: form
+      - description: The amount to send in the smallest unit of the sending currency
+          (eg. cents).
+        explode: true
+        in: query
+        name: sending_currency_amount
+        required: true
+        schema:
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          type: integer
+        style: form
+      - description: The code of the currency the sender used to set budget.
+        explode: true
+        in: query
+        name: budget_currency_code
+        required: true
+        schema:
+          example: USD
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetEstimateResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad Request
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Too Many Requests
+      summary: "get_budget_estimate: Estimate the total cost of the payment to complete\
+        \ the payment in the currency of sender's budget."
+      tags:
+      - UmaAuth
+      x-openapi-router-controller: uma_auth.controllers.uma_auth_controller
   /info:
     get:
       operationId: get_info
@@ -344,6 +404,11 @@ paths:
           example: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
           type: string
         style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecuteQuoteRequest'
       responses:
         "200":
           content:
@@ -853,6 +918,7 @@ components:
     PayInvoiceRequest:
       example:
         amount: 1000
+        budget_currency_code: USD
         invoice: lntb1u1pw0k7jw
       properties:
         invoice:
@@ -869,6 +935,12 @@ components:
           nullable: true
           title: amount
           type: integer
+        budget_currency_code:
+          description: The code of the currency the sender used to set budget.  Optional
+            if the budget is set in SAT.
+          example: USD
+          title: budget_currency_code
+          type: string
       required:
       - invoice
       title: PayInvoiceRequest
@@ -876,12 +948,23 @@ components:
     PayInvoiceResponse:
       example:
         preimage: abcd1234
+        total_budget_currency_amount: 1000
       properties:
         preimage:
           description: The preimage of the payment.
           example: abcd1234
           title: preimage
           type: string
+        total_budget_currency_amount:
+          description: 'The total cost of the payment in the smallest unit of `budget_currency_code`
+            in the request. This is the amount that will be deducted from the budget  for
+            this connection. Optional if `budget_currency_code` is null. '
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          title: total_budget_currency_amount
+          type: integer
       required:
       - preimage
       title: PayInvoiceResponse
@@ -934,15 +1017,38 @@ components:
           type: array
       title: LookupUserResponse
       type: object
+    ExecuteQuoteRequest:
+      example:
+        budget_currency_code: USD
+      properties:
+        budget_currency_code:
+          description: The code of the currency the sender used to set budget.  Optional
+            if it is the same as `sending_currency_code`.
+          example: USD
+          title: budget_currency_code
+          type: string
+      title: ExecuteQuoteRequest
+      type: object
     ExecuteQuoteResponse:
       example:
         preimage: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        total_budget_currency_amount: 1000
       properties:
         preimage:
           description: The preimage of the payment.
           example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
           title: preimage
           type: string
+        total_budget_currency_amount:
+          description: 'The total cost of the payment in the smallest unit of `budget_currency_code`
+            in the request. This is the amount that will be deducted from the budget  for
+            this connection. Optional if `budget_currency_code` is null. '
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          title: total_budget_currency_amount
+          type: integer
       required:
       - preimage
       title: ExecuteQuoteResponse
@@ -951,6 +1057,7 @@ components:
       example:
         sending_currency_code: MXN
         receiving_currency_code: USD
+        budget_currency_code: USD
         receiver_address: $alice@vasp.net
         sending_currency_amount: 1000
       properties:
@@ -979,6 +1086,12 @@ components:
           example: USD
           title: receiving_currency_code
           type: string
+        budget_currency_code:
+          description: The code of the currency the sender used to set budget. Optional
+            if it is the same as `sending_currency_code`.
+          example: USD
+          title: budget_currency_code
+          type: string
       required:
       - receiver_address
       - sending_currency_amount
@@ -998,6 +1111,7 @@ components:
           created_at: 1683148800
           payment_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
         preimage: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        total_budget_currency_amount: 1000
       properties:
         preimage:
           description: The preimage of the payment.
@@ -1006,6 +1120,16 @@ components:
           type: string
         quote:
           $ref: '#/components/schemas/Quote'
+        total_budget_currency_amount:
+          description: 'The total cost of the payment in the smallest unit of `budget_currency_code`
+            in the request. This is the amount that will be deducted from the budget  for
+            this connection. Optional if `budget_currency_code` is null. '
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          title: total_budget_currency_amount
+          type: integer
       required:
       - preimage
       - quote
@@ -1035,6 +1159,7 @@ components:
     PayKeysendRequest:
       example:
         amount: 10000
+        budget_currency_code: USD
         preimage: "1000"
         pubkey: 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798
         tlv_records:
@@ -1046,7 +1171,9 @@ components:
         amount:
           description: The amount to pay in msats.
           example: 10000
+          exclusiveMinimum: true
           format: int64
+          minimum: 0
           title: amount
           type: integer
         pubkey:
@@ -1065,6 +1192,12 @@ components:
             $ref: '#/components/schemas/PayKeysendRequest_tlv_records_inner'
           title: tlv_records
           type: array
+        budget_currency_code:
+          description: The code of the currency the sender used to set budget.  Optional
+            if the budget is set to SAT.
+          example: USD
+          title: budget_currency_code
+          type: string
       required:
       - amount
       - pubkey
@@ -1073,12 +1206,23 @@ components:
     PayKeysendResponse:
       example:
         preimage: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        total_budget_currency_amount: 1000
       properties:
         preimage:
           description: The preimage of the payment.
           example: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
           title: preimage
           type: string
+        total_budget_currency_amount:
+          description: 'The total cost of the payment in the smallest unit of `budget_currency_code`
+            in the request. This is the amount that will be deducted from the budget  for
+            this connection. Optional if `budget_currency_code` is null. '
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          title: total_budget_currency_amount
+          type: integer
       required:
       - preimage
       title: PayKeysendResponse
@@ -1210,6 +1354,24 @@ components:
       required:
       - transactions
       title: ListTransactionsResponse
+      type: object
+    BudgetEstimateResponse:
+      example:
+        estimated_budget_currency_amount: 1000
+      properties:
+        estimated_budget_currency_amount:
+          description: 'The estimated cost of the payment in the smallest unit of  `budget_currency_code`.
+            This amount will be used to calculate  the amount to hold from the budget
+            for this connection while  the payment is in-flight. '
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          title: estimated_budget_currency_amount
+          type: integer
+      required:
+      - estimated_budget_currency_amount
+      title: BudgetEstimateResponse
       type: object
   securitySchemes:
     bearerAuth:

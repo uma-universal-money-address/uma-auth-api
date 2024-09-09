@@ -19,6 +19,7 @@ import me.uma.auth.models.PayKeysendRequestTlvRecordsInner
  * @param pubkey The public key of the receiver's node.
  * @param preimage Preimage of the payment.
  * @param tlvRecords The tlv records.
+ * @param budgetCurrencyCode The code of the currency the sender used to set budget.  Optional if the budget is set to SAT.
  */
 data class PayKeysendRequest(
     /* The amount to pay in msats. */
@@ -28,6 +29,8 @@ data class PayKeysendRequest(
     /* Preimage of the payment. */
     val preimage: kotlin.String? = null,
     /* The tlv records. */
-    val tlvRecords: kotlin.collections.List<PayKeysendRequestTlvRecordsInner>? = null
+    val tlvRecords: kotlin.collections.List<PayKeysendRequestTlvRecordsInner>? = null,
+    /* The code of the currency the sender used to set budget.  Optional if the budget is set to SAT. */
+    val budgetCurrencyCode: kotlin.String? = null
 ) 
 

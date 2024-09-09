@@ -68,6 +68,11 @@ func (c *UmaAuthAPIController) Routes() Routes {
 			"/umanwc/v1/balance",
 			c.GetBalance,
 		},
+		"GetBudgetEstimate": Route{
+			strings.ToUpper("Get"),
+			"/umanwc/v1/budget_estimate",
+			c.GetBudgetEstimate,
+		},
 		"GetInfo": Route{
 			strings.ToUpper("Get"),
 			"/umanwc/v1/info",
@@ -119,7 +124,22 @@ func (c *UmaAuthAPIController) ExecuteQuote(w http.ResponseWriter, r *http.Reque
 		c.errorHandler(w, r, &RequiredError{"payment_hash"}, nil)
 		return
 	}
-	result, err := c.service.ExecuteQuote(r.Context(), paymentHashParam)
+	executeQuoteRequestParam := ExecuteQuoteRequest{}
+	d := json.NewDecoder(r.Body)
+	d.DisallowUnknownFields()
+	if err := d.Decode(&executeQuoteRequestParam); err != nil && !errors.Is(err, io.EOF) {
+		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
+		return
+	}
+	if err := AssertExecuteQuoteRequestRequired(executeQuoteRequestParam); err != nil {
+		c.errorHandler(w, r, err, nil)
+		return
+	}
+	if err := AssertExecuteQuoteRequestConstraints(executeQuoteRequestParam); err != nil {
+		c.errorHandler(w, r, err, nil)
+		return
+	}
+	result, err := c.service.ExecuteQuote(r.Context(), paymentHashParam, executeQuoteRequestParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)
@@ -214,6 +234,58 @@ func (c *UmaAuthAPIController) GetBalance(w http.ResponseWriter, r *http.Request
 	} else {
 	}
 	result, err := c.service.GetBalance(r.Context(), currencyCodeParam)
+	// If an error occurred, encode the error with the status code
+	if err != nil {
+		c.errorHandler(w, r, err, &result)
+		return
+	}
+	// If no error, encode the body and the result code
+	_ = EncodeJSONResponse(result.Body, &result.Code, w)
+}
+
+// GetBudgetEstimate - get_budget_estimate: Estimate the total cost of the payment to complete the payment in the currency of sender's budget.
+func (c *UmaAuthAPIController) GetBudgetEstimate(w http.ResponseWriter, r *http.Request) {
+	query, err := parseQuery(r.URL.RawQuery)
+	if err != nil {
+		c.errorHandler(w, r, &ParsingError{Err: err}, nil)
+		return
+	}
+	var sendingCurrencyCodeParam string
+	if query.Has("sending_currency_code") {
+		param := query.Get("sending_currency_code")
+
+		sendingCurrencyCodeParam = param
+	} else {
+		c.errorHandler(w, r, &RequiredError{Field: "sending_currency_code"}, nil)
+		return
+	}
+	var sendingCurrencyAmountParam int64
+	if query.Has("sending_currency_amount") {
+		param, err := parseNumericParameter[int64](
+			query.Get("sending_currency_amount"),
+			WithParse[int64](parseInt64),
+			WithMinimum[int64](0),
+		)
+		if err != nil {
+			c.errorHandler(w, r, &ParsingError{Param: "sending_currency_amount", Err: err}, nil)
+			return
+		}
+
+		sendingCurrencyAmountParam = param
+	} else {
+		c.errorHandler(w, r, &RequiredError{Field: "sending_currency_amount"}, nil)
+		return
+	}
+	var budgetCurrencyCodeParam string
+	if query.Has("budget_currency_code") {
+		param := query.Get("budget_currency_code")
+
+		budgetCurrencyCodeParam = param
+	} else {
+		c.errorHandler(w, r, &RequiredError{Field: "budget_currency_code"}, nil)
+		return
+	}
+	result, err := c.service.GetBudgetEstimate(r.Context(), sendingCurrencyCodeParam, sendingCurrencyAmountParam, budgetCurrencyCodeParam)
 	// If an error occurred, encode the error with the status code
 	if err != nil {
 		c.errorHandler(w, r, err, &result)

@@ -52,6 +52,7 @@ Class | Method | HTTP request | Description
 *UmaAuthApi* | [**executeQuote**](docs/UmaAuthApi.md#executequote) | **POST** /quote/{payment_hash} | execute_quote: Execute a quote
 *UmaAuthApi* | [**fetchQuoteForLud16**](docs/UmaAuthApi.md#fetchquoteforlud16) | **GET** /quote/lud16 | fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address
 *UmaAuthApi* | [**getBalance**](docs/UmaAuthApi.md#getbalance) | **GET** /balance | get_balance: Get the balance of the user's wallet
+*UmaAuthApi* | [**getBudgetEstimate**](docs/UmaAuthApi.md#getbudgetestimate) | **GET** /budget_estimate | get_budget_estimate: Estimate the total cost of the payment to complete the payment in the currency of sender's budget.
 *UmaAuthApi* | [**getInfo**](docs/UmaAuthApi.md#getinfo) | **GET** /info | get_info: Get information about the user's wallet connection
 *UmaAuthApi* | [**listTransactions**](docs/UmaAuthApi.md#listtransactions) | **GET** /transactions | list_transactions: Lists invoices and payments
 *UmaAuthApi* | [**lookupInvoice**](docs/UmaAuthApi.md#lookupinvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash
@@ -65,9 +66,11 @@ Class | Method | HTTP request | Description
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [me.uma.auth.models.BudgetEstimateResponse](docs/BudgetEstimateResponse.md)
  - [me.uma.auth.models.CurrencyPreference](docs/CurrencyPreference.md)
  - [me.uma.auth.models.ErrorCode](docs/ErrorCode.md)
  - [me.uma.auth.models.ErrorResponse](docs/ErrorResponse.md)
+ - [me.uma.auth.models.ExecuteQuoteRequest](docs/ExecuteQuoteRequest.md)
  - [me.uma.auth.models.ExecuteQuoteResponse](docs/ExecuteQuoteResponse.md)
  - [me.uma.auth.models.GetBalanceResponse](docs/GetBalanceResponse.md)
  - [me.uma.auth.models.GetInfoResponse](docs/GetInfoResponse.md)

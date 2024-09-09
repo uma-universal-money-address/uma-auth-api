@@ -12,7 +12,7 @@ class PayToAddressRequest(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, receiver_address=None, sending_currency_code=None, sending_currency_amount=None, receiving_currency_code=None):  # noqa: E501
+    def __init__(self, receiver_address=None, sending_currency_code=None, sending_currency_amount=None, receiving_currency_code=None, budget_currency_code=None):  # noqa: E501
         """PayToAddressRequest - a model defined in OpenAPI
 
         :param receiver_address: The receiver_address of this PayToAddressRequest.  # noqa: E501
@@ -23,25 +23,30 @@ class PayToAddressRequest(Model):
         :type sending_currency_amount: int
         :param receiving_currency_code: The receiving_currency_code of this PayToAddressRequest.  # noqa: E501
         :type receiving_currency_code: str
+        :param budget_currency_code: The budget_currency_code of this PayToAddressRequest.  # noqa: E501
+        :type budget_currency_code: str
         """
         self.openapi_types = {
             'receiver_address': str,
             'sending_currency_code': str,
             'sending_currency_amount': int,
-            'receiving_currency_code': str
+            'receiving_currency_code': str,
+            'budget_currency_code': str
         }
 
         self.attribute_map = {
             'receiver_address': 'receiver_address',
             'sending_currency_code': 'sending_currency_code',
             'sending_currency_amount': 'sending_currency_amount',
-            'receiving_currency_code': 'receiving_currency_code'
+            'receiving_currency_code': 'receiving_currency_code',
+            'budget_currency_code': 'budget_currency_code'
         }
 
         self._receiver_address = receiver_address
         self._sending_currency_code = sending_currency_code
         self._sending_currency_amount = sending_currency_amount
         self._receiving_currency_code = receiving_currency_code
+        self._budget_currency_code = budget_currency_code
 
     @classmethod
     def from_dict(cls, dikt) -> 'PayToAddressRequest':
@@ -153,3 +158,26 @@ class PayToAddressRequest(Model):
         """
 
         self._receiving_currency_code = receiving_currency_code
+
+    @property
+    def budget_currency_code(self) -> str:
+        """Gets the budget_currency_code of this PayToAddressRequest.
+
+        The code of the currency the sender used to set budget. Optional if it is the same as `sending_currency_code`.  # noqa: E501
+
+        :return: The budget_currency_code of this PayToAddressRequest.
+        :rtype: str
+        """
+        return self._budget_currency_code
+
+    @budget_currency_code.setter
+    def budget_currency_code(self, budget_currency_code: str):
+        """Sets the budget_currency_code of this PayToAddressRequest.
+
+        The code of the currency the sender used to set budget. Optional if it is the same as `sending_currency_code`.  # noqa: E501
+
+        :param budget_currency_code: The budget_currency_code of this PayToAddressRequest.
+        :type budget_currency_code: str
+        """
+
+        self._budget_currency_code = budget_currency_code

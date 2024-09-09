@@ -18,6 +18,7 @@ package me.uma.auth.models
  * @param sendingCurrencyCode The code of the currency being sent from the sender's wallet.
  * @param sendingCurrencyAmount The amount to send in the smallest unit of the sending currency (eg. cents).
  * @param receivingCurrencyCode The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.
+ * @param budgetCurrencyCode The code of the currency the sender used to set budget. Optional if it is the same as `sending_currency_code`.
  */
 data class PayToAddressRequest(
     /* The LUD16 address to pay. */
@@ -27,6 +28,8 @@ data class PayToAddressRequest(
     /* The amount to send in the smallest unit of the sending currency (eg. cents). */
     val sendingCurrencyAmount: kotlin.Long,
     /* The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used. */
-    val receivingCurrencyCode: kotlin.String? = null
+    val receivingCurrencyCode: kotlin.String? = null,
+    /* The code of the currency the sender used to set budget. Optional if it is the same as `sending_currency_code`. */
+    val budgetCurrencyCode: kotlin.String? = null
 ) 
 

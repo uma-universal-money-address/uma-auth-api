@@ -17,10 +17,13 @@ import me.uma.auth.models.Quote
  * 
  * @param preimage The preimage of the payment.
  * @param quote 
+ * @param totalBudgetCurrencyAmount The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. 
  */
 data class PayToAddressResponse(
     /* The preimage of the payment. */
     val preimage: kotlin.String,
-    val quote: Quote
+    val quote: Quote,
+    /* The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null.  */
+    val totalBudgetCurrencyAmount: kotlin.Long? = null
 ) 
 

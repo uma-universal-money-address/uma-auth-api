@@ -7,6 +7,7 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
 | [**executeQuote**](UmaAuthApi.md#executeQuote) | **POST** /quote/{payment_hash} | execute_quote: Execute a quote |
 | [**fetchQuoteForLud16**](UmaAuthApi.md#fetchQuoteForLud16) | **GET** /quote/lud16 | fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address |
 | [**getBalance**](UmaAuthApi.md#getBalance) | **GET** /balance | get_balance: Get the balance of the user&#39;s wallet |
+| [**getBudgetEstimate**](UmaAuthApi.md#getBudgetEstimate) | **GET** /budget_estimate | get_budget_estimate: Estimate the total cost of the payment to complete the payment in the currency of sender&#39;s budget. |
 | [**getInfo**](UmaAuthApi.md#getInfo) | **GET** /info | get_info: Get information about the user&#39;s wallet connection |
 | [**listTransactions**](UmaAuthApi.md#listTransactions) | **GET** /transactions | list_transactions: Lists invoices and payments |
 | [**lookupInvoice**](UmaAuthApi.md#lookupInvoice) | **GET** /invoices/{payment_hash} | lookup_invoice: Get an invoice by its payment hash |
@@ -19,7 +20,7 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
 
 <a name="executeQuote"></a>
 # **executeQuote**
-> ExecuteQuoteResponse executeQuote(payment\_hash)
+> ExecuteQuoteResponse executeQuote(payment\_hash, ExecuteQuoteRequest)
 
 execute_quote: Execute a quote
 
@@ -28,6 +29,7 @@ execute_quote: Execute a quote
 |Name | Type | Description  | Notes |
 |------------- | ------------- | ------------- | -------------|
 | **payment\_hash** | **String**| The payment hash of the quote to execute. | [default to null] |
+| **ExecuteQuoteRequest** | [**ExecuteQuoteRequest**](../Models/ExecuteQuoteRequest.md)|  | [optional] |
 
 ### Return type
 
@@ -39,7 +41,7 @@ execute_quote: Execute a quote
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 <a name="fetchQuoteForLud16"></a>
@@ -86,6 +88,33 @@ get_balance: Get the balance of the user&#39;s wallet
 ### Return type
 
 [**GetBalanceResponse**](../Models/GetBalanceResponse.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+<a name="getBudgetEstimate"></a>
+# **getBudgetEstimate**
+> BudgetEstimateResponse getBudgetEstimate(sending\_currency\_code, sending\_currency\_amount, budget\_currency\_code)
+
+get_budget_estimate: Estimate the total cost of the payment to complete the payment in the currency of sender&#39;s budget.
+
+### Parameters
+
+|Name | Type | Description  | Notes |
+|------------- | ------------- | ------------- | -------------|
+| **sending\_currency\_code** | **String**| The code of the currency that will be sent from the sender&#39;s wallet. | [default to null] |
+| **sending\_currency\_amount** | **Long**| The amount to send in the smallest unit of the sending currency (eg. cents). | [default to null] |
+| **budget\_currency\_code** | **String**| The code of the currency the sender used to set budget. | [default to null] |
+
+### Return type
+
+[**BudgetEstimateResponse**](../Models/BudgetEstimateResponse.md)
 
 ### Authorization
 

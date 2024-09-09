@@ -10,9 +10,11 @@ umaauth/error.go
 umaauth/helpers.go
 umaauth/impl.go
 umaauth/logger.go
+umaauth/model_budget_estimate_response.go
 umaauth/model_currency_preference.go
 umaauth/model_error_code.go
 umaauth/model_error_response.go
+umaauth/model_execute_quote_request.go
 umaauth/model_execute_quote_response.go
 umaauth/model_get_balance_response.go
 umaauth/model_get_info_response.go

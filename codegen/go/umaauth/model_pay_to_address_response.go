@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type PayToAddressResponse struct {
@@ -19,6 +23,9 @@ type PayToAddressResponse struct {
 	Preimage string `json:"preimage"`
 
 	Quote Quote `json:"quote"`
+
+	// The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. 
+	TotalBudgetCurrencyAmount int64 `json:"total_budget_currency_amount,omitempty"`
 }
 
 // AssertPayToAddressResponseRequired checks if the required fields are not zero-ed
@@ -43,6 +50,9 @@ func AssertPayToAddressResponseRequired(obj PayToAddressResponse) error {
 func AssertPayToAddressResponseConstraints(obj PayToAddressResponse) error {
 	if err := AssertQuoteConstraints(obj.Quote); err != nil {
 		return err
+	}
+	if obj.TotalBudgetCurrencyAmount < 0 {
+		return &ParsingError{Param: "TotalBudgetCurrencyAmount", Err: errors.New(errMsgMinValueConstraint)}
 	}
 	return nil
 }

@@ -11,12 +11,19 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type PayInvoiceResponse struct {
 
 	// The preimage of the payment.
 	Preimage string `json:"preimage"`
+
+	// The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. 
+	TotalBudgetCurrencyAmount int64 `json:"total_budget_currency_amount,omitempty"`
 }
 
 // AssertPayInvoiceResponseRequired checks if the required fields are not zero-ed
@@ -35,5 +42,8 @@ func AssertPayInvoiceResponseRequired(obj PayInvoiceResponse) error {
 
 // AssertPayInvoiceResponseConstraints checks if the values respects the defined constraints
 func AssertPayInvoiceResponseConstraints(obj PayInvoiceResponse) error {
+	if obj.TotalBudgetCurrencyAmount < 0 {
+		return &ParsingError{Param: "TotalBudgetCurrencyAmount", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	return nil
 }

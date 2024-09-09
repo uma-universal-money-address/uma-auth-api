@@ -24,6 +24,7 @@ type UmaAuthAPIRouter interface {
 	ExecuteQuote(http.ResponseWriter, *http.Request)
 	FetchQuoteForLud16(http.ResponseWriter, *http.Request)
 	GetBalance(http.ResponseWriter, *http.Request)
+	GetBudgetEstimate(http.ResponseWriter, *http.Request)
 	GetInfo(http.ResponseWriter, *http.Request)
 	ListTransactions(http.ResponseWriter, *http.Request)
 	LookupInvoice(http.ResponseWriter, *http.Request)
@@ -40,9 +41,10 @@ type UmaAuthAPIRouter interface {
 // while the service implementation can be ignored with the .openapi-generator-ignore file
 // and updated with the logic required for the API.
 type UmaAuthAPIServicer interface { 
-	ExecuteQuote(context.Context, string) (ImplResponse, error)
+	ExecuteQuote(context.Context, string, ExecuteQuoteRequest) (ImplResponse, error)
 	FetchQuoteForLud16(context.Context, string, string, int64, LockedCurrencySide, string) (ImplResponse, error)
 	GetBalance(context.Context, string) (ImplResponse, error)
+	GetBudgetEstimate(context.Context, string, int64, string) (ImplResponse, error)
 	GetInfo(context.Context) (ImplResponse, error)
 	ListTransactions(context.Context, int64, int64, int32, int32, bool, TransactionType) (ImplResponse, error)
 	LookupInvoice(context.Context, string) (ImplResponse, error)

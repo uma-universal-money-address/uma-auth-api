@@ -24,6 +24,9 @@ type PayInvoiceRequest struct {
 
 	// The amount to pay for a 0-amount invoice.
 	Amount *int64 `json:"amount,omitempty"`
+
+	// The code of the currency the sender used to set budget.  Optional if the budget is set in SAT.
+	BudgetCurrencyCode string `json:"budget_currency_code,omitempty"`
 }
 
 // AssertPayInvoiceRequestRequired checks if the required fields are not zero-ed

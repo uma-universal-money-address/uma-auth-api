@@ -35,7 +35,8 @@ class PayInvoiceRequest(BaseModel):
     """ # noqa: E501
     invoice: StrictStr = Field(description="The bolt11 invoice to pay.")
     amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The amount to pay for a 0-amount invoice.")
-    __properties: ClassVar[List[str]] = ["invoice", "amount"]
+    budget_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency the sender used to set budget.  Optional if the budget is set in SAT.")
+    __properties: ClassVar[List[str]] = ["invoice", "amount", "budget_currency_code"]
 
     model_config = {
         "populate_by_name": True,
@@ -93,7 +94,8 @@ class PayInvoiceRequest(BaseModel):
 
         _obj = cls.model_validate({
             "invoice": obj.get("invoice"),
-            "amount": obj.get("amount")
+            "amount": obj.get("amount"),
+            "budget_currency_code": obj.get("budget_currency_code")
         })
         return _obj
 

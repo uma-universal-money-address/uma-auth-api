@@ -12,26 +12,31 @@ class PayInvoiceRequest(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, invoice=None, amount=None):  # noqa: E501
+    def __init__(self, invoice=None, amount=None, budget_currency_code=None):  # noqa: E501
         """PayInvoiceRequest - a model defined in OpenAPI
 
         :param invoice: The invoice of this PayInvoiceRequest.  # noqa: E501
         :type invoice: str
         :param amount: The amount of this PayInvoiceRequest.  # noqa: E501
         :type amount: int
+        :param budget_currency_code: The budget_currency_code of this PayInvoiceRequest.  # noqa: E501
+        :type budget_currency_code: str
         """
         self.openapi_types = {
             'invoice': str,
-            'amount': int
+            'amount': int,
+            'budget_currency_code': str
         }
 
         self.attribute_map = {
             'invoice': 'invoice',
-            'amount': 'amount'
+            'amount': 'amount',
+            'budget_currency_code': 'budget_currency_code'
         }
 
         self._invoice = invoice
         self._amount = amount
+        self._budget_currency_code = budget_currency_code
 
     @classmethod
     def from_dict(cls, dikt) -> 'PayInvoiceRequest':
@@ -93,3 +98,26 @@ class PayInvoiceRequest(Model):
             raise ValueError("Invalid value for `amount`, must be a value greater than `0`")  # noqa: E501
 
         self._amount = amount
+
+    @property
+    def budget_currency_code(self) -> str:
+        """Gets the budget_currency_code of this PayInvoiceRequest.
+
+        The code of the currency the sender used to set budget.  Optional if the budget is set in SAT.  # noqa: E501
+
+        :return: The budget_currency_code of this PayInvoiceRequest.
+        :rtype: str
+        """
+        return self._budget_currency_code
+
+    @budget_currency_code.setter
+    def budget_currency_code(self, budget_currency_code: str):
+        """Sets the budget_currency_code of this PayInvoiceRequest.
+
+        The code of the currency the sender used to set budget.  Optional if the budget is set in SAT.  # noqa: E501
+
+        :param budget_currency_code: The budget_currency_code of this PayInvoiceRequest.
+        :type budget_currency_code: str
+        """
+
+        self._budget_currency_code = budget_currency_code

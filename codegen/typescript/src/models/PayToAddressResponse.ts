@@ -38,6 +38,12 @@ export interface PayToAddressResponse {
      * @memberof PayToAddressResponse
      */
     quote: Quote;
+    /**
+     * The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. 
+     * @type {number}
+     * @memberof PayToAddressResponse
+     */
+    totalBudgetCurrencyAmount?: number;
 }
 
 /**
@@ -61,6 +67,7 @@ export function PayToAddressResponseFromJSONTyped(json: any, ignoreDiscriminator
         
         'preimage': json['preimage'],
         'quote': QuoteFromJSON(json['quote']),
+        'totalBudgetCurrencyAmount': json['total_budget_currency_amount'] == null ? undefined : json['total_budget_currency_amount'],
     };
 }
 
@@ -72,6 +79,7 @@ export function PayToAddressResponseToJSON(value?: PayToAddressResponse | null):
         
         'preimage': value['preimage'],
         'quote': QuoteToJSON(value['quote']),
+        'total_budget_currency_amount': value['totalBudgetCurrencyAmount'],
     };
 }
 

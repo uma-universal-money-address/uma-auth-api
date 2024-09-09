@@ -43,6 +43,12 @@ export interface PayToAddressRequest {
      * @memberof PayToAddressRequest
      */
     receivingCurrencyCode?: string;
+    /**
+     * The code of the currency the sender used to set budget. Optional if it is the same as `sending_currency_code`.
+     * @type {string}
+     * @memberof PayToAddressRequest
+     */
+    budgetCurrencyCode?: string;
 }
 
 /**
@@ -69,6 +75,7 @@ export function PayToAddressRequestFromJSONTyped(json: any, ignoreDiscriminator:
         'sendingCurrencyCode': json['sending_currency_code'],
         'sendingCurrencyAmount': json['sending_currency_amount'],
         'receivingCurrencyCode': json['receiving_currency_code'] == null ? undefined : json['receiving_currency_code'],
+        'budgetCurrencyCode': json['budget_currency_code'] == null ? undefined : json['budget_currency_code'],
     };
 }
 
@@ -82,6 +89,7 @@ export function PayToAddressRequestToJSON(value?: PayToAddressRequest | null): a
         'sending_currency_code': value['sendingCurrencyCode'],
         'sending_currency_amount': value['sendingCurrencyAmount'],
         'receiving_currency_code': value['receivingCurrencyCode'],
+        'budget_currency_code': value['budgetCurrencyCode'],
     };
 }
 

@@ -31,6 +31,12 @@ export interface PayInvoiceRequest {
      * @memberof PayInvoiceRequest
      */
     amount?: number | null;
+    /**
+     * The code of the currency the sender used to set budget.  Optional if the budget is set in SAT.
+     * @type {string}
+     * @memberof PayInvoiceRequest
+     */
+    budgetCurrencyCode?: string;
 }
 
 /**
@@ -53,6 +59,7 @@ export function PayInvoiceRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         
         'invoice': json['invoice'],
         'amount': json['amount'] == null ? undefined : json['amount'],
+        'budgetCurrencyCode': json['budget_currency_code'] == null ? undefined : json['budget_currency_code'],
     };
 }
 
@@ -64,6 +71,7 @@ export function PayInvoiceRequestToJSON(value?: PayInvoiceRequest | null): any {
         
         'invoice': value['invoice'],
         'amount': value['amount'],
+        'budget_currency_code': value['budgetCurrencyCode'],
     };
 }
 

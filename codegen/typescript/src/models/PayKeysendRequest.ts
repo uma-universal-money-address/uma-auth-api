@@ -50,6 +50,12 @@ export interface PayKeysendRequest {
      * @memberof PayKeysendRequest
      */
     tlvRecords?: Array<PayKeysendRequestTlvRecordsInner>;
+    /**
+     * The code of the currency the sender used to set budget.  Optional if the budget is set to SAT.
+     * @type {string}
+     * @memberof PayKeysendRequest
+     */
+    budgetCurrencyCode?: string;
 }
 
 /**
@@ -75,6 +81,7 @@ export function PayKeysendRequestFromJSONTyped(json: any, ignoreDiscriminator: b
         'pubkey': json['pubkey'],
         'preimage': json['preimage'] == null ? undefined : json['preimage'],
         'tlvRecords': json['tlv_records'] == null ? undefined : ((json['tlv_records'] as Array<any>).map(PayKeysendRequestTlvRecordsInnerFromJSON)),
+        'budgetCurrencyCode': json['budget_currency_code'] == null ? undefined : json['budget_currency_code'],
     };
 }
 
@@ -88,6 +95,7 @@ export function PayKeysendRequestToJSON(value?: PayKeysendRequest | null): any {
         'pubkey': value['pubkey'],
         'preimage': value['preimage'],
         'tlv_records': value['tlvRecords'] == null ? undefined : ((value['tlvRecords'] as Array<any>).map(PayKeysendRequestTlvRecordsInnerToJSON)),
+        'budget_currency_code': value['budgetCurrencyCode'],
     };
 }
 

@@ -3,7 +3,9 @@ from typing import Dict
 from typing import Tuple
 from typing import Union
 
+from uma_auth.models.budget_estimate_response import BudgetEstimateResponse  # noqa: E501
 from uma_auth.models.error_response import ErrorResponse  # noqa: E501
+from uma_auth.models.execute_quote_request import ExecuteQuoteRequest  # noqa: E501
 from uma_auth.models.execute_quote_response import ExecuteQuoteResponse  # noqa: E501
 from uma_auth.models.get_balance_response import GetBalanceResponse  # noqa: E501
 from uma_auth.models.get_info_response import GetInfoResponse  # noqa: E501
@@ -23,16 +25,20 @@ from uma_auth.models.transaction_type import TransactionType  # noqa: E501
 from uma_auth import util
 
 
-def execute_quote(payment_hash):  # noqa: E501
+def execute_quote(payment_hash, execute_quote_request=None):  # noqa: E501
     """execute_quote: Execute a quote
 
      # noqa: E501
 
     :param payment_hash: The payment hash of the quote to execute.
     :type payment_hash: str
+    :param execute_quote_request: 
+    :type execute_quote_request: dict | bytes
 
     :rtype: Union[ExecuteQuoteResponse, Tuple[ExecuteQuoteResponse, int], Tuple[ExecuteQuoteResponse, int, Dict[str, str]]
     """
+    if connexion.request.is_json:
+        execute_quote_request = ExecuteQuoteRequest.from_dict(connexion.request.get_json())  # noqa: E501
     return 'do some magic!'
 
 
@@ -68,6 +74,23 @@ def get_balance(currency_code=None):  # noqa: E501
     :type currency_code: str
 
     :rtype: Union[GetBalanceResponse, Tuple[GetBalanceResponse, int], Tuple[GetBalanceResponse, int, Dict[str, str]]
+    """
+    return 'do some magic!'
+
+
+def get_budget_estimate(sending_currency_code, sending_currency_amount, budget_currency_code):  # noqa: E501
+    """get_budget_estimate: Estimate the total cost of the payment to complete the payment in the currency of sender&#39;s budget.
+
+     # noqa: E501
+
+    :param sending_currency_code: The code of the currency that will be sent from the sender&#39;s wallet.
+    :type sending_currency_code: str
+    :param sending_currency_amount: The amount to send in the smallest unit of the sending currency (eg. cents).
+    :type sending_currency_amount: int
+    :param budget_currency_code: The code of the currency the sender used to set budget.
+    :type budget_currency_code: str
+
+    :rtype: Union[BudgetEstimateResponse, Tuple[BudgetEstimateResponse, int], Tuple[BudgetEstimateResponse, int, Dict[str, str]]
     """
     return 'do some magic!'
 
