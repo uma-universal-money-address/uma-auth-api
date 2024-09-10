@@ -26,7 +26,9 @@ import io.ktor.server.resources.head
 import io.ktor.server.resources.patch
 import io.ktor.server.routing.*
 import me.uma.auth.infrastructure.ApiPrincipal
+import me.uma.auth.models.BudgetEstimateResponse
 import me.uma.auth.models.ErrorResponse
+import me.uma.auth.models.ExecuteQuoteRequest
 import me.uma.auth.models.ExecuteQuoteResponse
 import me.uma.auth.models.GetBalanceResponse
 import me.uma.auth.models.GetInfoResponse
@@ -56,7 +58,8 @@ fun Route.UmaAuthApi() {
         
         val exampleContentType = "application/json"
             val exampleContentString = """{
-              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "total_budget_currency_amount" : 1000
             }"""
             
             when (exampleContentType) {
@@ -106,6 +109,26 @@ fun Route.UmaAuthApi() {
             val exampleContentString = """{
               "balance" : 1000,
               "currency_code" : "USD"
+            }"""
+            
+            when (exampleContentType) {
+                "application/json" -> call.respond(gson.fromJson(exampleContentString, empty::class.java))
+                "application/xml" -> call.respondText(exampleContentString, ContentType.Text.Xml)
+                else -> call.respondText(exampleContentString)
+            }
+        
+    }
+    }
+
+    authenticate("bearerAuth") {
+    get<Paths.getBudgetEstimate> {
+        
+        val principal = null!!
+        
+        
+        val exampleContentType = "application/json"
+            val exampleContentString = """{
+              "estimated_budget_currency_amount" : 1000
             }"""
             
             when (exampleContentType) {
@@ -313,7 +336,8 @@ fun Route.UmaAuthApi() {
         
         val exampleContentType = "application/json"
             val exampleContentString = """{
-              "preimage" : "abcd1234"
+              "preimage" : "abcd1234",
+              "total_budget_currency_amount" : 1000
             }"""
             
             when (exampleContentType) {
@@ -333,7 +357,8 @@ fun Route.UmaAuthApi() {
         
         val exampleContentType = "application/json"
             val exampleContentString = """{
-              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "total_budget_currency_amount" : 1000
             }"""
             
             when (exampleContentType) {
@@ -364,7 +389,8 @@ fun Route.UmaAuthApi() {
                 "created_at" : 1683148800,
                 "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
               },
-              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+              "preimage" : "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "total_budget_currency_amount" : 1000
             }"""
             
             when (exampleContentType) {

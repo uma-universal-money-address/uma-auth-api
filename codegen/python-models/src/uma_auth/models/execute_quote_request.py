@@ -23,19 +23,17 @@ import json
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PayKeysendResponse(BaseModel):
+class ExecuteQuoteRequest(BaseModel):
     """
-    PayKeysendResponse
+    ExecuteQuoteRequest
     """ # noqa: E501
-    preimage: StrictStr = Field(description="The preimage of the payment.")
-    total_budget_currency_amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. ")
-    __properties: ClassVar[List[str]] = ["preimage", "total_budget_currency_amount"]
+    budget_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency the sender used to set budget.  Optional if it is the same as `sending_currency_code`.")
+    __properties: ClassVar[List[str]] = ["budget_currency_code"]
 
     model_config = {
         "populate_by_name": True,
@@ -54,7 +52,7 @@ class PayKeysendResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PayKeysendResponse from a JSON string"""
+        """Create an instance of ExecuteQuoteRequest from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -79,7 +77,7 @@ class PayKeysendResponse(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PayKeysendResponse from a dict"""
+        """Create an instance of ExecuteQuoteRequest from a dict"""
         if obj is None:
             return None
 
@@ -87,8 +85,7 @@ class PayKeysendResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "preimage": obj.get("preimage"),
-            "total_budget_currency_amount": obj.get("total_budget_currency_amount")
+            "budget_currency_code": obj.get("budget_currency_code")
         })
         return _obj
 

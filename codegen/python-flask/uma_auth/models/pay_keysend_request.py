@@ -14,7 +14,7 @@ class PayKeysendRequest(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, amount=None, pubkey=None, preimage=None, tlv_records=None):  # noqa: E501
+    def __init__(self, amount=None, pubkey=None, preimage=None, tlv_records=None, budget_currency_code=None):  # noqa: E501
         """PayKeysendRequest - a model defined in OpenAPI
 
         :param amount: The amount of this PayKeysendRequest.  # noqa: E501
@@ -25,25 +25,30 @@ class PayKeysendRequest(Model):
         :type preimage: str
         :param tlv_records: The tlv_records of this PayKeysendRequest.  # noqa: E501
         :type tlv_records: List[PayKeysendRequestTlvRecordsInner]
+        :param budget_currency_code: The budget_currency_code of this PayKeysendRequest.  # noqa: E501
+        :type budget_currency_code: str
         """
         self.openapi_types = {
             'amount': int,
             'pubkey': str,
             'preimage': str,
-            'tlv_records': List[PayKeysendRequestTlvRecordsInner]
+            'tlv_records': List[PayKeysendRequestTlvRecordsInner],
+            'budget_currency_code': str
         }
 
         self.attribute_map = {
             'amount': 'amount',
             'pubkey': 'pubkey',
             'preimage': 'preimage',
-            'tlv_records': 'tlv_records'
+            'tlv_records': 'tlv_records',
+            'budget_currency_code': 'budget_currency_code'
         }
 
         self._amount = amount
         self._pubkey = pubkey
         self._preimage = preimage
         self._tlv_records = tlv_records
+        self._budget_currency_code = budget_currency_code
 
     @classmethod
     def from_dict(cls, dikt) -> 'PayKeysendRequest':
@@ -78,6 +83,8 @@ class PayKeysendRequest(Model):
         """
         if amount is None:
             raise ValueError("Invalid value for `amount`, must not be `None`")  # noqa: E501
+        if amount is not None and amount <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `amount`, must be a value greater than `0`")  # noqa: E501
 
         self._amount = amount
 
@@ -151,3 +158,26 @@ class PayKeysendRequest(Model):
         """
 
         self._tlv_records = tlv_records
+
+    @property
+    def budget_currency_code(self) -> str:
+        """Gets the budget_currency_code of this PayKeysendRequest.
+
+        The code of the currency the sender used to set budget.  Optional if the budget is set to SAT.  # noqa: E501
+
+        :return: The budget_currency_code of this PayKeysendRequest.
+        :rtype: str
+        """
+        return self._budget_currency_code
+
+    @budget_currency_code.setter
+    def budget_currency_code(self, budget_currency_code: str):
+        """Sets the budget_currency_code of this PayKeysendRequest.
+
+        The code of the currency the sender used to set budget.  Optional if the budget is set to SAT.  # noqa: E501
+
+        :param budget_currency_code: The budget_currency_code of this PayKeysendRequest.
+        :type budget_currency_code: str
+        """
+
+        self._budget_currency_code = budget_currency_code

@@ -14,26 +14,31 @@ class PayToAddressResponse(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, preimage=None, quote=None):  # noqa: E501
+    def __init__(self, preimage=None, quote=None, total_budget_currency_amount=None):  # noqa: E501
         """PayToAddressResponse - a model defined in OpenAPI
 
         :param preimage: The preimage of this PayToAddressResponse.  # noqa: E501
         :type preimage: str
         :param quote: The quote of this PayToAddressResponse.  # noqa: E501
         :type quote: Quote
+        :param total_budget_currency_amount: The total_budget_currency_amount of this PayToAddressResponse.  # noqa: E501
+        :type total_budget_currency_amount: int
         """
         self.openapi_types = {
             'preimage': str,
-            'quote': Quote
+            'quote': Quote,
+            'total_budget_currency_amount': int
         }
 
         self.attribute_map = {
             'preimage': 'preimage',
-            'quote': 'quote'
+            'quote': 'quote',
+            'total_budget_currency_amount': 'total_budget_currency_amount'
         }
 
         self._preimage = preimage
         self._quote = quote
+        self._total_budget_currency_amount = total_budget_currency_amount
 
     @classmethod
     def from_dict(cls, dikt) -> 'PayToAddressResponse':
@@ -93,3 +98,28 @@ class PayToAddressResponse(Model):
             raise ValueError("Invalid value for `quote`, must not be `None`")  # noqa: E501
 
         self._quote = quote
+
+    @property
+    def total_budget_currency_amount(self) -> int:
+        """Gets the total_budget_currency_amount of this PayToAddressResponse.
+
+        The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null.   # noqa: E501
+
+        :return: The total_budget_currency_amount of this PayToAddressResponse.
+        :rtype: int
+        """
+        return self._total_budget_currency_amount
+
+    @total_budget_currency_amount.setter
+    def total_budget_currency_amount(self, total_budget_currency_amount: int):
+        """Sets the total_budget_currency_amount of this PayToAddressResponse.
+
+        The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null.   # noqa: E501
+
+        :param total_budget_currency_amount: The total_budget_currency_amount of this PayToAddressResponse.
+        :type total_budget_currency_amount: int
+        """
+        if total_budget_currency_amount is not None and total_budget_currency_amount <= 0:  # noqa: E501
+            raise ValueError("Invalid value for `total_budget_currency_amount`, must be a value greater than `0`")  # noqa: E501
+
+        self._total_budget_currency_amount = total_budget_currency_amount

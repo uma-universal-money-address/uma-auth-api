@@ -21,8 +21,9 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from uma_auth.models.pay_keysend_request_tlv_records_inner import PayKeysendRequestTlvRecordsInner
 try:
     from typing import Self
@@ -33,11 +34,12 @@ class PayKeysendRequest(BaseModel):
     """
     PayKeysendRequest
     """ # noqa: E501
-    amount: StrictInt = Field(description="The amount to pay in msats.")
+    amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The amount to pay in msats.")
     pubkey: StrictStr = Field(description="The public key of the receiver's node.")
     preimage: Optional[StrictStr] = Field(default=None, description="Preimage of the payment.")
     tlv_records: Optional[List[PayKeysendRequestTlvRecordsInner]] = Field(default=None, description="The tlv records.")
-    __properties: ClassVar[List[str]] = ["amount", "pubkey", "preimage", "tlv_records"]
+    budget_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency the sender used to set budget.  Optional if the budget is set to SAT.")
+    __properties: ClassVar[List[str]] = ["amount", "pubkey", "preimage", "tlv_records", "budget_currency_code"]
 
     model_config = {
         "populate_by_name": True,
@@ -99,7 +101,8 @@ class PayKeysendRequest(BaseModel):
             "amount": obj.get("amount"),
             "pubkey": obj.get("pubkey"),
             "preimage": obj.get("preimage"),
-            "tlv_records": [PayKeysendRequestTlvRecordsInner.from_dict(_item) for _item in obj.get("tlv_records")] if obj.get("tlv_records") is not None else None
+            "tlv_records": [PayKeysendRequestTlvRecordsInner.from_dict(_item) for _item in obj.get("tlv_records")] if obj.get("tlv_records") is not None else None,
+            "budget_currency_code": obj.get("budget_currency_code")
         })
         return _obj
 

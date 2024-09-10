@@ -7,6 +7,7 @@
 | **pubkey** | **String** | The public key of the receiver&#39;s node. | [default to null] |
 | **preimage** | **String** | Preimage of the payment. | [optional] [default to null] |
 | **tlv\_records** | [**List**](PayKeysendRequest_tlv_records_inner.md) | The tlv records. | [optional] [default to null] |
+| **budget\_currency\_code** | **String** | The code of the currency the sender used to set budget.  Optional if the budget is set to SAT. | [optional] [default to null] |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

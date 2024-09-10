@@ -25,6 +25,12 @@ export interface PayInvoiceResponse {
      * @memberof PayInvoiceResponse
      */
     preimage: string;
+    /**
+     * The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. 
+     * @type {number}
+     * @memberof PayInvoiceResponse
+     */
+    totalBudgetCurrencyAmount?: number;
 }
 
 /**
@@ -46,6 +52,7 @@ export function PayInvoiceResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         
         'preimage': json['preimage'],
+        'totalBudgetCurrencyAmount': json['total_budget_currency_amount'] == null ? undefined : json['total_budget_currency_amount'],
     };
 }
 
@@ -56,6 +63,7 @@ export function PayInvoiceResponseToJSON(value?: PayInvoiceResponse | null): any
     return {
         
         'preimage': value['preimage'],
+        'total_budget_currency_amount': value['totalBudgetCurrencyAmount'],
     };
 }
 

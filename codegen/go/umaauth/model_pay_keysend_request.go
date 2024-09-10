@@ -11,6 +11,10 @@
 package umaauth
 
 
+import (
+	"errors"
+)
+
 
 
 type PayKeysendRequest struct {
@@ -26,6 +30,9 @@ type PayKeysendRequest struct {
 
 	// The tlv records.
 	TlvRecords []PayKeysendRequestTlvRecordsInner `json:"tlv_records,omitempty"`
+
+	// The code of the currency the sender used to set budget.  Optional if the budget is set to SAT.
+	BudgetCurrencyCode string `json:"budget_currency_code,omitempty"`
 }
 
 // AssertPayKeysendRequestRequired checks if the required fields are not zero-ed
@@ -50,6 +57,9 @@ func AssertPayKeysendRequestRequired(obj PayKeysendRequest) error {
 
 // AssertPayKeysendRequestConstraints checks if the values respects the defined constraints
 func AssertPayKeysendRequestConstraints(obj PayKeysendRequest) error {
+	if obj.Amount < 0 {
+		return &ParsingError{Param: "Amount", Err: errors.New(errMsgMinValueConstraint)}
+	}
 	for _, el := range obj.TlvRecords {
 		if err := AssertPayKeysendRequestTlvRecordsInnerConstraints(el); err != nil {
 			return err

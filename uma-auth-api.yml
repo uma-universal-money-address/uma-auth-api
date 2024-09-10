@@ -105,6 +105,12 @@ paths:
                   minimum: 0
                   exclusiveMinimum: true
                   example: 1000
+                budget_currency_code:
+                  type: string
+                  description: >-
+                    The code of the currency the sender used to set budget. 
+                    Optional if the budget is set in SAT.
+                  example: "USD"
               required:
                 - invoice
       responses:
@@ -120,6 +126,16 @@ paths:
                     type: string
                     description: The preimage of the payment.
                     example: abcd1234
+                  total_budget_currency_amount:
+                    type: integer
+                    format: int64
+                    description: >-
+                      The total cost of the payment in the smallest unit of `budget_currency_code`
+                      in the request. This is the amount that will be deducted from the budget 
+                      for this connection. Optional if `budget_currency_code` is null. 
+                    minimum: 0
+                    exclusiveMinimum: true
+                    example: 1000
                 required:
                   - preimage
         '400':
@@ -364,6 +380,19 @@ paths:
           schema:
             type: string
             example: "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              title: ExecuteQuoteRequest
+              type: object
+              properties:
+                budget_currency_code:
+                  type: string
+                  description: >-
+                    The code of the currency the sender used to set budget. 
+                    Optional if it is the same as `sending_currency_code`.
+                  example: "USD"
       responses:
         '200':
           description: OK
@@ -377,6 +406,16 @@ paths:
                     type: string
                     description: The preimage of the payment.
                     example: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  total_budget_currency_amount:
+                    type: integer
+                    format: int64
+                    description: >-
+                      The total cost of the payment in the smallest unit of `budget_currency_code`
+                      in the request. This is the amount that will be deducted from the budget 
+                      for this connection. Optional if `budget_currency_code` is null. 
+                    minimum: 0
+                    exclusiveMinimum: true
+                    example: 1000
                 required:
                   - preimage
         '400':
@@ -424,6 +463,12 @@ paths:
                   type: string
                   description: The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.
                   example: "USD"
+                budget_currency_code:
+                  type: string
+                  description: >-
+                    The code of the currency the sender used to set budget. Optional if
+                    it is the same as `sending_currency_code`.
+                  example: "USD"
               required:
                 - receiver_address
                 - sending_currency_code
@@ -444,6 +489,16 @@ paths:
                   quote:
                     description: The quote used to pay the address.
                     $ref: '#/components/schemas/Quote'
+                  total_budget_currency_amount:
+                    type: integer
+                    format: int64
+                    description: >-
+                      The total cost of the payment in the smallest unit of `budget_currency_code`
+                      in the request. This is the amount that will be deducted from the budget 
+                      for this connection. Optional if `budget_currency_code` is null. 
+                    minimum: 0
+                    exclusiveMinimum: true
+                    example: 1000
                 required:
                   - preimage
                   - quote
@@ -476,6 +531,8 @@ paths:
                 amount:
                   type: integer
                   format: int64
+                  minimum: 0
+                  exclusiveMinimum: true
                   description: The amount to pay in msats.
                   example: 10000
                 pubkey:
@@ -504,6 +561,12 @@ paths:
                     required:
                       - type
                       - value
+                budget_currency_code:
+                  type: string
+                  description: >-
+                    The code of the currency the sender used to set budget. 
+                    Optional if the budget is set to SAT.
+                  example: "USD"
               required:
                 - amount
                 - pubkey
@@ -520,6 +583,16 @@ paths:
                     type: string
                     description: The preimage of the payment.
                     example: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  total_budget_currency_amount:
+                    type: integer
+                    format: int64
+                    description: >-
+                      The total cost of the payment in the smallest unit of `budget_currency_code`
+                      in the request. This is the amount that will be deducted from the budget 
+                      for this connection. Optional if `budget_currency_code` is null. 
+                    minimum: 0
+                    exclusiveMinimum: true
+                    example: 1000
                 required:
                   - preimage
         '400':
@@ -684,6 +757,73 @@ paths:
                       $ref: '#/components/schemas/Transaction'
                 required:
                   - transactions
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /budget_estimate:
+    get:
+      operationId: get_budget_estimate
+      tags:
+        - UmaAuth
+      summary: "get_budget_estimate: Estimate the total cost of the payment to complete the payment in the currency of sender's budget."
+      parameters:
+        - name: sending_currency_code
+          in: query
+          required: true
+          description: The code of the currency that will be sent from the sender's wallet.
+          schema:
+            type: string
+            example: "SAT"
+        - name: sending_currency_amount
+          in: query
+          required: true
+          description: The amount to send in the smallest unit of the sending currency (eg. cents).
+          schema:
+            type: integer
+            format: int64
+            minimum: 0
+            exclusiveMinimum: true
+            example: 1000
+        - name: budget_currency_code
+          in: query
+          required: true
+          description: >-
+            The code of the currency the sender used to set budget.
+          schema:
+            type: string
+            example: "USD"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                title: BudgetEstimateResponse
+                type: object
+                properties:
+                  estimated_budget_currency_amount:
+                    type: integer
+                    format: int64
+                    description: >-
+                      The estimated cost of the payment in the smallest unit of 
+                      `budget_currency_code`. This amount will be used to calculate 
+                      the amount to hold from the budget for this connection while 
+                      the payment is in-flight. 
+                    minimum: 0
+                    exclusiveMinimum: true
+                    example: 1000
+                required:
+                  - estimated_budget_currency_amount
         '400':
           description: Bad Request
           content:

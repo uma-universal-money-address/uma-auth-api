@@ -20,8 +20,9 @@ object Paths {
      * execute_quote: Execute a quote
      * 
      * @param paymentHash The payment hash of the quote to execute. 
+     * @param executeQuoteRequest  (optional)
      */
-    @Serializable @Resource("/quote/{payment_hash}") class executeQuote(val paymentHash: kotlin.String)
+    @Serializable @Resource("/quote/{payment_hash}") class executeQuote(val paymentHash: kotlin.String, val executeQuoteRequest: ExecuteQuoteRequest? = null)
 
     /**
      * fetch_quote_for_lud16: Get a quote for a payment to an LUD16 address
@@ -40,6 +41,15 @@ object Paths {
      * @param currencyCode The currency code of the balance. Assumed to be in msats if not provided.  (optional)
      */
     @Serializable @Resource("/balance") class getBalance(val currencyCode: kotlin.String? = null)
+
+    /**
+     * get_budget_estimate: Estimate the total cost of the payment to complete the payment in the currency of sender&#39;s budget.
+     * 
+     * @param sendingCurrencyCode The code of the currency that will be sent from the sender&#39;s wallet. 
+     * @param sendingCurrencyAmount The amount to send in the smallest unit of the sending currency (eg. cents). 
+     * @param budgetCurrencyCode The code of the currency the sender used to set budget. 
+     */
+    @Serializable @Resource("/budget_estimate") class getBudgetEstimate(val sendingCurrencyCode: kotlin.String, val sendingCurrencyAmount: kotlin.Long, val budgetCurrencyCode: kotlin.String)
 
     /**
      * get_info: Get information about the user&#39;s wallet connection

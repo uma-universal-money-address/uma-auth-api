@@ -30,6 +30,9 @@ type PayToAddressRequest struct {
 
 	// The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.
 	ReceivingCurrencyCode string `json:"receiving_currency_code,omitempty"`
+
+	// The code of the currency the sender used to set budget. Optional if it is the same as `sending_currency_code`.
+	BudgetCurrencyCode string `json:"budget_currency_code,omitempty"`
 }
 
 // AssertPayToAddressRequestRequired checks if the required fields are not zero-ed

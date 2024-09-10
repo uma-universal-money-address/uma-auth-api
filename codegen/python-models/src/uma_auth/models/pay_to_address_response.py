@@ -22,7 +22,8 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 from uma_auth.models.quote import Quote
 try:
     from typing import Self
@@ -35,7 +36,8 @@ class PayToAddressResponse(BaseModel):
     """ # noqa: E501
     preimage: StrictStr = Field(description="The preimage of the payment.")
     quote: Quote
-    __properties: ClassVar[List[str]] = ["preimage", "quote"]
+    total_budget_currency_amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. ")
+    __properties: ClassVar[List[str]] = ["preimage", "quote", "total_budget_currency_amount"]
 
     model_config = {
         "populate_by_name": True,
@@ -91,7 +93,8 @@ class PayToAddressResponse(BaseModel):
 
         _obj = cls.model_validate({
             "preimage": obj.get("preimage"),
-            "quote": Quote.from_dict(obj.get("quote")) if obj.get("quote") is not None else None
+            "quote": Quote.from_dict(obj.get("quote")) if obj.get("quote") is not None else None,
+            "total_budget_currency_amount": obj.get("total_budget_currency_amount")
         })
         return _obj
 

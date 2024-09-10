@@ -22,7 +22,8 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
@@ -33,7 +34,8 @@ class PayInvoiceResponse(BaseModel):
     PayInvoiceResponse
     """ # noqa: E501
     preimage: StrictStr = Field(description="The preimage of the payment.")
-    __properties: ClassVar[List[str]] = ["preimage"]
+    total_budget_currency_amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. ")
+    __properties: ClassVar[List[str]] = ["preimage", "total_budget_currency_amount"]
 
     model_config = {
         "populate_by_name": True,
@@ -85,7 +87,8 @@ class PayInvoiceResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "preimage": obj.get("preimage")
+            "preimage": obj.get("preimage"),
+            "total_budget_currency_amount": obj.get("total_budget_currency_amount")
         })
         return _obj
 

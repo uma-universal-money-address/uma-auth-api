@@ -37,7 +37,8 @@ class PayToAddressRequest(BaseModel):
     sending_currency_code: StrictStr = Field(description="The code of the currency being sent from the sender's wallet.")
     sending_currency_amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The amount to send in the smallest unit of the sending currency (eg. cents).")
     receiving_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency being received by the receiver. If not provided, the receiver's default currency will be used.")
-    __properties: ClassVar[List[str]] = ["receiver_address", "sending_currency_code", "sending_currency_amount", "receiving_currency_code"]
+    budget_currency_code: Optional[StrictStr] = Field(default=None, description="The code of the currency the sender used to set budget. Optional if it is the same as `sending_currency_code`.")
+    __properties: ClassVar[List[str]] = ["receiver_address", "sending_currency_code", "sending_currency_amount", "receiving_currency_code", "budget_currency_code"]
 
     model_config = {
         "populate_by_name": True,
@@ -92,7 +93,8 @@ class PayToAddressRequest(BaseModel):
             "receiver_address": obj.get("receiver_address"),
             "sending_currency_code": obj.get("sending_currency_code"),
             "sending_currency_amount": obj.get("sending_currency_amount"),
-            "receiving_currency_code": obj.get("receiving_currency_code")
+            "receiving_currency_code": obj.get("receiving_currency_code"),
+            "budget_currency_code": obj.get("budget_currency_code")
         })
         return _obj
 

@@ -16,11 +16,14 @@ package me.uma.auth.models
  * 
  * @param invoice The bolt11 invoice to pay.
  * @param amount The amount to pay for a 0-amount invoice.
+ * @param budgetCurrencyCode The code of the currency the sender used to set budget.  Optional if the budget is set in SAT.
  */
 data class PayInvoiceRequest(
     /* The bolt11 invoice to pay. */
     val invoice: kotlin.String,
     /* The amount to pay for a 0-amount invoice. */
-    val amount: kotlin.Long? = null
+    val amount: kotlin.Long? = null,
+    /* The code of the currency the sender used to set budget.  Optional if the budget is set in SAT. */
+    val budgetCurrencyCode: kotlin.String? = null
 ) 
 

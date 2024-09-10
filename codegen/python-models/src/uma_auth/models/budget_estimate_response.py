@@ -21,21 +21,20 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class PayKeysendResponse(BaseModel):
+class BudgetEstimateResponse(BaseModel):
     """
-    PayKeysendResponse
+    BudgetEstimateResponse
     """ # noqa: E501
-    preimage: StrictStr = Field(description="The preimage of the payment.")
-    total_budget_currency_amount: Optional[Annotated[int, Field(strict=True, gt=0)]] = Field(default=None, description="The total cost of the payment in the smallest unit of `budget_currency_code` in the request. This is the amount that will be deducted from the budget  for this connection. Optional if `budget_currency_code` is null. ")
-    __properties: ClassVar[List[str]] = ["preimage", "total_budget_currency_amount"]
+    estimated_budget_currency_amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The estimated cost of the payment in the smallest unit of  `budget_currency_code`. This amount will be used to calculate  the amount to hold from the budget for this connection while  the payment is in-flight. ")
+    __properties: ClassVar[List[str]] = ["estimated_budget_currency_amount"]
 
     model_config = {
         "populate_by_name": True,
@@ -54,7 +53,7 @@ class PayKeysendResponse(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of PayKeysendResponse from a JSON string"""
+        """Create an instance of BudgetEstimateResponse from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -79,7 +78,7 @@ class PayKeysendResponse(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of PayKeysendResponse from a dict"""
+        """Create an instance of BudgetEstimateResponse from a dict"""
         if obj is None:
             return None
 
@@ -87,8 +86,7 @@ class PayKeysendResponse(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "preimage": obj.get("preimage"),
-            "total_budget_currency_amount": obj.get("total_budget_currency_amount")
+            "estimated_budget_currency_amount": obj.get("estimated_budget_currency_amount")
         })
         return _obj
 

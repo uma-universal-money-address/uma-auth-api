@@ -8,9 +8,11 @@ src/main/kotlin/me/uma/auth/Configuration.kt
 src/main/kotlin/me/uma/auth/Paths.kt
 src/main/kotlin/me/uma/auth/apis/UmaAuthApi.kt
 src/main/kotlin/me/uma/auth/infrastructure/ApiKeyAuth.kt
+src/main/kotlin/me/uma/auth/models/BudgetEstimateResponse.kt
 src/main/kotlin/me/uma/auth/models/CurrencyPreference.kt
 src/main/kotlin/me/uma/auth/models/ErrorCode.kt
 src/main/kotlin/me/uma/auth/models/ErrorResponse.kt
+src/main/kotlin/me/uma/auth/models/ExecuteQuoteRequest.kt
 src/main/kotlin/me/uma/auth/models/ExecuteQuoteResponse.kt
 src/main/kotlin/me/uma/auth/models/GetBalanceResponse.kt
 src/main/kotlin/me/uma/auth/models/GetInfoResponse.kt
