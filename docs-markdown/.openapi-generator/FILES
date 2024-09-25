@@ -1,5 +1,6 @@
 Apis/UmaAuthApi.md
 Models/BudgetEstimateResponse.md
+Models/Currency.md
 Models/CurrencyPreference.md
 Models/ErrorCode.md
 Models/ErrorResponse.md

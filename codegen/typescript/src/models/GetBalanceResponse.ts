@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { Currency } from './Currency';
+import {
+    CurrencyFromJSON,
+    CurrencyFromJSONTyped,
+    CurrencyToJSON,
+} from './Currency';
+
 /**
  * 
  * @export
@@ -26,11 +33,11 @@ export interface GetBalanceResponse {
      */
     balance: number;
     /**
-     * The currency code of the balance. Assumed to be msats if not provided.
-     * @type {string}
+     * 
+     * @type {Currency}
      * @memberof GetBalanceResponse
      */
-    currencyCode?: string | null;
+    currency?: Currency;
 }
 
 /**
@@ -52,7 +59,7 @@ export function GetBalanceResponseFromJSONTyped(json: any, ignoreDiscriminator: 
     return {
         
         'balance': json['balance'],
-        'currencyCode': json['currency_code'] == null ? undefined : json['currency_code'],
+        'currency': json['currency'] == null ? undefined : CurrencyFromJSON(json['currency']),
     };
 }
 
@@ -63,7 +70,7 @@ export function GetBalanceResponseToJSON(value?: GetBalanceResponse | null): any
     return {
         
         'balance': value['balance'],
-        'currency_code': value['currencyCode'],
+        'currency': CurrencyToJSON(value['currency']),
     };
 }
 

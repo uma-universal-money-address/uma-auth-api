@@ -11,31 +11,22 @@
 */
 package me.uma.auth.models
 
+import me.uma.auth.models.Currency
 
 /**
  * 
- * @param code The ISO-4217 currency code.
- * @param symbol The currency symbol.
- * @param name The currency name.
  * @param multiplier Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
- * @param decimals Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.
  * @param min The minimum amount that can be received in this currency.
  * @param max The maximum amount that can be received in this currency.
+ * @param currency 
  */
 data class CurrencyPreference(
-    /* The ISO-4217 currency code. */
-    val code: kotlin.String,
-    /* The currency symbol. */
-    val symbol: kotlin.String,
-    /* The currency name. */
-    val name: kotlin.String,
     /* Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats. */
     val multiplier: java.math.BigDecimal,
-    /* Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8. */
-    val decimals: kotlin.Int,
     /* The minimum amount that can be received in this currency. */
     val min: kotlin.Long,
     /* The maximum amount that can be received in this currency. */
-    val max: kotlin.Long
+    val max: kotlin.Long,
+    val currency: Currency? = null
 ) 
 

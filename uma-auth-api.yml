@@ -220,11 +220,8 @@ paths:
                     description: The balance of the user's wallet.
                     minimum: 0
                     example: 1000
-                  currency_code:
-                    type: string
-                    description: The currency code of the balance. Assumed to be msats if not provided. 
-                    example: "USD"
-                    nullable: true
+                  currency:
+                    $ref: '#/components/schemas/Currency'
                 required:
                   - balance
         '400':
@@ -928,10 +925,8 @@ components:
           type: string
           description: The currency code of the sender's balance.
           example: "MXN"
-        receiving_currency_code:
-          type: string
-          description: The currency code of the receiver's balance. 
-          example: "USD"
+        receiving_currency:
+          $ref: '#/components/schemas/Currency'
         payment_hash:
           type: string
           description: The payment hash of the quote. Used as an identifier to execute the quote.
@@ -974,7 +969,7 @@ components:
           example: 1683148800
       required:
         - sending_currency_code
-        - receiving_currency_code
+        - receiving_currency
         - payment_hash
         - expires_at
         - multiplier
@@ -982,7 +977,7 @@ components:
         - total_sending_amount
         - total_receiving_amount
         - created_at
-    CurrencyPreference:
+    Currency:
       type: object
       properties:
         code:
@@ -997,14 +992,6 @@ components:
           type: string
           description: The currency name.
           example: "United States Dollar"
-        multiplier:
-          type: number
-          description: >-
-            Estimated number of milli-sats per smallest unit of this currency (eg. cents)
-            If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
-          minimum: 0
-          exclusiveMinimum: true
-          example: 100000000
         decimals:
           type: integer
           description: >-
@@ -1016,6 +1003,24 @@ components:
             `decimals` would be 8.
           minimum: 0
           example: 2
+      required:
+        - code
+        - symbol
+        - name
+        - decimals
+    CurrencyPreference:
+      type: object
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        multiplier:
+          type: number
+          description: >-
+            Estimated number of milli-sats per smallest unit of this currency (eg. cents)
+            If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
+          minimum: 0
+          exclusiveMinimum: true
+          example: 100000000
         min:
           type: integer
           format: int64
@@ -1031,11 +1036,8 @@ components:
           exclusiveMinimum: true
           example: 1000000
       required:
-        - code
-        - symbol
-        - name
+        - info
         - multiplier
-        - decimals
         - min
         - max
     ErrorCode:

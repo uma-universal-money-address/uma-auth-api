@@ -13,6 +13,7 @@ setup.py
 src/py.typed
 src/uma_auth/models/__init__.py
 src/uma_auth/models/budget_estimate_response.py
+src/uma_auth/models/currency.py
 src/uma_auth/models/currency_preference.py
 src/uma_auth/models/error_code.py
 src/uma_auth/models/error_response.py

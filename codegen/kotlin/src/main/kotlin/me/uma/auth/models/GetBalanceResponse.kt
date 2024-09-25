@@ -11,16 +11,16 @@
 */
 package me.uma.auth.models
 
+import me.uma.auth.models.Currency
 
 /**
  * 
  * @param balance The balance of the user's wallet.
- * @param currencyCode The currency code of the balance. Assumed to be msats if not provided.
+ * @param currency 
  */
 data class GetBalanceResponse(
     /* The balance of the user's wallet. */
     val balance: java.math.BigDecimal,
-    /* The currency code of the balance. Assumed to be msats if not provided. */
-    val currencyCode: kotlin.String? = null
+    val currency: Currency? = null
 ) 
 

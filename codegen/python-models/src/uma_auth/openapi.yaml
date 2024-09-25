@@ -658,11 +658,8 @@ components:
           example: MXN
           title: sending_currency_code
           type: string
-        receiving_currency_code:
-          description: The currency code of the receiver's balance.
-          example: USD
-          title: receiving_currency_code
-          type: string
+        receiving_currency:
+          $ref: '#/components/schemas/Currency'
         payment_hash:
           description: The payment hash of the quote. Used as an identifier to execute
             the quote.
@@ -720,13 +717,13 @@ components:
       - fees
       - multiplier
       - payment_hash
-      - receiving_currency_code
+      - receiving_currency
       - sending_currency_code
       - total_receiving_amount
       - total_sending_amount
       title: Quote
       type: object
-    CurrencyPreference:
+    Currency:
       properties:
         code:
           description: The ISO-4217 currency code.
@@ -743,15 +740,6 @@ components:
           example: United States Dollar
           title: name
           type: string
-        multiplier:
-          description: "Estimated number of milli-sats per smallest unit of this currency\
-            \ (eg. cents) If base_sending_currency_code was specified, this is the\
-            \ rate relative to that currency instead of milli-sats."
-          example: 100000000
-          exclusiveMinimum: true
-          minimum: 0
-          title: multiplier
-          type: number
         decimals:
           description: "Number of digits after the decimal point for display on the\
             \ sender side, and to add clarity around what the \"smallest unit\" of\
@@ -766,6 +754,26 @@ components:
           minimum: 0
           title: decimals
           type: integer
+      required:
+      - code
+      - decimals
+      - name
+      - symbol
+      title: Currency
+      type: object
+    CurrencyPreference:
+      properties:
+        currency:
+          $ref: '#/components/schemas/Currency'
+        multiplier:
+          description: "Estimated number of milli-sats per smallest unit of this currency\
+            \ (eg. cents) If base_sending_currency_code was specified, this is the\
+            \ rate relative to that currency instead of milli-sats."
+          example: 100000000
+          exclusiveMinimum: true
+          minimum: 0
+          title: multiplier
+          type: number
         min:
           description: The minimum amount that can be received in this currency.
           example: 1
@@ -783,13 +791,10 @@ components:
           title: max
           type: integer
       required:
-      - code
-      - decimals
+      - info
       - max
       - min
       - multiplier
-      - name
-      - symbol
       title: CurrencyPreference
       type: object
     ErrorCode:
@@ -906,12 +911,8 @@ components:
           example: 1000
           minimum: 0
           type: number
-        currency_code:
-          description: The currency code of the balance. Assumed to be msats if not
-            provided.
-          example: USD
-          nullable: true
-          type: string
+        currency:
+          $ref: '#/components/schemas/Currency'
       required:
       - balance
       title: GetBalanceResponse

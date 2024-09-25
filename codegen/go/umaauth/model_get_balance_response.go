@@ -22,8 +22,7 @@ type GetBalanceResponse struct {
 	// The balance of the user's wallet.
 	Balance float32 `json:"balance"`
 
-	// The currency code of the balance. Assumed to be msats if not provided.
-	CurrencyCode *string `json:"currency_code,omitempty"`
+	Currency Currency `json:"currency,omitempty"`
 }
 
 // AssertGetBalanceResponseRequired checks if the required fields are not zero-ed
@@ -37,6 +36,9 @@ func AssertGetBalanceResponseRequired(obj GetBalanceResponse) error {
 		}
 	}
 
+	if err := AssertCurrencyRequired(obj.Currency); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -44,6 +46,9 @@ func AssertGetBalanceResponseRequired(obj GetBalanceResponse) error {
 func AssertGetBalanceResponseConstraints(obj GetBalanceResponse) error {
 	if obj.Balance < 0 {
 		return &ParsingError{Param: "Balance", Err: errors.New(errMsgMinValueConstraint)}
+	}
+	if err := AssertCurrencyConstraints(obj.Currency); err != nil {
+		return err
 	}
 	return nil
 }

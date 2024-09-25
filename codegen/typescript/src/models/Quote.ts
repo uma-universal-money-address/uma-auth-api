@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { Currency } from './Currency';
+import {
+    CurrencyFromJSON,
+    CurrencyFromJSONTyped,
+    CurrencyToJSON,
+} from './Currency';
+
 /**
  * 
  * @export
@@ -26,11 +33,11 @@ export interface Quote {
      */
     sendingCurrencyCode: string;
     /**
-     * The currency code of the receiver's balance.
-     * @type {string}
+     * 
+     * @type {Currency}
      * @memberof Quote
      */
-    receivingCurrencyCode: string;
+    receivingCurrency: Currency;
     /**
      * The payment hash of the quote. Used as an identifier to execute the quote.
      * @type {string}
@@ -80,7 +87,7 @@ export interface Quote {
  */
 export function instanceOfQuote(value: object): value is Quote {
     if (!('sendingCurrencyCode' in value) || value['sendingCurrencyCode'] === undefined) return false;
-    if (!('receivingCurrencyCode' in value) || value['receivingCurrencyCode'] === undefined) return false;
+    if (!('receivingCurrency' in value) || value['receivingCurrency'] === undefined) return false;
     if (!('paymentHash' in value) || value['paymentHash'] === undefined) return false;
     if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
     if (!('multiplier' in value) || value['multiplier'] === undefined) return false;
@@ -102,7 +109,7 @@ export function QuoteFromJSONTyped(json: any, ignoreDiscriminator: boolean): Quo
     return {
         
         'sendingCurrencyCode': json['sending_currency_code'],
-        'receivingCurrencyCode': json['receiving_currency_code'],
+        'receivingCurrency': CurrencyFromJSON(json['receiving_currency']),
         'paymentHash': json['payment_hash'],
         'expiresAt': json['expires_at'],
         'multiplier': json['multiplier'],
@@ -120,7 +127,7 @@ export function QuoteToJSON(value?: Quote | null): any {
     return {
         
         'sending_currency_code': value['sendingCurrencyCode'],
-        'receiving_currency_code': value['receivingCurrencyCode'],
+        'receiving_currency': CurrencyToJSON(value['receivingCurrency']),
         'payment_hash': value['paymentHash'],
         'expires_at': value['expiresAt'],
         'multiplier': value['multiplier'],

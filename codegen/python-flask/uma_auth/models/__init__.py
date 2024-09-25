@@ -1,6 +1,7 @@
 # flake8: noqa
 # import models into model package
 from uma_auth.models.budget_estimate_response import BudgetEstimateResponse
+from uma_auth.models.currency import Currency
 from uma_auth.models.currency_preference import CurrencyPreference
 from uma_auth.models.error_code import ErrorCode
 from uma_auth.models.error_response import ErrorResponse

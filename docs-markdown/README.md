@@ -25,6 +25,7 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
 ## Documentation for Models
 
  - [BudgetEstimateResponse](./Models/BudgetEstimateResponse.md)
+ - [Currency](./Models/Currency.md)
  - [CurrencyPreference](./Models/CurrencyPreference.md)
  - [ErrorCode](./Models/ErrorCode.md)
  - [ErrorResponse](./Models/ErrorResponse.md)

@@ -11,11 +11,12 @@
 */
 package me.uma.auth.models
 
+import me.uma.auth.models.Currency
 
 /**
  * 
  * @param sendingCurrencyCode The currency code of the sender's balance.
- * @param receivingCurrencyCode The currency code of the receiver's balance.
+ * @param receivingCurrency 
  * @param paymentHash The payment hash of the quote. Used as an identifier to execute the quote.
  * @param expiresAt The time the quote expires in unix timestamp.
  * @param multiplier Number of sending currency units per receiving currency unit.
@@ -27,8 +28,7 @@ package me.uma.auth.models
 data class Quote(
     /* The currency code of the sender's balance. */
     val sendingCurrencyCode: kotlin.String,
-    /* The currency code of the receiver's balance. */
-    val receivingCurrencyCode: kotlin.String,
+    val receivingCurrency: Currency,
     /* The payment hash of the quote. Used as an identifier to execute the quote. */
     val paymentHash: kotlin.String,
     /* The time the quote expires in unix timestamp. */

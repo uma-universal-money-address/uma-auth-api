@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export * from './BudgetEstimateResponse';
+export * from './Currency';
 export * from './CurrencyPreference';
 export * from './ErrorCode';
 export * from './ErrorResponse';
