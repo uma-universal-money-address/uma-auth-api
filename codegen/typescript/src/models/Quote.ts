@@ -27,11 +27,11 @@ import {
  */
 export interface Quote {
     /**
-     * The currency code of the sender's balance.
-     * @type {string}
+     * 
+     * @type {Currency}
      * @memberof Quote
      */
-    sendingCurrencyCode: string;
+    sendingCurrency?: Currency;
     /**
      * 
      * @type {Currency}
@@ -86,7 +86,6 @@ export interface Quote {
  * Check if a given object implements the Quote interface.
  */
 export function instanceOfQuote(value: object): value is Quote {
-    if (!('sendingCurrencyCode' in value) || value['sendingCurrencyCode'] === undefined) return false;
     if (!('receivingCurrency' in value) || value['receivingCurrency'] === undefined) return false;
     if (!('paymentHash' in value) || value['paymentHash'] === undefined) return false;
     if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
@@ -108,7 +107,7 @@ export function QuoteFromJSONTyped(json: any, ignoreDiscriminator: boolean): Quo
     }
     return {
         
-        'sendingCurrencyCode': json['sending_currency_code'],
+        'sendingCurrency': json['sending_currency'] == null ? undefined : CurrencyFromJSON(json['sending_currency']),
         'receivingCurrency': CurrencyFromJSON(json['receiving_currency']),
         'paymentHash': json['payment_hash'],
         'expiresAt': json['expires_at'],
@@ -126,7 +125,7 @@ export function QuoteToJSON(value?: Quote | null): any {
     }
     return {
         
-        'sending_currency_code': value['sendingCurrencyCode'],
+        'sending_currency': CurrencyToJSON(value['sendingCurrency']),
         'receiving_currency': CurrencyToJSON(value['receivingCurrency']),
         'payment_hash': value['paymentHash'],
         'expires_at': value['expiresAt'],

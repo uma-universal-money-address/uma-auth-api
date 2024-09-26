@@ -653,11 +653,8 @@ components:
       type: object
     Quote:
       properties:
-        sending_currency_code:
-          description: The currency code of the sender's balance.
-          example: MXN
-          title: sending_currency_code
-          type: string
+        sending_currency:
+          $ref: '#/components/schemas/Currency'
         receiving_currency:
           $ref: '#/components/schemas/Currency'
         payment_hash:

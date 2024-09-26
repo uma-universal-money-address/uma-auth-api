@@ -85,11 +85,16 @@ fun Route.UmaAuthApi() {
                 "decimals" : 2,
                 "name" : "United States Dollar"
               },
-              "sending_currency_code" : "MXN",
               "fees" : 10,
               "expires_at" : 1683148800,
               "total_sending_amount" : 123010,
               "total_receiving_amount" : 1000,
+              "sending_currency" : {
+                "symbol" : "$",
+                "code" : "USD",
+                "decimals" : 2,
+                "name" : "United States Dollar"
+              },
               "multiplier" : 123,
               "created_at" : 1683148800,
               "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"
@@ -403,11 +408,16 @@ fun Route.UmaAuthApi() {
                   "decimals" : 2,
                   "name" : "United States Dollar"
                 },
-                "sending_currency_code" : "MXN",
                 "fees" : 10,
                 "expires_at" : 1683148800,
                 "total_sending_amount" : 123010,
                 "total_receiving_amount" : 1000,
+                "sending_currency" : {
+                  "symbol" : "$",
+                  "code" : "USD",
+                  "decimals" : 2,
+                  "name" : "United States Dollar"
+                },
                 "multiplier" : 123,
                 "created_at" : 1683148800,
                 "payment_hash" : "f1d2d2f924e986ac86fdf7b36c94bcdf32beec15"

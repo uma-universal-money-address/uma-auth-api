@@ -19,8 +19,7 @@ import (
 
 type Quote struct {
 
-	// The currency code of the sender's balance.
-	SendingCurrencyCode string `json:"sending_currency_code"`
+	SendingCurrency Currency `json:"sending_currency,omitempty"`
 
 	ReceivingCurrency Currency `json:"receiving_currency"`
 
@@ -49,7 +48,6 @@ type Quote struct {
 // AssertQuoteRequired checks if the required fields are not zero-ed
 func AssertQuoteRequired(obj Quote) error {
 	elements := map[string]interface{}{
-		"sending_currency_code": obj.SendingCurrencyCode,
 		"receiving_currency": obj.ReceivingCurrency,
 		"payment_hash": obj.PaymentHash,
 		"expires_at": obj.ExpiresAt,
@@ -65,6 +63,9 @@ func AssertQuoteRequired(obj Quote) error {
 		}
 	}
 
+	if err := AssertCurrencyRequired(obj.SendingCurrency); err != nil {
+		return err
+	}
 	if err := AssertCurrencyRequired(obj.ReceivingCurrency); err != nil {
 		return err
 	}
@@ -73,6 +74,9 @@ func AssertQuoteRequired(obj Quote) error {
 
 // AssertQuoteConstraints checks if the values respects the defined constraints
 func AssertQuoteConstraints(obj Quote) error {
+	if err := AssertCurrencyConstraints(obj.SendingCurrency); err != nil {
+		return err
+	}
 	if err := AssertCurrencyConstraints(obj.ReceivingCurrency); err != nil {
 		return err
 	}
