@@ -21,24 +21,23 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from typing import Any, ClassVar, Dict, List
 from typing_extensions import Annotated
-from uma_auth.models.currency import Currency
 try:
     from typing import Self
 except ImportError:
     from typing_extensions import Self
 
-class CurrencyPreference(BaseModel):
+class Currency(BaseModel):
     """
-    CurrencyPreference
+    Currency
     """ # noqa: E501
-    currency: Optional[Currency] = None
-    multiplier: Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]] = Field(description="Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.")
-    min: Annotated[int, Field(strict=True, gt=0)] = Field(description="The minimum amount that can be received in this currency.")
-    max: Annotated[int, Field(strict=True, gt=0)] = Field(description="The maximum amount that can be received in this currency.")
-    __properties: ClassVar[List[str]] = ["currency", "multiplier", "min", "max"]
+    code: StrictStr = Field(description="The ISO-4217 currency code.")
+    symbol: StrictStr = Field(description="The currency symbol.")
+    name: StrictStr = Field(description="The currency name.")
+    decimals: Annotated[int, Field(strict=True, ge=0)] = Field(description="Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.")
+    __properties: ClassVar[List[str]] = ["code", "symbol", "name", "decimals"]
 
     model_config = {
         "populate_by_name": True,
@@ -57,7 +56,7 @@ class CurrencyPreference(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of CurrencyPreference from a JSON string"""
+        """Create an instance of Currency from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -78,14 +77,11 @@ class CurrencyPreference(BaseModel):
             exclude_none=True,
             exclude_unset=True,
         )
-        # override the default output from pydantic by calling `to_dict()` of currency
-        if self.currency:
-            _dict['currency'] = self.currency.to_dict()
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Dict) -> Self:
-        """Create an instance of CurrencyPreference from a dict"""
+        """Create an instance of Currency from a dict"""
         if obj is None:
             return None
 
@@ -93,10 +89,10 @@ class CurrencyPreference(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate({
-            "currency": Currency.from_dict(obj.get("currency")) if obj.get("currency") is not None else None,
-            "multiplier": obj.get("multiplier"),
-            "min": obj.get("min"),
-            "max": obj.get("max")
+            "code": obj.get("code"),
+            "symbol": obj.get("symbol"),
+            "name": obj.get("name"),
+            "decimals": obj.get("decimals")
         })
         return _obj
 

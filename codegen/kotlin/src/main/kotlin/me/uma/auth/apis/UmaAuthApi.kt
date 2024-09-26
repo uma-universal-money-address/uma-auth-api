@@ -79,8 +79,13 @@ fun Route.UmaAuthApi() {
         
         val exampleContentType = "application/json"
             val exampleContentString = """{
+              "receiving_currency" : {
+                "symbol" : "$",
+                "code" : "USD",
+                "decimals" : 2,
+                "name" : "United States Dollar"
+              },
               "sending_currency_code" : "MXN",
-              "receiving_currency_code" : "USD",
               "fees" : 10,
               "expires_at" : 1683148800,
               "total_sending_amount" : 123010,
@@ -108,7 +113,12 @@ fun Route.UmaAuthApi() {
         val exampleContentType = "application/json"
             val exampleContentString = """{
               "balance" : 1000,
-              "currency_code" : "USD"
+              "currency" : {
+                "symbol" : "$",
+                "code" : "USD",
+                "decimals" : 2,
+                "name" : "United States Dollar"
+              }
             }"""
             
             when (exampleContentType) {
@@ -157,21 +167,25 @@ fun Route.UmaAuthApi() {
               "pubkey" : "abcd1234",
               "network" : "testnet",
               "currencies" : [ {
-                "symbol" : "$",
-                "code" : "USD",
                 "min" : 1,
                 "max" : 1000000,
                 "multiplier" : 100000000,
-                "decimals" : 2,
-                "name" : "United States Dollar"
+                "currency" : {
+                  "symbol" : "$",
+                  "code" : "USD",
+                  "decimals" : 2,
+                  "name" : "United States Dollar"
+                }
               }, {
-                "symbol" : "$",
-                "code" : "USD",
                 "min" : 1,
                 "max" : 1000000,
                 "multiplier" : 100000000,
-                "decimals" : 2,
-                "name" : "United States Dollar"
+                "currency" : {
+                  "symbol" : "$",
+                  "code" : "USD",
+                  "decimals" : 2,
+                  "name" : "United States Dollar"
+                }
               } ]
             }"""
             
@@ -270,21 +284,25 @@ fun Route.UmaAuthApi() {
         val exampleContentType = "application/json"
             val exampleContentString = """{
               "currencies" : [ {
-                "symbol" : "$",
-                "code" : "USD",
                 "min" : 1,
                 "max" : 1000000,
                 "multiplier" : 100000000,
-                "decimals" : 2,
-                "name" : "United States Dollar"
+                "currency" : {
+                  "symbol" : "$",
+                  "code" : "USD",
+                  "decimals" : 2,
+                  "name" : "United States Dollar"
+                }
               }, {
-                "symbol" : "$",
-                "code" : "USD",
                 "min" : 1,
                 "max" : 1000000,
                 "multiplier" : 100000000,
-                "decimals" : 2,
-                "name" : "United States Dollar"
+                "currency" : {
+                  "symbol" : "$",
+                  "code" : "USD",
+                  "decimals" : 2,
+                  "name" : "United States Dollar"
+                }
               } ]
             }"""
             
@@ -379,8 +397,13 @@ fun Route.UmaAuthApi() {
         val exampleContentType = "application/json"
             val exampleContentString = """{
               "quote" : {
+                "receiving_currency" : {
+                  "symbol" : "$",
+                  "code" : "USD",
+                  "decimals" : 2,
+                  "name" : "United States Dollar"
+                },
                 "sending_currency_code" : "MXN",
-                "receiving_currency_code" : "USD",
                 "fees" : 10,
                 "expires_at" : 1683148800,
                 "total_sending_amount" : 123010,

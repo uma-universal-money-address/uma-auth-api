@@ -19,20 +19,10 @@ import (
 
 type CurrencyPreference struct {
 
-	// The ISO-4217 currency code.
-	Code string `json:"code"`
-
-	// The currency symbol.
-	Symbol string `json:"symbol"`
-
-	// The currency name.
-	Name string `json:"name"`
+	Currency Currency `json:"currency,omitempty"`
 
 	// Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
 	Multiplier float32 `json:"multiplier"`
-
-	// Number of digits after the decimal point for display on the sender side, and to add clarity around what the \"smallest unit\" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is \"BTC\" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.
-	Decimals int32 `json:"decimals"`
 
 	// The minimum amount that can be received in this currency.
 	Min int64 `json:"min"`
@@ -44,11 +34,7 @@ type CurrencyPreference struct {
 // AssertCurrencyPreferenceRequired checks if the required fields are not zero-ed
 func AssertCurrencyPreferenceRequired(obj CurrencyPreference) error {
 	elements := map[string]interface{}{
-		"code": obj.Code,
-		"symbol": obj.Symbol,
-		"name": obj.Name,
 		"multiplier": obj.Multiplier,
-		"decimals": obj.Decimals,
 		"min": obj.Min,
 		"max": obj.Max,
 	}
@@ -58,16 +44,19 @@ func AssertCurrencyPreferenceRequired(obj CurrencyPreference) error {
 		}
 	}
 
+	if err := AssertCurrencyRequired(obj.Currency); err != nil {
+		return err
+	}
 	return nil
 }
 
 // AssertCurrencyPreferenceConstraints checks if the values respects the defined constraints
 func AssertCurrencyPreferenceConstraints(obj CurrencyPreference) error {
+	if err := AssertCurrencyConstraints(obj.Currency); err != nil {
+		return err
+	}
 	if obj.Multiplier < 0 {
 		return &ParsingError{Param: "Multiplier", Err: errors.New(errMsgMinValueConstraint)}
-	}
-	if obj.Decimals < 0 {
-		return &ParsingError{Param: "Decimals", Err: errors.New(errMsgMinValueConstraint)}
 	}
 	if obj.Min < 0 {
 		return &ParsingError{Param: "Min", Err: errors.New(errMsgMinValueConstraint)}

@@ -22,8 +22,7 @@ type Quote struct {
 	// The currency code of the sender's balance.
 	SendingCurrencyCode string `json:"sending_currency_code"`
 
-	// The currency code of the receiver's balance.
-	ReceivingCurrencyCode string `json:"receiving_currency_code"`
+	ReceivingCurrency Currency `json:"receiving_currency"`
 
 	// The payment hash of the quote. Used as an identifier to execute the quote.
 	PaymentHash string `json:"payment_hash"`
@@ -51,7 +50,7 @@ type Quote struct {
 func AssertQuoteRequired(obj Quote) error {
 	elements := map[string]interface{}{
 		"sending_currency_code": obj.SendingCurrencyCode,
-		"receiving_currency_code": obj.ReceivingCurrencyCode,
+		"receiving_currency": obj.ReceivingCurrency,
 		"payment_hash": obj.PaymentHash,
 		"expires_at": obj.ExpiresAt,
 		"multiplier": obj.Multiplier,
@@ -66,11 +65,17 @@ func AssertQuoteRequired(obj Quote) error {
 		}
 	}
 
+	if err := AssertCurrencyRequired(obj.ReceivingCurrency); err != nil {
+		return err
+	}
 	return nil
 }
 
 // AssertQuoteConstraints checks if the values respects the defined constraints
 func AssertQuoteConstraints(obj Quote) error {
+	if err := AssertCurrencyConstraints(obj.ReceivingCurrency); err != nil {
+		return err
+	}
 	if obj.Multiplier < 0 {
 		return &ParsingError{Param: "Multiplier", Err: errors.New(errMsgMinValueConstraint)}
 	}

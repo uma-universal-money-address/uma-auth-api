@@ -24,6 +24,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Union
 from typing_extensions import Annotated
+from uma_auth.models.currency import Currency
 try:
     from typing import Self
 except ImportError:
@@ -34,7 +35,7 @@ class Quote(BaseModel):
     Quote
     """ # noqa: E501
     sending_currency_code: StrictStr = Field(description="The currency code of the sender's balance.")
-    receiving_currency_code: StrictStr = Field(description="The currency code of the receiver's balance.")
+    receiving_currency: Currency
     payment_hash: StrictStr = Field(description="The payment hash of the quote. Used as an identifier to execute the quote.")
     expires_at: StrictInt = Field(description="The time the quote expires in unix timestamp.")
     multiplier: Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]] = Field(description="Number of sending currency units per receiving currency unit.")
@@ -42,7 +43,7 @@ class Quote(BaseModel):
     total_sending_amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The total amount that will be sent in the smallest unit of the sending currency (eg. cents).")
     total_receiving_amount: Annotated[int, Field(strict=True, gt=0)] = Field(description="The total amount that will be received in the smallest unit of the receiving currency (eg. cents).")
     created_at: StrictInt = Field(description="The time the quote was created in unix timestamp.")
-    __properties: ClassVar[List[str]] = ["sending_currency_code", "receiving_currency_code", "payment_hash", "expires_at", "multiplier", "fees", "total_sending_amount", "total_receiving_amount", "created_at"]
+    __properties: ClassVar[List[str]] = ["sending_currency_code", "receiving_currency", "payment_hash", "expires_at", "multiplier", "fees", "total_sending_amount", "total_receiving_amount", "created_at"]
 
     model_config = {
         "populate_by_name": True,
@@ -82,6 +83,9 @@ class Quote(BaseModel):
             exclude_none=True,
             exclude_unset=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of receiving_currency
+        if self.receiving_currency:
+            _dict['receiving_currency'] = self.receiving_currency.to_dict()
         return _dict
 
     @classmethod
@@ -95,7 +99,7 @@ class Quote(BaseModel):
 
         _obj = cls.model_validate({
             "sending_currency_code": obj.get("sending_currency_code"),
-            "receiving_currency_code": obj.get("receiving_currency_code"),
+            "receiving_currency": Currency.from_dict(obj.get("receiving_currency")) if obj.get("receiving_currency") is not None else None,
             "payment_hash": obj.get("payment_hash"),
             "expires_at": obj.get("expires_at"),
             "multiplier": obj.get("multiplier"),

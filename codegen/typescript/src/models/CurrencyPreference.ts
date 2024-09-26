@@ -13,6 +13,13 @@
  */
 
 import { mapValues } from '../runtime';
+import type { Currency } from './Currency';
+import {
+    CurrencyFromJSON,
+    CurrencyFromJSONTyped,
+    CurrencyToJSON,
+} from './Currency';
+
 /**
  * 
  * @export
@@ -20,35 +27,17 @@ import { mapValues } from '../runtime';
  */
 export interface CurrencyPreference {
     /**
-     * The ISO-4217 currency code.
-     * @type {string}
+     * 
+     * @type {Currency}
      * @memberof CurrencyPreference
      */
-    code: string;
-    /**
-     * The currency symbol.
-     * @type {string}
-     * @memberof CurrencyPreference
-     */
-    symbol: string;
-    /**
-     * The currency name.
-     * @type {string}
-     * @memberof CurrencyPreference
-     */
-    name: string;
+    currency?: Currency;
     /**
      * Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
      * @type {number}
      * @memberof CurrencyPreference
      */
     multiplier: number;
-    /**
-     * Number of digits after the decimal point for display on the sender side, and to add clarity around what the "smallest unit" of the currency is. For example, in USD, by convention, there are 2 digits for cents - $5.95. In this case, `decimals` would be 2. Note that the multiplier is still always in the smallest unit (cents). In addition to display purposes, this field can be used to resolve ambiguity in what the multiplier means. For example, if the currency is "BTC" and the multiplier is 1000, really we're exchanging in SATs, so `decimals` would be 8.
-     * @type {number}
-     * @memberof CurrencyPreference
-     */
-    decimals: number;
     /**
      * The minimum amount that can be received in this currency.
      * @type {number}
@@ -67,11 +56,7 @@ export interface CurrencyPreference {
  * Check if a given object implements the CurrencyPreference interface.
  */
 export function instanceOfCurrencyPreference(value: object): value is CurrencyPreference {
-    if (!('code' in value) || value['code'] === undefined) return false;
-    if (!('symbol' in value) || value['symbol'] === undefined) return false;
-    if (!('name' in value) || value['name'] === undefined) return false;
     if (!('multiplier' in value) || value['multiplier'] === undefined) return false;
-    if (!('decimals' in value) || value['decimals'] === undefined) return false;
     if (!('min' in value) || value['min'] === undefined) return false;
     if (!('max' in value) || value['max'] === undefined) return false;
     return true;
@@ -87,11 +72,8 @@ export function CurrencyPreferenceFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'code': json['code'],
-        'symbol': json['symbol'],
-        'name': json['name'],
+        'currency': json['currency'] == null ? undefined : CurrencyFromJSON(json['currency']),
         'multiplier': json['multiplier'],
-        'decimals': json['decimals'],
         'min': json['min'],
         'max': json['max'],
     };
@@ -103,11 +85,8 @@ export function CurrencyPreferenceToJSON(value?: CurrencyPreference | null): any
     }
     return {
         
-        'code': value['code'],
-        'symbol': value['symbol'],
-        'name': value['name'],
+        'currency': CurrencyToJSON(value['currency']),
         'multiplier': value['multiplier'],
-        'decimals': value['decimals'],
         'min': value['min'],
         'max': value['max'],
     };

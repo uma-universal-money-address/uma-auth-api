@@ -21,9 +21,10 @@ import json
 
 
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
+from uma_auth.models.currency import Currency
 try:
     from typing import Self
 except ImportError:
@@ -34,8 +35,8 @@ class GetBalanceResponse(BaseModel):
     GetBalanceResponse
     """ # noqa: E501
     balance: Union[Annotated[float, Field(strict=True, ge=0)], Annotated[int, Field(strict=True, ge=0)]] = Field(description="The balance of the user's wallet.")
-    currency_code: Optional[StrictStr] = Field(default=None, description="The currency code of the balance. Assumed to be msats if not provided.")
-    __properties: ClassVar[List[str]] = ["balance", "currency_code"]
+    currency: Optional[Currency] = None
+    __properties: ClassVar[List[str]] = ["balance", "currency"]
 
     model_config = {
         "populate_by_name": True,
@@ -75,11 +76,9 @@ class GetBalanceResponse(BaseModel):
             exclude_none=True,
             exclude_unset=True,
         )
-        # set to None if currency_code (nullable) is None
-        # and model_fields_set contains the field
-        if self.currency_code is None and "currency_code" in self.model_fields_set:
-            _dict['currency_code'] = None
-
+        # override the default output from pydantic by calling `to_dict()` of currency
+        if self.currency:
+            _dict['currency'] = self.currency.to_dict()
         return _dict
 
     @classmethod
@@ -93,7 +92,7 @@ class GetBalanceResponse(BaseModel):
 
         _obj = cls.model_validate({
             "balance": obj.get("balance"),
-            "currency_code": obj.get("currency_code")
+            "currency": Currency.from_dict(obj.get("currency")) if obj.get("currency") is not None else None
         })
         return _obj
 

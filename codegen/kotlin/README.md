@@ -67,6 +67,7 @@ Class | Method | HTTP request | Description
 ## Documentation for Models
 
  - [me.uma.auth.models.BudgetEstimateResponse](docs/BudgetEstimateResponse.md)
+ - [me.uma.auth.models.Currency](docs/Currency.md)
  - [me.uma.auth.models.CurrencyPreference](docs/CurrencyPreference.md)
  - [me.uma.auth.models.ErrorCode](docs/ErrorCode.md)
  - [me.uma.auth.models.ErrorResponse](docs/ErrorResponse.md)

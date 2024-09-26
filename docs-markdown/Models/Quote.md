@@ -4,7 +4,7 @@
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
 | **sending\_currency\_code** | **String** | The currency code of the sender&#39;s balance. | [default to null] |
-| **receiving\_currency\_code** | **String** | The currency code of the receiver&#39;s balance. | [default to null] |
+| **receiving\_currency** | [**Currency**](Currency.md) |  | [default to null] |
 | **payment\_hash** | **String** | The payment hash of the quote. Used as an identifier to execute the quote. | [default to null] |
 | **expires\_at** | **Long** | The time the quote expires in unix timestamp. | [default to null] |
 | **multiplier** | **BigDecimal** | Number of sending currency units per receiving currency unit. | [default to null] |
