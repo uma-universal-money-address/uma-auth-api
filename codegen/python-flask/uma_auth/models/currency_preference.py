@@ -74,6 +74,8 @@ class CurrencyPreference(Model):
         :param currency: The currency of this CurrencyPreference.
         :type currency: Currency
         """
+        if currency is None:
+            raise ValueError("Invalid value for `currency`, must not be `None`")  # noqa: E501
 
         self._currency = currency
 

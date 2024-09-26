@@ -19,7 +19,7 @@ import (
 
 type CurrencyPreference struct {
 
-	Currency Currency `json:"currency,omitempty"`
+	Currency Currency `json:"currency"`
 
 	// Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
 	Multiplier float32 `json:"multiplier"`
@@ -34,6 +34,7 @@ type CurrencyPreference struct {
 // AssertCurrencyPreferenceRequired checks if the required fields are not zero-ed
 func AssertCurrencyPreferenceRequired(obj CurrencyPreference) error {
 	elements := map[string]interface{}{
+		"currency": obj.Currency,
 		"multiplier": obj.Multiplier,
 		"min": obj.Min,
 		"max": obj.Max,

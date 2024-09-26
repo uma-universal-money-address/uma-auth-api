@@ -22,7 +22,7 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, List, Union
 from typing_extensions import Annotated
 from uma_auth.models.currency import Currency
 try:
@@ -34,7 +34,7 @@ class Quote(BaseModel):
     """
     Quote
     """ # noqa: E501
-    sending_currency: Optional[Currency] = None
+    sending_currency: Currency
     receiving_currency: Currency
     payment_hash: StrictStr = Field(description="The payment hash of the quote. Used as an identifier to execute the quote.")
     expires_at: StrictInt = Field(description="The time the quote expires in unix timestamp.")

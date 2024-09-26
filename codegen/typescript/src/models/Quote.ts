@@ -31,7 +31,7 @@ export interface Quote {
      * @type {Currency}
      * @memberof Quote
      */
-    sendingCurrency?: Currency;
+    sendingCurrency: Currency;
     /**
      * 
      * @type {Currency}
@@ -86,6 +86,7 @@ export interface Quote {
  * Check if a given object implements the Quote interface.
  */
 export function instanceOfQuote(value: object): value is Quote {
+    if (!('sendingCurrency' in value) || value['sendingCurrency'] === undefined) return false;
     if (!('receivingCurrency' in value) || value['receivingCurrency'] === undefined) return false;
     if (!('paymentHash' in value) || value['paymentHash'] === undefined) return false;
     if (!('expiresAt' in value) || value['expiresAt'] === undefined) return false;
@@ -107,7 +108,7 @@ export function QuoteFromJSONTyped(json: any, ignoreDiscriminator: boolean): Quo
     }
     return {
         
-        'sendingCurrency': json['sending_currency'] == null ? undefined : CurrencyFromJSON(json['sending_currency']),
+        'sendingCurrency': CurrencyFromJSON(json['sending_currency']),
         'receivingCurrency': CurrencyFromJSON(json['receiving_currency']),
         'paymentHash': json['payment_hash'],
         'expiresAt': json['expires_at'],

@@ -31,7 +31,7 @@ export interface CurrencyPreference {
      * @type {Currency}
      * @memberof CurrencyPreference
      */
-    currency?: Currency;
+    currency: Currency;
     /**
      * Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
      * @type {number}
@@ -56,6 +56,7 @@ export interface CurrencyPreference {
  * Check if a given object implements the CurrencyPreference interface.
  */
 export function instanceOfCurrencyPreference(value: object): value is CurrencyPreference {
+    if (!('currency' in value) || value['currency'] === undefined) return false;
     if (!('multiplier' in value) || value['multiplier'] === undefined) return false;
     if (!('min' in value) || value['min'] === undefined) return false;
     if (!('max' in value) || value['max'] === undefined) return false;
@@ -72,7 +73,7 @@ export function CurrencyPreferenceFromJSONTyped(json: any, ignoreDiscriminator: 
     }
     return {
         
-        'currency': json['currency'] == null ? undefined : CurrencyFromJSON(json['currency']),
+        'currency': CurrencyFromJSON(json['currency']),
         'multiplier': json['multiplier'],
         'min': json['min'],
         'max': json['max'],

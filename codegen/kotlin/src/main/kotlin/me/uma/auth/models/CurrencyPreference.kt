@@ -15,18 +15,18 @@ import me.uma.auth.models.Currency
 
 /**
  * 
+ * @param currency 
  * @param multiplier Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.
  * @param min The minimum amount that can be received in this currency.
  * @param max The maximum amount that can be received in this currency.
- * @param currency 
  */
 data class CurrencyPreference(
+    val currency: Currency,
     /* Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats. */
     val multiplier: java.math.BigDecimal,
     /* The minimum amount that can be received in this currency. */
     val min: kotlin.Long,
     /* The maximum amount that can be received in this currency. */
-    val max: kotlin.Long,
-    val currency: Currency? = null
+    val max: kotlin.Long
 ) 
 

@@ -22,7 +22,7 @@ import json
 
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from typing import Any, ClassVar, Dict, List, Union
 from typing_extensions import Annotated
 from uma_auth.models.currency import Currency
 try:
@@ -34,7 +34,7 @@ class CurrencyPreference(BaseModel):
     """
     CurrencyPreference
     """ # noqa: E501
-    currency: Optional[Currency] = None
+    currency: Currency
     multiplier: Union[Annotated[float, Field(strict=True, gt=0)], Annotated[int, Field(strict=True, gt=0)]] = Field(description="Estimated number of milli-sats per smallest unit of this currency (eg. cents) If base_sending_currency_code was specified, this is the rate relative to that currency instead of milli-sats.")
     min: Annotated[int, Field(strict=True, gt=0)] = Field(description="The minimum amount that can be received in this currency.")
     max: Annotated[int, Field(strict=True, gt=0)] = Field(description="The maximum amount that can be received in this currency.")
