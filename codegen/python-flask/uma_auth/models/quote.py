@@ -14,11 +14,11 @@ class Quote(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, sending_currency_code=None, receiving_currency=None, payment_hash=None, expires_at=None, multiplier=None, fees=None, total_sending_amount=None, total_receiving_amount=None, created_at=None):  # noqa: E501
+    def __init__(self, sending_currency=None, receiving_currency=None, payment_hash=None, expires_at=None, multiplier=None, fees=None, total_sending_amount=None, total_receiving_amount=None, created_at=None):  # noqa: E501
         """Quote - a model defined in OpenAPI
 
-        :param sending_currency_code: The sending_currency_code of this Quote.  # noqa: E501
-        :type sending_currency_code: str
+        :param sending_currency: The sending_currency of this Quote.  # noqa: E501
+        :type sending_currency: Currency
         :param receiving_currency: The receiving_currency of this Quote.  # noqa: E501
         :type receiving_currency: Currency
         :param payment_hash: The payment_hash of this Quote.  # noqa: E501
@@ -37,7 +37,7 @@ class Quote(Model):
         :type created_at: int
         """
         self.openapi_types = {
-            'sending_currency_code': str,
+            'sending_currency': Currency,
             'receiving_currency': Currency,
             'payment_hash': str,
             'expires_at': int,
@@ -49,7 +49,7 @@ class Quote(Model):
         }
 
         self.attribute_map = {
-            'sending_currency_code': 'sending_currency_code',
+            'sending_currency': 'sending_currency',
             'receiving_currency': 'receiving_currency',
             'payment_hash': 'payment_hash',
             'expires_at': 'expires_at',
@@ -60,7 +60,7 @@ class Quote(Model):
             'created_at': 'created_at'
         }
 
-        self._sending_currency_code = sending_currency_code
+        self._sending_currency = sending_currency
         self._receiving_currency = receiving_currency
         self._payment_hash = payment_hash
         self._expires_at = expires_at
@@ -82,29 +82,25 @@ class Quote(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def sending_currency_code(self) -> str:
-        """Gets the sending_currency_code of this Quote.
+    def sending_currency(self) -> Currency:
+        """Gets the sending_currency of this Quote.
 
-        The currency code of the sender's balance.  # noqa: E501
 
-        :return: The sending_currency_code of this Quote.
-        :rtype: str
+        :return: The sending_currency of this Quote.
+        :rtype: Currency
         """
-        return self._sending_currency_code
+        return self._sending_currency
 
-    @sending_currency_code.setter
-    def sending_currency_code(self, sending_currency_code: str):
-        """Sets the sending_currency_code of this Quote.
+    @sending_currency.setter
+    def sending_currency(self, sending_currency: Currency):
+        """Sets the sending_currency of this Quote.
 
-        The currency code of the sender's balance.  # noqa: E501
 
-        :param sending_currency_code: The sending_currency_code of this Quote.
-        :type sending_currency_code: str
+        :param sending_currency: The sending_currency of this Quote.
+        :type sending_currency: Currency
         """
-        if sending_currency_code is None:
-            raise ValueError("Invalid value for `sending_currency_code`, must not be `None`")  # noqa: E501
 
-        self._sending_currency_code = sending_currency_code
+        self._sending_currency = sending_currency
 
     @property
     def receiving_currency(self) -> Currency:

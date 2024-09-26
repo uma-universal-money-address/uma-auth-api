@@ -921,11 +921,11 @@ components:
     Quote:
       type: object
       properties:
-        sending_currency_code:
-          type: string
-          description: The currency code of the sender's balance.
-          example: "MXN"
+        sending_currency:
+          description: The currency of the sender's balance.
+          $ref: '#/components/schemas/Currency'
         receiving_currency:
+          description: The currency of the receiver's balance. 
           $ref: '#/components/schemas/Currency'
         payment_hash:
           type: string
