@@ -726,7 +726,7 @@ components:
       - multiplier
       - payment_hash
       - receiving_currency
-      - sending_currency_code
+      - sending_currency
       - total_receiving_amount
       - total_sending_amount
       type: object
@@ -804,7 +804,7 @@ components:
           minimum: 0
           type: integer
       required:
-      - info
+      - currency
       - max
       - min
       - multiplier

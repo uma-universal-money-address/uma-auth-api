@@ -19,7 +19,7 @@ import (
 
 type Quote struct {
 
-	SendingCurrency Currency `json:"sending_currency,omitempty"`
+	SendingCurrency Currency `json:"sending_currency"`
 
 	ReceivingCurrency Currency `json:"receiving_currency"`
 
@@ -48,6 +48,7 @@ type Quote struct {
 // AssertQuoteRequired checks if the required fields are not zero-ed
 func AssertQuoteRequired(obj Quote) error {
 	elements := map[string]interface{}{
+		"sending_currency": obj.SendingCurrency,
 		"receiving_currency": obj.ReceivingCurrency,
 		"payment_hash": obj.PaymentHash,
 		"expires_at": obj.ExpiresAt,

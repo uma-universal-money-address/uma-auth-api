@@ -3,7 +3,7 @@
 
 | Name | Type | Description | Notes |
 |------------ | ------------- | ------------- | -------------|
-| **sending\_currency** | [**Currency**](Currency.md) |  | [optional] [default to null] |
+| **sending\_currency** | [**Currency**](Currency.md) |  | [default to null] |
 | **receiving\_currency** | [**Currency**](Currency.md) |  | [default to null] |
 | **payment\_hash** | **String** | The payment hash of the quote. Used as an identifier to execute the quote. | [default to null] |
 | **expires\_at** | **Long** | The time the quote expires in unix timestamp. | [default to null] |

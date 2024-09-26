@@ -715,7 +715,7 @@ components:
       - multiplier
       - payment_hash
       - receiving_currency
-      - sending_currency_code
+      - sending_currency
       - total_receiving_amount
       - total_sending_amount
       title: Quote
@@ -788,7 +788,7 @@ components:
           title: max
           type: integer
       required:
-      - info
+      - currency
       - max
       - min
       - multiplier

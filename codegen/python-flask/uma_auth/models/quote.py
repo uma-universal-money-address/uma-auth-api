@@ -99,6 +99,8 @@ class Quote(Model):
         :param sending_currency: The sending_currency of this Quote.
         :type sending_currency: Currency
         """
+        if sending_currency is None:
+            raise ValueError("Invalid value for `sending_currency`, must not be `None`")  # noqa: E501
 
         self._sending_currency = sending_currency
 
