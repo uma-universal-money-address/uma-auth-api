@@ -14,7 +14,7 @@ The schema is defined in `uma-auth-api.yaml`. To regenerate the docs and generat
 
 ## Usage
 
-The [`codegen/` folder](./codegen/) contains generated models libraries for Go, Kotlin/Java, Python and TypeScript. If you are using a different framework or language, you can generate the library yourself using the schema defined in `uma-auth-api.yaml`. See the full list of OpenAPI generators [here](https://openapi-generator.tech/docs/generators).
+The [`codegen/`](./codegen/) folder contains generated models libraries for Go, Kotlin/Java, Python and TypeScript. If you are using a different framework or language, you can generate the library yourself using the schema defined in `uma-auth-api.yaml`. See the full list of OpenAPI generators [here](https://openapi-generator.tech/docs/generators).
 
 Refer to the [full API spec documentation](https://github.com/uma-universal-money-address/uma-auth-api/tree/main/docs-markdown) for details on the API endpoints and models. You'll need to implement these in your server to handle UMA Auth requests. The generated libraries provide most of the foundational code, and you'll connect them with your existing UMA implementation. It is not mandatory to support all of the endpoints, but doing so will provide the best experience to your users.
 
