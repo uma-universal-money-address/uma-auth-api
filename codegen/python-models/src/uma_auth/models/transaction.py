@@ -24,6 +24,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Annotated
+from uma_auth.models.transaction_fx import TransactionFx
 from uma_auth.models.transaction_type import TransactionType
 try:
     from typing import Self
@@ -46,7 +47,8 @@ class Transaction(BaseModel):
     expires_at: Optional[StrictInt] = Field(default=None, description="The time the invoice expires.")
     settled_at: Optional[StrictInt] = Field(default=None, description="The time at which the transaction was settled, if it was settled.")
     metadata: Optional[Dict[str, Any]] = Field(default=None, description="Additional metadata attached to the invoice.")
-    __properties: ClassVar[List[str]] = ["type", "invoice", "description", "description_hash", "preimage", "payment_hash", "amount", "fees_paid", "created_at", "expires_at", "settled_at", "metadata"]
+    fx: Optional[TransactionFx] = None
+    __properties: ClassVar[List[str]] = ["type", "invoice", "description", "description_hash", "preimage", "payment_hash", "amount", "fees_paid", "created_at", "expires_at", "settled_at", "metadata", "fx"]
 
     model_config = {
         "populate_by_name": True,
@@ -86,6 +88,9 @@ class Transaction(BaseModel):
             exclude_none=True,
             exclude_unset=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of fx
+        if self.fx:
+            _dict['fx'] = self.fx.to_dict()
         # set to None if invoice (nullable) is None
         # and model_fields_set contains the field
         if self.invoice is None and "invoice" in self.model_fields_set:
@@ -126,6 +131,11 @@ class Transaction(BaseModel):
         if self.metadata is None and "metadata" in self.model_fields_set:
             _dict['metadata'] = None
 
+        # set to None if fx (nullable) is None
+        # and model_fields_set contains the field
+        if self.fx is None and "fx" in self.model_fields_set:
+            _dict['fx'] = None
+
         return _dict
 
     @classmethod
@@ -149,7 +159,8 @@ class Transaction(BaseModel):
             "created_at": obj.get("created_at"),
             "expires_at": obj.get("expires_at"),
             "settled_at": obj.get("settled_at"),
-            "metadata": obj.get("metadata")
+            "metadata": obj.get("metadata"),
+            "fx": TransactionFx.from_dict(obj.get("fx")) if obj.get("fx") is not None else None
         })
         return _obj
 

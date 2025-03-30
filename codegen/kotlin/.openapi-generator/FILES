@@ -30,6 +30,7 @@ src/main/kotlin/me/uma/auth/models/PayToAddressRequest.kt
 src/main/kotlin/me/uma/auth/models/PayToAddressResponse.kt
 src/main/kotlin/me/uma/auth/models/Quote.kt
 src/main/kotlin/me/uma/auth/models/Transaction.kt
+src/main/kotlin/me/uma/auth/models/TransactionFx.kt
 src/main/kotlin/me/uma/auth/models/TransactionType.kt
 src/main/resources/application.conf
 src/main/resources/logback.xml

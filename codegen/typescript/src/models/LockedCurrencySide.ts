@@ -27,7 +27,7 @@ export type LockedCurrencySide = typeof LockedCurrencySide[keyof typeof LockedCu
 export function instanceOfLockedCurrencySide(value: any): boolean {
     for (const key in LockedCurrencySide) {
         if (Object.prototype.hasOwnProperty.call(LockedCurrencySide, key)) {
-            if ((LockedCurrencySide as Record<string, LockedCurrencySide>)[key] === value) {
+            if (LockedCurrencySide[key as keyof typeof LockedCurrencySide] === value) {
                 return true;
             }
         }

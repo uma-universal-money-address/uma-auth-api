@@ -19,6 +19,12 @@ import {
     TransactionTypeFromJSONTyped,
     TransactionTypeToJSON,
 } from './TransactionType';
+import type { TransactionFx } from './TransactionFx';
+import {
+    TransactionFxFromJSON,
+    TransactionFxFromJSONTyped,
+    TransactionFxToJSON,
+} from './TransactionFx';
 
 /**
  * 
@@ -98,7 +104,15 @@ export interface Transaction {
      * @memberof Transaction
      */
     metadata?: object | null;
+    /**
+     * 
+     * @type {TransactionFx}
+     * @memberof Transaction
+     */
+    fx?: TransactionFx | null;
 }
+
+
 
 /**
  * Check if a given object implements the Transaction interface.
@@ -133,6 +147,7 @@ export function TransactionFromJSONTyped(json: any, ignoreDiscriminator: boolean
         'expiresAt': json['expires_at'] == null ? undefined : json['expires_at'],
         'settledAt': json['settled_at'] == null ? undefined : json['settled_at'],
         'metadata': json['metadata'] == null ? undefined : json['metadata'],
+        'fx': json['fx'] == null ? undefined : TransactionFxFromJSON(json['fx']),
     };
 }
 
@@ -154,6 +169,7 @@ export function TransactionToJSON(value?: Transaction | null): any {
         'expires_at': value['expiresAt'],
         'settled_at': value['settledAt'],
         'metadata': value['metadata'],
+        'fx': TransactionFxToJSON(value['fx']),
     };
 }
 

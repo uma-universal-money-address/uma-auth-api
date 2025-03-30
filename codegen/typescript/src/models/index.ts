@@ -22,4 +22,5 @@ export * from './PayToAddressRequest';
 export * from './PayToAddressResponse';
 export * from './Quote';
 export * from './Transaction';
+export * from './TransactionFx';
 export * from './TransactionType';

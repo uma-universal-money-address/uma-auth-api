@@ -22,4 +22,5 @@ from uma_auth.models.pay_to_address_request import PayToAddressRequest
 from uma_auth.models.pay_to_address_response import PayToAddressResponse
 from uma_auth.models.quote import Quote
 from uma_auth.models.transaction import Transaction
+from uma_auth.models.transaction_fx import TransactionFx
 from uma_auth.models.transaction_type import TransactionType

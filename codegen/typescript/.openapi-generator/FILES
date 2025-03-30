@@ -26,6 +26,7 @@ src/models/PayToAddressRequest.ts
 src/models/PayToAddressResponse.ts
 src/models/Quote.ts
 src/models/Transaction.ts
+src/models/TransactionFx.ts
 src/models/TransactionType.ts
 src/models/index.ts
 src/runtime.ts

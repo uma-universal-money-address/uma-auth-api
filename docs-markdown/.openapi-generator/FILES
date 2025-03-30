@@ -22,4 +22,5 @@ Models/PayToAddressResponse.md
 Models/Quote.md
 Models/Transaction.md
 Models/TransactionType.md
+Models/Transaction_fx.md
 README.md

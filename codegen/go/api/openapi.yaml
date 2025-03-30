@@ -573,14 +573,29 @@ components:
         amount: 1000
         fees_paid: 1000
         metadata: {}
-        expires_at: 1683148800
         description_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
         preimage: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
         description: Pay for pizza.
         created_at: 1683148800
+        type: incoming
+        fx:
+          receiving_currency:
+            symbol: $
+            code: USD
+            decimals: 2
+            name: United States Dollar
+          fees: 10
+          total_receiving_amount: 1000
+          total_sending_amount: 1000
+          sending_currency:
+            symbol: $
+            code: USD
+            decimals: 2
+            name: United States Dollar
+          multiplier: 123
+        expires_at: 1683148800
         invoice: lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv
         settled_at: 1683148800
-        type: incoming
         payment_hash: 7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08
       properties:
         type:
@@ -645,6 +660,8 @@ components:
           example: {}
           nullable: true
           type: object
+        fx:
+          $ref: '#/components/schemas/Transaction_fx'
       required:
       - amount
       - created_at
@@ -1264,26 +1281,56 @@ components:
         - amount: 1000
           fees_paid: 1000
           metadata: {}
-          expires_at: 1683148800
           description_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
           preimage: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
           description: Pay for pizza.
           created_at: 1683148800
+          type: incoming
+          fx:
+            receiving_currency:
+              symbol: $
+              code: USD
+              decimals: 2
+              name: United States Dollar
+            fees: 10
+            total_receiving_amount: 1000
+            total_sending_amount: 1000
+            sending_currency:
+              symbol: $
+              code: USD
+              decimals: 2
+              name: United States Dollar
+            multiplier: 123
+          expires_at: 1683148800
           invoice: lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv
           settled_at: 1683148800
-          type: incoming
           payment_hash: 7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08
         - amount: 1000
           fees_paid: 1000
           metadata: {}
-          expires_at: 1683148800
           description_hash: f1d2d2f924e986ac86fdf7b36c94bcdf32beec15
           preimage: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
           description: Pay for pizza.
           created_at: 1683148800
+          type: incoming
+          fx:
+            receiving_currency:
+              symbol: $
+              code: USD
+              decimals: 2
+              name: United States Dollar
+            fees: 10
+            total_receiving_amount: 1000
+            total_sending_amount: 1000
+            sending_currency:
+              symbol: $
+              code: USD
+              decimals: 2
+              name: United States Dollar
+            multiplier: 123
+          expires_at: 1683148800
           invoice: lnbcrt1pjrsa37pp50geu5vxkzn4ddc4hmfkz9x308tw9lrrqtktz2hpm0rccjyhcyp5qdqh2d68yetpd45kueeqv3jk6mccqzpgxq9z0rgqsp5ge2rdw0tzvakxslmtvfmqf2fr7eucg9ughps5vdvp6fm2utk20rs9q8pqqqssqjs3k4nzrzg2nu9slu9c3srv2ae8v69ge097q9seukyw2nger8arj93m6erz8u657hfdzztfmc55wjjm9k337krl00fyw6s9nnwaafaspcqp2uv
           settled_at: 1683148800
-          type: incoming
           payment_hash: 7332c2671019264cf0e9b8626bde20c9c3979799c570a276fb9512e22aef1f08
       properties:
         transactions:
@@ -1311,6 +1358,59 @@ components:
       required:
       - estimated_budget_currency_amount
       title: BudgetEstimateResponse
+      type: object
+    Transaction_fx:
+      description: Foreign exchange rate for the transaction.
+      example:
+        receiving_currency:
+          symbol: $
+          code: USD
+          decimals: 2
+          name: United States Dollar
+        fees: 10
+        total_receiving_amount: 1000
+        total_sending_amount: 1000
+        sending_currency:
+          symbol: $
+          code: USD
+          decimals: 2
+          name: United States Dollar
+        multiplier: 123
+      nullable: true
+      properties:
+        receiving_currency:
+          $ref: '#/components/schemas/Currency'
+        sending_currency:
+          $ref: '#/components/schemas/Currency'
+        total_receiving_amount:
+          description: The total amount that will be received in the smallest unit
+            of the receiving currency (eg. cents).
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          type: integer
+        total_sending_amount:
+          description: The total amount that will be sent in the smallest unit of
+            the sending currency (eg. cents).
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          type: integer
+        multiplier:
+          description: Number of sending currency units per receiving currency unit.
+          example: 123
+          exclusiveMinimum: true
+          minimum: 0
+          type: number
+        fees:
+          description: The fees associated with the quote in the smallest unit of
+            the sending currency (eg. cents).
+          example: 10
+          format: int64
+          minimum: 0
+          type: integer
       type: object
   securitySchemes:
     bearerAuth:
