@@ -644,6 +644,8 @@ components:
           nullable: true
           title: metadata
           type: object
+        fx:
+          $ref: '#/components/schemas/Transaction_fx'
       required:
       - amount
       - created_at
@@ -1156,6 +1158,49 @@ components:
       required:
       - estimated_budget_currency_amount
       title: BudgetEstimateResponse
+      type: object
+    Transaction_fx:
+      description: Foreign exchange rate for the transaction.
+      nullable: true
+      properties:
+        receiving_currency:
+          $ref: '#/components/schemas/Currency'
+        sending_currency:
+          $ref: '#/components/schemas/Currency'
+        total_receiving_amount:
+          description: The total amount that will be received in the smallest unit
+            of the receiving currency (eg. cents).
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          title: total_receiving_amount
+          type: integer
+        total_sending_amount:
+          description: The total amount that will be sent in the smallest unit of
+            the sending currency (eg. cents).
+          example: 1000
+          exclusiveMinimum: true
+          format: int64
+          minimum: 0
+          title: total_sending_amount
+          type: integer
+        multiplier:
+          description: Number of sending currency units per receiving currency unit.
+          example: 123
+          exclusiveMinimum: true
+          minimum: 0
+          title: multiplier
+          type: number
+        fees:
+          description: The fees associated with the quote in the smallest unit of
+            the sending currency (eg. cents).
+          example: 10
+          format: int64
+          minimum: 0
+          title: fees
+          type: integer
+      title: Transaction_fx
       type: object
   securitySchemes:
     bearerAuth:

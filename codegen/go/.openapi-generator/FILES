@@ -32,5 +32,6 @@ umaauth/model_pay_to_address_request.go
 umaauth/model_pay_to_address_response.go
 umaauth/model_quote.go
 umaauth/model_transaction.go
+umaauth/model_transaction_fx.go
 umaauth/model_transaction_type.go
 umaauth/routers.go

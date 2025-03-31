@@ -913,6 +913,42 @@ components:
           description: Additional metadata attached to the invoice.
           example: {}
           nullable: true
+        fx:
+          type: object
+          description: >-
+            Foreign exchange rate for the transaction.
+          properties:
+            receiving_currency:
+              $ref: '#/components/schemas/Currency'
+            sending_currency:
+              $ref: '#/components/schemas/Currency'
+            total_receiving_amount:
+              type: integer
+              format: int64
+              description: The total amount that will be received in the smallest unit of the receiving currency (eg. cents).
+              minimum: 0
+              exclusiveMinimum: true
+              example: 1000
+            total_sending_amount:
+              type: integer
+              format: int64
+              description: The total amount that will be sent in the smallest unit of the sending currency (eg. cents).
+              minimum: 0
+              exclusiveMinimum: true
+              example: 1000
+            multiplier:
+              type: number
+              description: Number of sending currency units per receiving currency unit.
+              minimum: 0
+              exclusiveMinimum: true
+              example: 123
+            fees:
+              type: integer
+              format: int64
+              description: The fees associated with the quote in the smallest unit of the sending currency (eg. cents).
+              minimum: 0
+              example: 10
+          nullable: true
       required:
         - amount
         - payment_hash

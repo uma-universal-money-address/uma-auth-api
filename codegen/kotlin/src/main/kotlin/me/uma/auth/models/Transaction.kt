@@ -11,6 +11,7 @@
 */
 package me.uma.auth.models
 
+import me.uma.auth.models.TransactionFx
 import me.uma.auth.models.TransactionType
 
 /**
@@ -27,6 +28,7 @@ import me.uma.auth.models.TransactionType
  * @param expiresAt The time the invoice expires.
  * @param settledAt The time at which the transaction was settled, if it was settled.
  * @param metadata Additional metadata attached to the invoice.
+ * @param fx 
  */
 data class Transaction(
     val type: TransactionType,
@@ -51,6 +53,7 @@ data class Transaction(
     /* The time at which the transaction was settled, if it was settled. */
     val settledAt: kotlin.Long? = null,
     /* Additional metadata attached to the invoice. */
-    val metadata: kotlin.Any? = null
+    val metadata: kotlin.Any? = null,
+    val fx: TransactionFx? = null
 ) 
 

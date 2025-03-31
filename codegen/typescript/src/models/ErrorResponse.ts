@@ -40,6 +40,8 @@ export interface ErrorResponse {
     message: string;
 }
 
+
+
 /**
  * Check if a given object implements the ErrorResponse interface.
  */

@@ -47,6 +47,7 @@ All URIs are relative to *https://vasp.net/umanwc/v1*
  - [Quote](./Models/Quote.md)
  - [Transaction](./Models/Transaction.md)
  - [TransactionType](./Models/TransactionType.md)
+ - [Transaction_fx](./Models/Transaction_fx.md)
 
 
 <a name="documentation-for-authorization"></a>

@@ -35,5 +35,6 @@ src/uma_auth/models/pay_to_address_request.py
 src/uma_auth/models/pay_to_address_response.py
 src/uma_auth/models/quote.py
 src/uma_auth/models/transaction.py
+src/uma_auth/models/transaction_fx.py
 src/uma_auth/models/transaction_type.py
 src/uma_auth/openapi.yaml

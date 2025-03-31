@@ -15,6 +15,7 @@
 | **expires\_at** | **Long** | The time the invoice expires. | [optional] [default to null] |
 | **settled\_at** | **Long** | The time at which the transaction was settled, if it was settled. | [optional] [default to null] |
 | **metadata** | [**Object**](.md) | Additional metadata attached to the invoice. | [optional] [default to null] |
+| **fx** | [**Transaction_fx**](Transaction_fx.md) |  | [optional] [default to null] |
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

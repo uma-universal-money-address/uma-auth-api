@@ -53,6 +53,8 @@ type Transaction struct {
 
 	// Additional metadata attached to the invoice.
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+
+	Fx *TransactionFx `json:"fx,omitempty"`
 }
 
 // AssertTransactionRequired checks if the required fields are not zero-ed
@@ -69,6 +71,11 @@ func AssertTransactionRequired(obj Transaction) error {
 		}
 	}
 
+	if obj.Fx != nil {
+		if err := AssertTransactionFxRequired(*obj.Fx); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 
@@ -80,5 +87,10 @@ func AssertTransactionConstraints(obj Transaction) error {
 	if obj.FeesPaid != nil && *obj.FeesPaid < 0 {
 		return &ParsingError{Param: "FeesPaid", Err: errors.New(errMsgMinValueConstraint)}
 	}
+    if obj.Fx != nil {
+     	if err := AssertTransactionFxConstraints(*obj.Fx); err != nil {
+     		return err
+     	}
+    }
 	return nil
 }

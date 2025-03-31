@@ -3,9 +3,11 @@ from datetime import date, datetime  # noqa: F401
 from typing import List, Dict  # noqa: F401
 
 from uma_auth.models.base_model import Model
+from uma_auth.models.transaction_fx import TransactionFx
 from uma_auth.models.transaction_type import TransactionType
 from uma_auth import util
 
+from uma_auth.models.transaction_fx import TransactionFx  # noqa: E501
 from uma_auth.models.transaction_type import TransactionType  # noqa: E501
 
 class Transaction(Model):
@@ -14,7 +16,7 @@ class Transaction(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, type=None, invoice=None, description=None, description_hash=None, preimage=None, payment_hash=None, amount=None, fees_paid=None, created_at=None, expires_at=None, settled_at=None, metadata=None):  # noqa: E501
+    def __init__(self, type=None, invoice=None, description=None, description_hash=None, preimage=None, payment_hash=None, amount=None, fees_paid=None, created_at=None, expires_at=None, settled_at=None, metadata=None, fx=None):  # noqa: E501
         """Transaction - a model defined in OpenAPI
 
         :param type: The type of this Transaction.  # noqa: E501
@@ -41,6 +43,8 @@ class Transaction(Model):
         :type settled_at: int
         :param metadata: The metadata of this Transaction.  # noqa: E501
         :type metadata: object
+        :param fx: The fx of this Transaction.  # noqa: E501
+        :type fx: TransactionFx
         """
         self.openapi_types = {
             'type': TransactionType,
@@ -54,7 +58,8 @@ class Transaction(Model):
             'created_at': int,
             'expires_at': int,
             'settled_at': int,
-            'metadata': object
+            'metadata': object,
+            'fx': TransactionFx
         }
 
         self.attribute_map = {
@@ -69,7 +74,8 @@ class Transaction(Model):
             'created_at': 'created_at',
             'expires_at': 'expires_at',
             'settled_at': 'settled_at',
-            'metadata': 'metadata'
+            'metadata': 'metadata',
+            'fx': 'fx'
         }
 
         self._type = type
@@ -84,6 +90,7 @@ class Transaction(Model):
         self._expires_at = expires_at
         self._settled_at = settled_at
         self._metadata = metadata
+        self._fx = fx
 
     @classmethod
     def from_dict(cls, dikt) -> 'Transaction':
@@ -381,3 +388,24 @@ class Transaction(Model):
         """
 
         self._metadata = metadata
+
+    @property
+    def fx(self) -> TransactionFx:
+        """Gets the fx of this Transaction.
+
+
+        :return: The fx of this Transaction.
+        :rtype: TransactionFx
+        """
+        return self._fx
+
+    @fx.setter
+    def fx(self, fx: TransactionFx):
+        """Sets the fx of this Transaction.
+
+
+        :param fx: The fx of this Transaction.
+        :type fx: TransactionFx
+        """
+
+        self._fx = fx
