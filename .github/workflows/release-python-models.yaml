@@ -23,12 +23,17 @@ jobs:
         uses: "actions/setup-python@v4"
         with:
           cache: "pipenv"
-          cache-dependency-path: "sdk/Pipfile.lock"
+          cache-dependency-path: "codegen/python-models/Pipfile.lock"
       - name: "Install pipenv"
+        working-directory: "codegen/python-models"
         run: "pip install pipenv wheel"
       - name: "Install dependencies"
+        working-directory: "codegen/python-models"
         run: "rm -rf $(pipenv --venv) && pipenv install --dev"
       - name: "Build dist"
+        working-directory: "codegen/python-models"
         run: "pipenv run python setup.py sdist --format=zip"
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: "codegen/python-models/dist"
